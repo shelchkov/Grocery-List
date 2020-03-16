@@ -35,9 +35,14 @@ const App = (): ReactElement => {
   //   return unsubscribe
   // }, [])
 
+  // <Button
+  //       text="Hi"
+  //       buttonStyles={{ backgroundColor: colors.green, width: "150px" }}
+  //     />
+
   return (
     <div>
-      <Button text="Hi" buttonStyles={ backGroundColor: colors.green, width: "150px" } />
+      
     </div>
   );
 }

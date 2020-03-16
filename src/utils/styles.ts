@@ -1,4 +1,8 @@
-export const colors: Styles = {
+interface Colors {
+	[key: string]: string
+}
+
+export const colors: Colors = {
 	grey: "#f3f3fa",
 	green: "#82cd79",
 	darkGreen: "#699c76",

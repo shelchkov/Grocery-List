@@ -8,19 +8,27 @@ interface Props {
 }
 
 const ButtonBase = styled.button`
-	width: {(p): string => p.width || "auto"};
-	height: {(p): string => p.height || sizes[1]}
-	background-color: ${(p): string => p.backgroundColor};
+	width: ${(p: Styles): string => p.width ? p.width.toString() : "auto"};
+	height: ${(p): string => p.height ? p.height.toString() : sizes[1]};
+	background-color: ${(p: Styles): string =>
+		p.backgroundColor ? p.backgroundColor.toString() : colors.green};
 	color: ${colors.grey};
 
+	border: none;
 	border-radius: ${spaces[0]};
 	box-shadow: ${boxShadows[0]};
 
 	font-family: 'Oxygen';
 	font-weight: 400;
 	font-size: ${sizes[0]};
+
+	outline: none;
+	cursor: pointer;
 `
 
-export const Button = ({ text, buttonStyles }: Props): ReactElement => (
+export const Button = ({ text, buttonStyles }: Props): ReactElement => {
+	console.log(buttonStyles)
+
+	return (
 	<ButtonBase {...buttonStyles}>{text}</ButtonBase>
-)
+)}

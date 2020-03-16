@@ -7,5 +7,8 @@ interface User {
 }
 
 interface Styles {
-	[key: string]: string | number
+	width?: string
+	height?: string
+	backgroundColor?: string
+	color?: string
 }
