@@ -2,16 +2,16 @@ import React, { ReactElement } from "react"
 import styled from "styled-components"
 import { colors, sizes, spaces, boxShadows } from "../../utils/styles"
 
+import { BtnTypes } from "../../utils/enums"
+
 interface Props {
 	text: string
-	buttonStyles: Styles
+	buttonType: BtnTypes
+	clickHandler?: () => void
 }
 
 const ButtonBase = styled.button`
-	width: ${(p: Styles): string => p.width ? p.width.toString() : "auto"};
-	height: ${(p): string => p.height ? p.height.toString() : sizes[1]};
-	background-color: ${(p: Styles): string =>
-		p.backgroundColor ? p.backgroundColor.toString() : colors.green};
+	height: ${sizes[1]};
 	color: ${colors.grey};
 
 	border: none;
@@ -26,9 +26,23 @@ const ButtonBase = styled.button`
 	cursor: pointer;
 `
 
-export const Button = ({ text, buttonStyles }: Props): ReactElement => {
-	console.log(buttonStyles)
+const AddNewItemBtn = styled(ButtonBase)`
+	width: 150px;
+	background-color: ${colors.green};
+`
 
-	return (
-	<ButtonBase {...buttonStyles}>{text}</ButtonBase>
-)}
+export const Button = ({
+	text, 
+	buttonType,
+	clickHandler,
+}: Props): ReactElement | null => {
+
+	const BtnComponent = ((): any => {
+		switch(buttonType) {
+			case BtnTypes.AddNewItem:
+				return AddNewItemBtn
+		}
+	})()
+
+	return <BtnComponent onClick={clickHandler}>{text}</BtnComponent>
+}

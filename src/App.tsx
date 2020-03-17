@@ -1,10 +1,11 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 import { Button } from "./components/button/button"
 
-import { signUp, auth, createUserDocument } from "./utils/firebase"
-import { colors } from "./utils/styles"
+import { BtnTypes } from "./utils/enums"
 
-import { User as UserObj } from "@firebase/auth-types"
+// import { signUp, auth, createUserDocument } from "./utils/firebase"
+
+// import { User as UserObj } from "@firebase/auth-types"
 
 const App = (): ReactElement => {
   // useEffect(() => {
@@ -35,14 +36,12 @@ const App = (): ReactElement => {
   //   return unsubscribe
   // }, [])
 
-  // <Button
-  //       text="Hi"
-  //       buttonStyles={{ backgroundColor: colors.green, width: "150px" }}
-  //     />
-
   return (
     <div>
-      
+      <Button
+        text="Add New Item"
+        buttonType={BtnTypes.AddNewItem}
+      />
     </div>
   );
 }
