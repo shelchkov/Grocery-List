@@ -11,7 +11,7 @@ interface Props {
 }
 
 const ButtonBase = styled.button`
-	height: ${sizes[1]};
+	height: ${sizes[2]};
 	color: ${colors.grey};
 
 	border: none;

@@ -11,8 +11,14 @@ export const colors: Colors = {
 	lightGrey: "#b9c0c2",
 }
 
-export const sizes: string[] = ["15px", "34px"]
+export const sizes: string[] = ["15px", "26px", "34px"]
 
-export const spaces: string[] = ["10px"]
+export const spaces: string[] = ["10px", "24px"]
 
-export const boxShadows: string[] = ["-4px 4px 10px -1px rgba(164,168,177,0.14)"]
+export const boxShadows: string[] = 
+	["-4px 4px 10px -1px rgba(164,168,177,0.14)"]
+
+export const textShadows: string[] = 
+	["-4px 4px 7px rgba(164,168,177,0.2)"]
+
+export const fontWeights: number[] = [400]
