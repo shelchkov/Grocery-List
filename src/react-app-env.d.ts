@@ -5,3 +5,7 @@ interface User {
   displayName: string
   isVerified: boolean
 }
+
+interface Styles {
+	[key: string]: string | number
+}

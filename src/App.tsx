@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
+import { Button } from "./components/button/button"
+
 import { signUp, auth, createUserDocument } from "./utils/firebase"
+import { colors } from "./utils/styles"
 
 import { User as UserObj } from "@firebase/auth-types"
 
-function App() {
+const App = (): ReactElement => {
   // useEffect(() => {
   //   const unsubscribe = auth.onAuthStateChanged(
   //     async (user: UserObj | null): Promise<void> => {
@@ -34,6 +37,7 @@ function App() {
 
   return (
     <div>
+      <Button text="Hi" buttonStyles={ backGroundColor: colors.green, width: "150px" } />
     </div>
   );
 }
