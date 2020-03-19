@@ -30,8 +30,14 @@ const AddNewItemBtn = styled(ButtonBase)`
 	background-color: ${colors.green};
 `
 
+const PlusBtn = styled(AddNewItemBtn)`
+	width: ${sizes[2]};
+	font-size: ${sizes[1]};
+`
+
 const buttons = {
 	[BtnTypes.AddNewItem]: AddNewItemBtn,
+	[BtnTypes.Plus]: PlusBtn,
 }
 
 export const Button = ({
@@ -41,13 +47,6 @@ export const Button = ({
 }: Props): ReactElement | null => {
 
 	const BtnComponent = buttons[buttonType]
-
-	// const BtnComponent = ((): any => {
-	// 	switch(buttonType) {
-	// 		case BtnTypes.AddNewItem:
-	// 			return AddNewItemBtn
-	// 	}
-	// })()
 
 	return <BtnComponent onClick={clickHandler}>{text}</BtnComponent>
 }
