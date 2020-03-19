@@ -8,6 +8,8 @@ import { spaces, colors } from "../utils/styles"
 import { BtnTypes } from "../utils/enums"
 
 const Container = styled.div`
+	min-height: 100vh;
+
   padding-left: ${spaces[1]};
   padding-right: ${spaces[1]};
 
@@ -17,9 +19,9 @@ const Container = styled.div`
 export const MainPage = (): ReactElement => (
 	<Container>
 		<Logo />
-        <Button
-          text="Add New Item"
-          buttonType={BtnTypes.AddNewItem}
-        />
+    <Button
+      text="Add New Item"
+      buttonType={BtnTypes.AddNewItem}
+    />
 	</Container>
 )
