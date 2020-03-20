@@ -3,10 +3,7 @@ import React, { ReactElement } from 'react'
 import { MainPage } from "./pages/main.page"
 
 // import { signUp, auth, createUserDocument } from "./utils/firebase"
-
 // import { User as UserObj } from "@firebase/auth-types"
-
-
 
 const App = (): ReactElement => {
   // useEffect(() => {
@@ -33,13 +30,13 @@ const App = (): ReactElement => {
   //       } : null
   //     }
   //   )
-    
+
   //   return unsubscribe
   // }, [])
 
   return (
-      <MainPage />
-  );
+    <MainPage />
+  )
 }
 
 export default App;
