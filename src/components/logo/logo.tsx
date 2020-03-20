@@ -3,14 +3,15 @@ import styled from "styled-components"
 import { sizes, fontWeights, colors, textShadows } from "../../utils/styles"
 
 const LogoComponent = styled.p`
+	padding: .7rem 0;
+	margin: 0;
+
 	color: ${colors.lightGrey};
-	text-align: center;
 
-	margin: .7rem 0;
-
+	font-family: 'Baloo Paaji 2';
 	font-size: ${sizes[1]};
 	font-weight: ${fontWeights[0]};
-	font-family: 'Baloo Paaji 2';
+	text-align: center;
 	letter-spacing: .22rem;
 
 	text-shadow: ${textShadows[0]};

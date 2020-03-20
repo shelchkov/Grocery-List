@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react"
 import styled from "styled-components"
-import { colors, sizes, spaces, boxShadows } from "../../utils/styles"
+import { colors, sizes, spaces, boxShadows, fontWeights } from "../../utils/styles"
 
 import { BtnTypes } from "../../utils/enums"
 
@@ -18,8 +18,7 @@ const ButtonBase = styled.button`
 	border-radius: ${spaces[0]};
 	box-shadow: ${boxShadows[0]};
 
-	font-family: 'Oxygen';
-	font-weight: 400;
+	font-weight: ${fontWeights[0]};
 	font-size: ${sizes[0]};
 
 	outline: none;
@@ -31,18 +30,23 @@ const AddNewItemBtn = styled(ButtonBase)`
 	background-color: ${colors.green};
 `
 
+const PlusBtn = styled(AddNewItemBtn)`
+	width: ${sizes[2]};
+	font-size: ${sizes[1]};
+`
+
+const buttons = {
+	[BtnTypes.AddNewItem]: AddNewItemBtn,
+	[BtnTypes.Plus]: PlusBtn,
+}
+
 export const Button = ({
 	text, 
 	buttonType,
 	clickHandler,
 }: Props): ReactElement | null => {
 
-	const BtnComponent = ((): any => {
-		switch(buttonType) {
-			case BtnTypes.AddNewItem:
-				return AddNewItemBtn
-		}
-	})()
+	const BtnComponent = buttons[buttonType]
 
 	return <BtnComponent onClick={clickHandler}>{text}</BtnComponent>
 }
