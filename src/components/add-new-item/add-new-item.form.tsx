@@ -1,9 +1,7 @@
 import React, { ReactElement, useState } from "react"
 import styled from "styled-components"
 
-import { Button } from "../button/button"
-
-import { BtnTypes, ButtonTypes } from "../../utils/enums"
+import { AddNewItemButtons } from "./add-new-item-buttons"
 
 const FormContainer = styled.div`
 	display: flex;
@@ -11,9 +9,9 @@ const FormContainer = styled.div`
 `
 
 export const AddNewItemForm = (): ReactElement => {
-	const [isFormActive, setIsFormActive] = useState<boolean>()
+	const [isFormActive, setIsFormActive] = useState<boolean>(false)
 	
-	const handleClick = (): void => {
+	const setFormActive = (): void => {
 		setIsFormActive(true)
 	}
 
@@ -28,20 +26,10 @@ export const AddNewItemForm = (): ReactElement => {
 	return (
 		<form onSubmit={handleAddingNewItem}>
 			<FormContainer>
-				{isFormActive ? (
-					<Button
-						text="+"
-						buttonType={BtnTypes.Plus}
-						type={ButtonTypes.submit}
-					/>
-				) : (
-					<Button
-						text="Add New Item"
-						buttonType={BtnTypes.AddNewItem}
-						clickHandler={handleClick}
-						type={ButtonTypes.button}
-					/>
-				)}
+				<AddNewItemButtons
+					isFormActive={isFormActive}
+					setFormActive={setFormActive}
+				/>
 			</FormContainer>
 		</form>
 	)
