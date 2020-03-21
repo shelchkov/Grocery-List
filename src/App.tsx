@@ -1,14 +1,16 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 
 import { MainPage } from "./pages/main.page"
 
 // import { signUp, auth, createUserDocument } from "./utils/firebase"
+import { getListItems } from "./utils/firebase"
 
 // import { User as UserObj } from "@firebase/auth-types"
 
 
 
 const App = (): ReactElement => {
+
   // useEffect(() => {
   //   const unsubscribe = auth.onAuthStateChanged(
   //     async (user: UserObj | null): Promise<void> => {

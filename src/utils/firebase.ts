@@ -4,7 +4,10 @@ import "firebase/auth"
 
 import { config } from "./firebase-constants"
 
-import { DocumentReference } from "@firebase/firestore-types"
+import {
+	DocumentReference,
+	DocumentData
+} from "@firebase/firestore-types"
 import { User, UserCredential } from "@firebase/auth-types"
 
 firebase.initializeApp(config)
@@ -65,4 +68,12 @@ export const signUp = async (
 	if (!user.user) return
 
 	return createUserDocument(user.user, displayName, email)
+}
+
+export const getListItems = async (
+	listId: string
+): Promise<DocumentData | undefined> => {
+	const listRef = firestore.collection("lists").doc(listId)
+	const querySnapshot = await listRef.get()
+	return querySnapshot.data()
 }
