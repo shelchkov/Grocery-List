@@ -12,3 +12,8 @@ interface Styles {
 	backgroundColor?: string
 	color?: string
 }
+
+interface Item {
+	name: string
+	isChecked: boolean
+}

@@ -77,3 +77,37 @@ export const getListItems = async (
 	const querySnapshot = await listRef.get()
 	return querySnapshot.data()
 }
+
+interface AddNewItem {
+	error?: string
+	id?: string
+	success?: boolean
+}
+
+export const addListItem = async (
+	item: Item,
+	listId?: string
+): Promise<AddNewItem> => {
+	if (!listId) {
+		console.log("Creating new list")
+		try {
+			const data = await firestore.collection("lists").add({ items: [ item ]})
+			return { id: data.id }
+		} catch (e) {
+			return { error: e.message }
+		}
+	}
+
+	console.log(("Trying to add item to existing list"))
+	const itemsRef = firestore.collection("lists").doc(listId)
+
+	try {
+		await itemsRef.update({
+			items: firebase.firestore.FieldValue.arrayUnion(item)
+		})
+
+		return { success: true }
+	} catch (e) {
+		return { error: e.message }
+	}
+}

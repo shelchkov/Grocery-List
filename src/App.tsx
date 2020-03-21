@@ -3,7 +3,7 @@ import React, { ReactElement, useEffect } from 'react'
 import { MainPage } from "./pages/main.page"
 
 // import { signUp, auth, createUserDocument } from "./utils/firebase"
-import { getListItems } from "./utils/firebase"
+import { getListItems, addListItem } from "./utils/firebase"
 
 // import { User as UserObj } from "@firebase/auth-types"
 
