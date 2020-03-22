@@ -22,7 +22,7 @@ const App = (): ReactElement => {
 
   //       if (!user) return
 
-  //       // const userRef = await createUserDocument(user)
+  //       // const userRef = await createUserDocument(user, "John", user.email)
 
   //       // console.log(userRef)
 
@@ -39,16 +39,17 @@ const App = (): ReactElement => {
   //         isVerified: user.emailVerified,
   //       } : null
 
-  //       userData && getListItems(userData.id).then(
+  //       userData && getListItems("RKIS9avcsuajAtOIyi7J").then(
   //         (data?: { items?: Item[] }): void => {
   //         console.log(data)
           
   //         addListItem(
   //           { name: "oranges", isChecked: false },
   //           userData.id,
-  //           data && data.items && data.items.length > 0
+  //           "RKIS9avcsuajAtOIyi7J"
   //          ).then(console.log)
   //       })
+
   //     }
   //   )
 
