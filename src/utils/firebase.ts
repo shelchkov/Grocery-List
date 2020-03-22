@@ -71,10 +71,11 @@ export const signUp = async (
 }
 
 export const getListItems = async (
-	listId: string
+	userId: string
 ): Promise<DocumentData | undefined> => {
-	const listRef = firestore.collection("lists").doc(listId)
+	const listRef = firestore.collection("users").doc(userId)
 	const querySnapshot = await listRef.get()
+	console.log(`List was ${querySnapshot.exists ? "" : "not "}found.`)
 	return querySnapshot.data()
 }
 
@@ -86,25 +87,41 @@ interface AddNewItem {
 
 export const addListItem = async (
 	item: Item,
-	listId?: string
+	userId?: string,
+	isExists: boolean = false
 ): Promise<AddNewItem> => {
-	if (!listId) {
+	if (!userId) {
 		console.log("Creating new list")
 		try {
-			const data = await firestore.collection("lists").add({ items: [ item ]})
+			const data = await firestore.collection("users").add({
+				items: [ item ]
+			})
 			return { id: data.id }
 		} catch (e) {
 			return { error: e.message }
 		}
 	}
 
-	console.log(("Trying to add item to existing list"))
-	const itemsRef = firestore.collection("lists").doc(listId)
+	if (isExists) {
+		console.log(("Trying to add item to existing list"))
+		const itemsRef = firestore.collection("users").doc(userId)
+
+		try {
+			await itemsRef.update({
+				items: firebase.firestore.FieldValue.arrayUnion(item)
+			})
+
+			return { success: true }
+		} catch (e) {
+			return { error: e.message }
+		}
+	}
+
+	console.log("Trying to create new list")
+	const itemsRef = firestore.collection("users").doc(userId)
 
 	try {
-		await itemsRef.update({
-			items: firebase.firestore.FieldValue.arrayUnion(item)
-		})
+		await itemsRef.set({ items: [ item ] })
 
 		return { success: true }
 	} catch (e) {
