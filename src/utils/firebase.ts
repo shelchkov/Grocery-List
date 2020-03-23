@@ -4,7 +4,10 @@ import "firebase/auth"
 
 import { config } from "./firebase-constants"
 
-import { DocumentReference } from "@firebase/firestore-types"
+import {
+	DocumentReference,
+	DocumentData
+} from "@firebase/firestore-types"
 import { User, UserCredential } from "@firebase/auth-types"
 
 firebase.initializeApp(config)
@@ -19,23 +22,21 @@ const createUser = (
 
 export const createUserDocument = async (
 	user: User,
-	displayName?: string,
-	email?: string
+	displayName: string,
+	email: string | null
 ): Promise<DocumentReference | undefined> => {
 	if (!user) {
 		return
 	}
 
-	const userRef = firestore.doc(`users/${user.uid}`)
+	const userRef = firestore.collection("users").doc(user.uid)
 	console.log(userRef)
 
-	if (userRef.get) {
-		const snapShot = await userRef.get()
-		console.log(snapShot)
+	const snapShot = await userRef.get()
+	console.log(snapShot)
 
-		if (snapShot.exists) {
-			return userRef
-		}
+	if (snapShot.exists) {
+		return userRef
 	}
 
 	const createdAt = new Date()
@@ -65,4 +66,82 @@ export const signUp = async (
 	if (!user.user) return
 
 	return createUserDocument(user.user, displayName, email)
+}
+
+export const getListItems = async (
+	listId: string
+): Promise<DocumentData | undefined> => {
+	const listRef = firestore.collection("lists").doc(listId)
+	const querySnapshot = await listRef.get()
+	console.log(`List was ${querySnapshot.exists ? "" : "not "}found.`)
+	return querySnapshot.data()
+}
+
+interface Response {
+	error?: string
+	id?: string
+	success?: boolean
+}
+
+const createResponse = (error: any, id?: string): Response => {
+	if (error) {
+		return { error: error.message }
+	}
+
+	return id ? { id } : { success: true }
+
+}
+
+const addListToUser = async (
+	userId: string,
+	listId: string
+): Promise<Response> => {
+	const userRef = firestore.collection("users").doc(userId)
+
+	try {
+		await userRef.update({
+			lists: firebase.firestore.FieldValue.arrayUnion(listId)
+		})
+
+		return createResponse(null)
+	} catch (e) {
+		return createResponse(e)
+	}
+}
+
+export const addListItem = async (
+	item: Item,
+	userId: string,
+	listId?: string,
+): Promise<Response> => {
+	if (!listId) {
+		console.log("Creating new list")
+		try {
+			const data = await firestore.collection("lists").add({
+				items: [ item ]
+			})
+
+			const userList = await addListToUser(userId, data.id)
+
+			console.log(userList)
+
+			return createResponse(userList.error, data.id)
+		} catch (e) {
+			return createResponse(e)
+		}
+	}
+
+	const itemsRef = firestore.collection("lists").doc(listId)
+
+	console.log(("Trying to add item to existing list"))
+
+	try {
+		await itemsRef.update({
+			items: firebase.firestore.FieldValue.arrayUnion(item)
+		})
+
+		return createResponse(null)
+	} catch (e) {
+		return createResponse(e)
+	}
 }

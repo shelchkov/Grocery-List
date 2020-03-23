@@ -1,9 +1,10 @@
 /// <reference types="react-scripts" />
 
 interface User {
-  email: string
-  displayName: string
-  isVerified: boolean
+	id: string
+	email: string
+	displayName: string
+	isVerified: boolean
 }
 
 interface Styles {
@@ -11,4 +12,9 @@ interface Styles {
 	height?: string
 	backgroundColor?: string
 	color?: string
+}
+
+interface Item {
+	name: string
+	isChecked: boolean
 }
