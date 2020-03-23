@@ -2,10 +2,9 @@ import React, { ReactElement } from "react"
 import styled from "styled-components"
 
 import { Logo } from "../components/logo/logo"
-import { Button } from "../components/button/button"
+import { AddNewItemForm } from "../components/add-new-item/add-new-item.form"
 
 import { spaces, colors } from "../utils/styles"
-import { BtnTypes } from "../utils/enums"
 
 const Container = styled.div`
 	min-height: 100vh;
@@ -19,9 +18,6 @@ const Container = styled.div`
 export const MainPage = (): ReactElement => (
 	<Container>
 		<Logo />
-    <Button
-      text="Add New Item"
-      buttonType={BtnTypes.AddNewItem}
-    />
+		<AddNewItemForm />
 	</Container>
 )
