@@ -2,12 +2,13 @@ import React, { ReactElement } from "react"
 import styled from "styled-components"
 import { colors, sizes, spaces, boxShadows, fontWeights } from "../../utils/styles"
 
-import { BtnTypes } from "../../utils/enums"
+import { BtnTypes, ButtonTypes } from "../../utils/enums"
 
 interface Props {
 	text: string
 	buttonType: BtnTypes
 	clickHandler?: () => void
+	type?: ButtonTypes
 }
 
 const ButtonBase = styled.button`
@@ -44,9 +45,10 @@ export const Button = ({
 	text, 
 	buttonType,
 	clickHandler,
+	type,
 }: Props): ReactElement | null => {
 
 	const BtnComponent = buttons[buttonType]
 
-	return <BtnComponent onClick={clickHandler}>{text}</BtnComponent>
+	return <BtnComponent onClick={clickHandler} type={type}>{text}</BtnComponent>
 }

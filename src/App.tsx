@@ -2,12 +2,9 @@ import React, { ReactElement, useEffect } from 'react'
 
 import { MainPage } from "./pages/main.page"
 
-import { signUp, auth, createUserDocument } from "./utils/firebase"
-import { getListItems, addListItem } from "./utils/firebase"
+import { signUp, auth, createUserDocument, getListItems, addListItem } from "./utils/firebase"
 
 import { User as UserObj } from "@firebase/auth-types"
-
-
 
 const App = (): ReactElement => {
 
@@ -53,14 +50,13 @@ const App = (): ReactElement => {
   //     }
   //   )
 
-    
-    
+
   //   return unsubscribe
   // }, [])
 
   return (
-      <MainPage />
-  );
+    <MainPage />
+  )
 }
 
 export default App;
