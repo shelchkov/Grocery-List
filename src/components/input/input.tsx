@@ -8,7 +8,8 @@ interface Props {
 }
 
 const InputComponent = styled.input`
-	height: ${sizes[2]};
+	height: 30px;
+	min-width: 209px;
 	padding-left: 11px;
 
 	color: ${colors.darkBlue};

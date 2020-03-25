@@ -2,6 +2,7 @@ import React, { ReactElement, useState } from "react"
 import styled from "styled-components"
 
 import { AddNewItemButtons } from "./add-new-item-buttons"
+import { Input } from "../input/input"
 
 const FormContainer = styled.div`
 	display: flex;
@@ -26,6 +27,7 @@ export const AddNewItemForm = (): ReactElement => {
 	return (
 		<form onSubmit={handleAddingNewItem}>
 			<FormContainer>
+				{isFormActive && <Input placeholder="New Item" />}
 				<AddNewItemButtons
 					isFormActive={isFormActive}
 					setFormActive={setFormActive}
