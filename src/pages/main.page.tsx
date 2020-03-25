@@ -6,6 +6,10 @@ import { AddNewItemForm } from "../components/add-new-item/add-new-item.form"
 
 import { spaces, colors } from "../utils/styles"
 
+interface Props {
+	user: User | null
+}
+
 const Container = styled.div`
 	min-height: 100vh;
 
@@ -15,9 +19,9 @@ const Container = styled.div`
 	background-color: ${colors.grey};
 `
 
-export const MainPage = (): ReactElement => (
+export const MainPage = ({ user }: Props): ReactElement => (
 	<Container>
 		<Logo />
-		<AddNewItemForm />
+		<AddNewItemForm user={user} listId="RKIS9avcsuajAtOIyi7J" />
 	</Container>
 )

@@ -1,10 +1,11 @@
 import React, { ReactElement } from "react"
 import styled from "styled-components"
 
-import { spaces, sizes, colors } from "../../utils/styles"
+import { spaces, colors } from "../../utils/styles"
 
 interface Props {
 	placeholder?: string
+	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const InputComponent = styled.input`
@@ -26,6 +27,6 @@ const InputComponent = styled.input`
 	}
 `
 
-export const Input = ({ placeholder }: Props): ReactElement => (
-	<InputComponent placeholder={placeholder} />
+export const Input = ({ placeholder, onChange }: Props): ReactElement => (
+	<InputComponent placeholder={placeholder} onChange={onChange} />
 )
