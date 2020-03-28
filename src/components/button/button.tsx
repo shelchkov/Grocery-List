@@ -33,6 +33,7 @@ const AddNewItemBtn = styled(ButtonBase)`
 
 const PlusBtn = styled(AddNewItemBtn)`
 	width: ${sizes[2]};
+	margin-left: 1rem;
 	font-size: ${sizes[1]};
 `
 
