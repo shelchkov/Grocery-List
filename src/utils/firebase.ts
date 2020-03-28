@@ -152,6 +152,6 @@ export const getUserInfo = async (
 	const userRef = firestore.collection("users").doc(userId)
 	const snapshot = await userRef.get()
 	const data = snapshot.data()
-	console.log(data)
+	
 	return data as UserInfo
 }

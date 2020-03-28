@@ -39,17 +39,17 @@ export const AddNewItemForm = ({ user, listId }: Props): ReactElement => {
 
 		if (!formData || ! formData.name || !user || !listId) {
 			if (!formData || !formData.name) {
-				console.warn("No name")
+				console.warn("Item name was not provided")
 			}
 
 			if (!listId) {
-				console.warn("No list Id")
+				console.warn("List Id is missing")
 			}
 
 			if (!user) {
 				console.warn("Not logged in")
 			}
-			
+
 			return
 		}
 

@@ -12,8 +12,6 @@ const App = (): ReactElement => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(
       async (user: UserObj | null): Promise<void> => {
-        console.log(user)
-
         if (!user) return
 
         const userData = user ? {
