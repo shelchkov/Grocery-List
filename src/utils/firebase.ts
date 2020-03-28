@@ -70,11 +70,11 @@ export const signUp = async (
 
 export const getListItems = async (
 	listId: string
-): Promise<DocumentData | undefined> => {
+): Promise<List | undefined> => {
 	const listRef = firestore.collection("lists").doc(listId)
 	const querySnapshot = await listRef.get()
 	console.log(`List was ${querySnapshot.exists ? "" : "not "}found.`)
-	return querySnapshot.data()
+	return querySnapshot.data() as List
 }
 
 interface Response {
@@ -144,4 +144,14 @@ export const addListItem = async (
 	} catch (e) {
 		return createResponse(e)
 	}
+}
+
+export const getUserInfo = async (
+	userId: string
+): Promise<UserInfo | undefined> => {
+	const userRef = firestore.collection("users").doc(userId)
+	const snapshot = await userRef.get()
+	const data = snapshot.data()
+	console.log(data)
+	return data as UserInfo
 }

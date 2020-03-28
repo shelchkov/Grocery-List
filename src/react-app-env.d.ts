@@ -7,6 +7,11 @@ interface User {
 	isVerified: boolean
 }
 
+interface UserInfo {
+	lists: string[]
+	displayName: string
+}
+
 interface Styles {
 	width?: string
 	height?: string
@@ -17,4 +22,8 @@ interface Styles {
 interface Item {
 	name: string
 	isChecked: boolean
+}
+
+interface List {
+	items: Item[]
 }
