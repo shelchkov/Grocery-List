@@ -14,6 +14,7 @@ interface Props {
 const FormContainer = styled.div`
 	display: flex;
 	justify-content: flex-end;
+	margin-bottom: 13px;
 `
 
 enum AddNewItemInputs {

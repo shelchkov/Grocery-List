@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 
 import { MainPage } from "./pages/main.page"
 
-import { signUp, auth, createUserDocument, getListItems, addListItem } from "./utils/firebase"
+import { signUp, auth, getListItems } from "./utils/firebase"
 
 import { User as UserObj } from "@firebase/auth-types"
 
@@ -17,18 +17,8 @@ const App = (): ReactElement => {
     const unsubscribe = auth.onAuthStateChanged(
       async (user: UserObj | null): Promise<void> => {
         console.log(user)
-
+        
         if (!user) return
-
-        // const userRef = await createUserDocument(user, "John", user.email)
-
-        // console.log(userRef)
-
-        // if (!userRef) return
-
-        // userRef.onSnapshot((snapShot) => {
-        //   console.log(snapShot)
-        // })
 
         const userData = user ? {
           id: user.uid,
@@ -42,14 +32,7 @@ const App = (): ReactElement => {
         // userData && getListItems("RKIS9avcsuajAtOIyi7J").then(
         //   (data?: { items?: Item[] }): void => {
         //   console.log(data)
-          
-        //   addListItem(
-        //     { name: "oranges", isChecked: false },
-        //     userData.id,
-        //     "RKIS9avcsuajAtOIyi7J"
-        //    ).then(console.log)
-        // })
-
+        // }))
       }
     )
 
