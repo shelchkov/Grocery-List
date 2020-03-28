@@ -37,16 +37,27 @@ const PlusBtn = styled(AddNewItemBtn)`
 	font-size: ${sizes[1]};
 `
 
+const ShareListBtn = styled(ButtonBase)`
+	width: 128px;
+	background-color: ${colors.darkGreen};
+`
+
+const SignOutBtn = styled(ShareListBtn)`
+	background-color: ${colors.orange};
+`
+
 const buttons = {
 	[BtnTypes.AddNewItem]: AddNewItemBtn,
 	[BtnTypes.Plus]: PlusBtn,
+	[BtnTypes.ShareList]: ShareListBtn,
+	[BtnTypes.SignOut]: SignOutBtn,
 }
 
 export const Button = ({
 	text, 
 	buttonType,
 	clickHandler,
-	type,
+	type = ButtonTypes.button,
 }: Props): ReactElement | null => {
 
 	const BtnComponent = buttons[buttonType]

@@ -3,6 +3,7 @@ import styled from "styled-components"
 
 import { Logo } from "../components/logo/logo"
 import { AddNewItemForm } from "../components/add-new-item/add-new-item.form"
+import { Actions } from "../components/actions/actions"
 
 import { spaces, colors } from "../utils/styles"
 
@@ -23,5 +24,6 @@ export const MainPage = ({ user }: Props): ReactElement => (
 	<Container>
 		<Logo />
 		<AddNewItemForm user={user} listId="RKIS9avcsuajAtOIyi7J" />
+		<Actions />
 	</Container>
 )
