@@ -8,13 +8,12 @@ import { addListItem } from "../../utils/firebase"
 
 interface Props {
 	user: User | null
-	listId: string
+	listId?: string
 }
 
 const FormContainer = styled.div`
 	display: flex;
 	justify-content: flex-end;
-	margin-bottom: 13px;
 `
 
 enum AddNewItemInputs {
@@ -38,7 +37,19 @@ export const AddNewItemForm = ({ user, listId }: Props): ReactElement => {
 	): void => {
 		event.preventDefault()
 
-		if (!formData || ! formData.name || !user) {
+		if (!formData || ! formData.name || !user || !listId) {
+			if (!formData || !formData.name) {
+				console.warn("No name")
+			}
+
+			if (!listId) {
+				console.warn("No list Id")
+			}
+
+			if (!user) {
+				console.warn("Not logged in")
+			}
+			
 			return
 		}
 

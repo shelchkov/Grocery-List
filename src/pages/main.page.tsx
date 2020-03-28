@@ -4,10 +4,11 @@ import styled from "styled-components"
 import { Logo } from "../components/logo/logo"
 import { AddNewItemForm } from "../components/add-new-item/add-new-item.form"
 import { Actions } from "../components/actions/actions"
-import { ListItem } from "../components/list-item/list-item"
+import { ListItems } from "../components/list-items/list-items"
 
 import { spaces, colors } from "../utils/styles"
 import { getListItems, getUserInfo } from "../utils/firebase"
+import { ListAccess } from "../utils/enums"
 
 interface Props {
 	user: User | null
@@ -22,24 +23,35 @@ const Container = styled.div`
 	background-color: ${colors.grey};
 `
 
+const currentList = 0
+
 export const MainPage = ({ user }: Props): ReactElement => {
-	const [listItems, setListItems] = useState<Item[]>([])
+	const [lists, setLists] = useState<List[]>()
 
 	useEffect((): void => {
-		if (!user || listItems.length > 0) {
+		if (!user || (lists && lists.length > 0)) {
 			return
 		}
 
-		getUserInfo(user.id).then((data?: UserInfo): void => {
-			if (!data || !data.lists) {
+		getUserInfo(user.id).then((userInfo?: UserInfo): void => {
+			if (!userInfo || !userInfo.lists) {
 				return
 			}
 
-			getListItems(data.lists[0])
+			const listId = userInfo.lists[currentList]
+
+			getListItems(listId)
 				.then((data?: List): void => {
 					console.log(data)
 					if (data && data.items) {
-						setListItems(data.items)
+						setLists([
+							...(lists || []),
+							{
+								items: data.items,
+								id: listId,
+								access: [ListAccess.check]
+							}
+						])
 					}
 				})
 		})
@@ -48,14 +60,12 @@ export const MainPage = ({ user }: Props): ReactElement => {
 	return (
 		<Container>
 			<Logo />
-			<AddNewItemForm user={user} listId="RKIS9avcsuajAtOIyi7J" />
-			{listItems.map((item: Item, index: number): ReactElement => 
-				<ListItem
-					name={item.name}
-					isChecked={item.isChecked}
-					key={index}
-				/>)
-			}
+			<AddNewItemForm user={user} listId={lists && lists[currentList].id} />
+			<ListItems
+				listItems={lists && lists[currentList] ?
+					lists[currentList].items : undefined
+				}
+			/>
 			<Actions />
 		</Container>
 	)

@@ -1,10 +1,10 @@
 /// <reference types="react-scripts" />
-
 interface User {
 	id: string
 	email: string
 	displayName: string
 	isVerified: boolean
+	lists?: List[]
 }
 
 interface UserInfo {
@@ -25,5 +25,7 @@ interface Item {
 }
 
 interface List {
+	id: string
 	items: Item[]
+	access?: string[]
 }

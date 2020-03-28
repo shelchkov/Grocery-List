@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 
 import { MainPage } from "./pages/main.page"
 
-import { signUp, auth, getListItems } from "./utils/firebase"
+import { signUp, auth } from "./utils/firebase"
 
 import { User as UserObj } from "@firebase/auth-types"
 

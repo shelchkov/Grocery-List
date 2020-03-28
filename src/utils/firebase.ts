@@ -6,7 +6,7 @@ import { config } from "./firebase-constants"
 
 import {
 	DocumentReference,
-	DocumentData
+	// DocumentData
 } from "@firebase/firestore-types"
 import { User, UserCredential } from "@firebase/auth-types"
 
