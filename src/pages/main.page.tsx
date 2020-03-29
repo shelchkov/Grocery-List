@@ -7,7 +7,7 @@ import { Actions } from "../components/actions/actions"
 import { ListItems } from "../components/list-items/list-items"
 
 import { spaces, colors } from "../utils/styles"
-import { getListItems, getUserInfo } from "../utils/firebase"
+import { getListItems, getUserInfo, createId } from "../utils/firebase"
 import { ListAccess } from "../utils/enums"
 
 interface Props {
@@ -57,10 +57,35 @@ export const MainPage = ({ user }: Props): ReactElement => {
 		})
 	}, [user])
 
+	const addNewItem = (item: Item): void => {
+		if (!lists) {
+			return
+		}
+
+		setLists([
+			...lists.filter((list: List): boolean => 
+				list.id !== lists[currentList].id
+			),
+			{
+				id: lists[currentList].id,
+				access: lists[currentList].access,
+				items: [ ...lists[currentList].items, item ]
+			}
+		])
+	}
+
+	useEffect((): void => {
+		console.log(lists)
+	}, [lists])
+
 	return (
 		<Container>
 			<Logo />
-			<AddNewItemForm user={user} listId={lists && lists[currentList].id} />
+			<AddNewItemForm
+				userId={user ? user.id : undefined}
+				listId={lists && lists[currentList].id}
+				addNewItem={addNewItem}
+			/>
 			<ListItems
 				listItems={lists && lists[currentList] ?
 					lists[currentList].items : undefined

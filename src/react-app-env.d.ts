@@ -22,6 +22,7 @@ interface Styles {
 interface Item {
 	name: string
 	isChecked: boolean
+	id: string
 }
 
 interface List {

@@ -7,8 +7,9 @@ import { Input } from "../input/input"
 import { addListItem } from "../../utils/firebase"
 
 interface Props {
-	user: User | null
+	userId?: string
 	listId?: string
+	addNewItem: (item: Item) => void
 }
 
 const FormContainer = styled.div`
@@ -24,7 +25,7 @@ interface FormData {
 	[AddNewItemInputs.name]: string
 }
 
-export const AddNewItemForm = ({ user, listId }: Props): ReactElement => {
+export const AddNewItemForm = ({userId, listId, addNewItem }: Props): ReactElement => {
 	const [isFormActive, setIsFormActive] = useState<boolean>(false)
 	const [formData, setFormData] = useState<FormData>()
 	
@@ -37,7 +38,7 @@ export const AddNewItemForm = ({ user, listId }: Props): ReactElement => {
 	): void => {
 		event.preventDefault()
 
-		if (!formData || ! formData.name || !user || !listId) {
+		if (!formData || ! formData.name || !userId || !listId) {
 			if (!formData || !formData.name) {
 				console.warn("Item name was not provided")
 			}
@@ -46,7 +47,7 @@ export const AddNewItemForm = ({ user, listId }: Props): ReactElement => {
 				console.warn("List Id is missing")
 			}
 
-			if (!user) {
+			if (!userId) {
 				console.warn("Not logged in")
 			}
 
@@ -54,14 +55,12 @@ export const AddNewItemForm = ({ user, listId }: Props): ReactElement => {
 		}
 
 		addListItem(
-			{
-				name: formData.name,
-				isChecked: false
-			},
-			user.id,
+			formData.name,
+			userId,
 			listId
 		).then((data): void => {
 			console.log(data)
+			addNewItem(data as Item)
 		}).catch((e) => {
 			console.log(e)
 		}).finally(() => setIsFormActive(false))
