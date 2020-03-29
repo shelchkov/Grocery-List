@@ -33,12 +33,12 @@ const AddNewItemBtn = styled(ButtonBase)`
 
 const PlusBtn = styled(AddNewItemBtn)`
 	width: ${sizes[2]};
-	margin-left: 1rem;
+	margin-left: 12px;
 	font-size: ${sizes[1]};
 `
 
 const ShareListBtn = styled(ButtonBase)`
-	width: 128px;
+	width: 130px;
 	background-color: ${colors.darkGreen};
 `
 

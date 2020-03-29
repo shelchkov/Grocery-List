@@ -16,9 +16,9 @@ const ActionsContainer = styled.div`
 	justify-content: space-between;
 
 	height: ${sizes[2]};
-	padding: 1rem 1.5rem;
+	padding: 13px 1.5rem;
 
-	background-color: ${colors.darkBlue};
+	background-color: ${colors.purple};
 `
 
 export const Actions = (): ReactElement => (

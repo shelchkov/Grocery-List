@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { sizes, fontWeights, colors, textShadows } from "../../utils/styles"
 
 const LogoComponent = styled.p`
-	padding: .7rem 0;
+	padding: 3px 0 19px 0;
 	margin: 0;
 
 	color: ${colors.lightGrey};

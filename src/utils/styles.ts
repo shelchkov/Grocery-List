@@ -9,9 +9,10 @@ export const colors: Colors = {
 	orange: "#ef492e",
 	darkBlue: "#41515a",
 	lightGrey: "#b9c0c2",
+	purple: "#615af9",
 }
 
-export const sizes: string[] = ["15px", "26px", "34px"]
+export const sizes: string[] = ["15px", "26px", "34px", "21px"]
 
 export const spaces: string[] = ["10px", "24px"]
 

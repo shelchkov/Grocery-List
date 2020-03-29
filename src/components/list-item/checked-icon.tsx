@@ -1,0 +1,18 @@
+import React, { ReactElement } from "react"
+
+export const CheckedIcon = (): ReactElement => (
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		xmlnsXlink="http://www.w3.org/1999/xlink"
+		preserveAspectRatio="xMidYMid"
+		width="26"
+		height="26"
+		viewBox="0 0 26 26"
+	>
+		<image
+			xlinkHref="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABa1BMVEUAAABpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHZpnHYAAABBkDWWAAAAd3RSTlMAC02LrtTWsI1SDhTr75MbXM6ljqPM9maKLSeI+5jFKyO7l1SzpmcM+s/BDZ8F+ZSEEUwdYFj9ZJHRgB6bsaAEfsLYiW/mgX9w6dqiZb+eCsPAnRdpCIx7FfwTBqgQxrYZc5m5HJb3IfCkbXd2jx/4JhhhvuTlmuvDy1YAAAABYktHRACIBR1IAAAACXBIWXMAAAsSAAALEgHS3X78AAABR0lEQVQoz2WSZVvDUAxGA8NhDBgwZB3uOtwGDLfhNtzd7fx9bteWdiUfbt7kpM1NnitiWkqqJy09IzMrO0eSLdeTh2nefJ+TFHhVrrDI7y8uUaI0YJMyFfvLDV1RGQTNQUJVdmF1DdQasg7qkzs3QKPum5ppcV1KWiFXuSzwuVFbkHaRjk665J91Q1h6oNeZ7OvXz/AAgzLEsJOMwKjuQ4xJhHEjOaEfkxBt04WHqEwxnSAzs3Mi84oYhQssypKJltUsKxATC+VJPasJvRbTd7tu9awkJF0UmlHM/kZkg03Jhi0zjNj7agqyLTsD7P4feQ/2RWqJH7jJYSlHyh3DiRudwlliNVCUTDQ4N9QFXF453kkaNFjBNdzM3Rrat3cH93bhQ6caNzr0+PS8EVfq0fn3F+3Vemzx8TfXpd4/tM+v79afwF/XXwyJVZmrrf0/AAAAAElFTkSuQmCC"
+			width="26"
+			height="26"
+		/>
+	</svg>
+)

@@ -10,3 +10,9 @@ export enum ButtonTypes {
 	reset = "reset",
 	submit = "submit",
 }
+
+export enum ListAccess {
+	check = "check",
+	add = "add",
+	remove = "remove",
+}
