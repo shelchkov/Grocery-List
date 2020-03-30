@@ -9,6 +9,7 @@ import { sizes, colors } from "../../utils/styles"
 interface Props {
 	name: string
 	isChecked: boolean
+	toggleCheckItem: () => void
 }
 
 const ItemContainer = styled.div`
@@ -23,9 +24,11 @@ const NameContainer = styled.p`
 	font-size: ${sizes[3]};
 `
 
-export const ListItem = ({ name, isChecked }: Props): ReactElement => (
+export const ListItem = ({ name, isChecked, toggleCheckItem }: Props): ReactElement => (
 	<ItemContainer>
-		{isChecked ? <CheckedIcon /> : <UncheckedIcon />}
+		<div onClick={toggleCheckItem}>
+			{isChecked ? <CheckedIcon /> : <UncheckedIcon />}
+		</div>
 		<NameContainer>{name}</NameContainer>
 	</ItemContainer>
 )

@@ -168,3 +168,23 @@ export const getUserInfo = async (
 	
 	return data as UserInfo
 }
+
+export const changeListItem = async (
+	item: Item,
+	listId: string,
+	currentItems: Item[],
+): Promise<Response> => {
+	const itemsRef = firestore.collection("lists").doc(listId)
+	const items = [
+		...currentItems.filter((cur): boolean => cur.id !== item.id),
+		item
+	]
+
+	try {
+		await itemsRef.update({ items })
+
+		return createResponse(null, item.id, item)
+	} catch (e) {
+		return createResponse(e)
+	}
+}

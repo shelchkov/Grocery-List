@@ -57,7 +57,7 @@ export const MainPage = ({ user }: Props): ReactElement => {
 		})
 	}, [user])
 
-	const addNewItem = (item: Item): void => {
+	const changeItem = (item: Item): void => {
 		if (!lists) {
 			return
 		}
@@ -69,7 +69,12 @@ export const MainPage = ({ user }: Props): ReactElement => {
 			{
 				id: lists[currentList].id,
 				access: lists[currentList].access,
-				items: [ ...lists[currentList].items, item ]
+				items: [
+					...lists[currentList].items.filter((cur): boolean =>
+						cur.id !== item.id
+					),
+					item
+				]
 			}
 		])
 	}
@@ -84,12 +89,13 @@ export const MainPage = ({ user }: Props): ReactElement => {
 			<AddNewItemForm
 				userId={user ? user.id : undefined}
 				listId={lists && lists[currentList].id}
-				addNewItem={addNewItem}
+				addNewItem={changeItem}
 			/>
 			<ListItems
 				listItems={lists && lists[currentList] ?
 					lists[currentList].items : undefined
 				}
+				changeItem={changeItem}
 			/>
 			<Actions />
 		</Container>
