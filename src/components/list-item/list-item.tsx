@@ -24,7 +24,11 @@ const NameContainer = styled.p`
 	font-size: ${sizes[3]};
 `
 
-export const ListItem = ({ name, isChecked, toggleCheckItem }: Props): ReactElement => (
+export const ListItem = ({
+	name,
+	isChecked,
+	toggleCheckItem
+}: Props): ReactElement => (
 	<ItemContainer>
 		<div onClick={toggleCheckItem}>
 			{isChecked ? <CheckedIcon /> : <UncheckedIcon />}

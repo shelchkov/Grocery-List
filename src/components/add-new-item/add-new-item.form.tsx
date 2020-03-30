@@ -25,7 +25,11 @@ interface FormData {
 	[AddNewItemInputs.name]: string
 }
 
-export const AddNewItemForm = ({userId, listId, addNewItem }: Props): ReactElement => {
+export const AddNewItemForm = ({
+	userId,
+	listId,
+	addNewItem
+}: Props): ReactElement => {
 	const [isFormActive, setIsFormActive] = useState<boolean>(false)
 	const [formData, setFormData] = useState<FormData>()
 	
