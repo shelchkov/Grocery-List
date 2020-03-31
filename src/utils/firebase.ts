@@ -81,11 +81,20 @@ interface Response {
 	error?: string
 	id?: string
 	success?: boolean
+	item?: Item
 }
 
-const createResponse = (error: any, id?: string): Response => {
+const createResponse = (
+	error: any,
+	id?: string,
+	item?: Item
+): Response => {
 	if (error) {
 		return { error: error.message }
+	}
+
+	if (item) {
+		return item
 	}
 
 	return id ? { id } : { success: true }
@@ -109,11 +118,15 @@ const addListToUser = async (
 	}
 }
 
+export const createId = (): string => Date.now().toString()
+
 export const addListItem = async (
-	item: Item,
+	itemName: string,
 	userId: string,
 	listId?: string,
 ): Promise<Response> => {
+	const item = { name: itemName, isChecked: false, id: createId() }
+
 	if (!listId) {
 		console.log("Creating new list")
 		try {
@@ -140,7 +153,7 @@ export const addListItem = async (
 			items: firebase.firestore.FieldValue.arrayUnion(item)
 		})
 
-		return createResponse(null)
+		return createResponse(null, item.id, item)
 	} catch (e) {
 		return createResponse(e)
 	}
@@ -154,4 +167,24 @@ export const getUserInfo = async (
 	const data = snapshot.data()
 	
 	return data as UserInfo
+}
+
+export const changeListItem = async (
+	item: Item,
+	listId: string,
+	currentItems: Item[],
+): Promise<Response> => {
+	const itemsRef = firestore.collection("lists").doc(listId)
+	const items = [
+		...currentItems.filter((cur): boolean => cur.id !== item.id),
+		item
+	]
+
+	try {
+		await itemsRef.update({ items })
+
+		return createResponse(null, item.id, item)
+	} catch (e) {
+		return createResponse(e)
+	}
 }
