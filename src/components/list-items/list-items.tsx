@@ -19,7 +19,7 @@ export const ListItems = ({
 	changeItem
 }: Props): ReactElement => {
 	const toggleCheckItem = (item: Item): (() => void) => (): void => {
-		const newItem = Object.assign(item)
+		const newItem = JSON.parse(JSON.stringify(item))
 		newItem.isChecked = !newItem.isChecked
 
 		changeListItem(newItem, "RKIS9avcsuajAtOIyi7J", listItems || [])
