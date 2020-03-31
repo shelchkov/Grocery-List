@@ -7,7 +7,7 @@ import { Actions } from "../components/actions/actions"
 import { ListItems } from "../components/list-items/list-items"
 
 import { spaces, colors } from "../utils/styles"
-import { getListItems, getUserInfo, createId } from "../utils/firebase"
+import { getListItems, getUserInfo } from "../utils/firebase"
 import { ListAccess } from "../utils/enums"
 
 interface Props {
@@ -96,6 +96,7 @@ export const MainPage = ({ user }: Props): ReactElement => {
 					lists[currentList].items : undefined
 				}
 				changeItem={changeItem}
+				listId={lists && lists[currentList].id}
 			/>
 			<Actions />
 		</Container>
