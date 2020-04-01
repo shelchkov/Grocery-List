@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { ListItem } from "../list-item/list-item"
 
 import { changeListItem } from "../../utils/firebase"
+import { colors } from "../../utils/styles"
 
 interface Props {
 	listItems: Item[] | undefined
@@ -14,6 +15,15 @@ interface Props {
 const ListItemsContainer = styled.div`
 	padding: 13px 0 67px 0;
 `
+
+const LoadingContainer = styled.p`
+	margin-top: 1.5rem;
+	color: ${colors.lightGrey};
+	font-size: 18px;
+	text-align: center;
+`
+
+const loadingText = "Loading..."
 
 export const ListItems = ({
 	listItems,
@@ -36,7 +46,9 @@ export const ListItems = ({
 
 	return (
 		<ListItemsContainer>
-			{!listItems ? "Loading..." : (<>
+			{!listItems ? <LoadingContainer>
+				{loadingText}
+			</LoadingContainer> : (<>
 				{listItems.length === 0 ?
 					"No Items were received"
 				: (
