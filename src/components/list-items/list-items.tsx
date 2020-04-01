@@ -6,8 +6,9 @@ import { ListItem } from "../list-item/list-item"
 import { changeListItem } from "../../utils/firebase"
 
 interface Props {
-	listItems?: Item[]
+	listItems: Item[] | undefined
 	changeItem: (item: Item) => void
+	listId: string | undefined
 }
 
 const ListItemsContainer = styled.div`
@@ -16,17 +17,21 @@ const ListItemsContainer = styled.div`
 
 export const ListItems = ({
 	listItems,
-	changeItem
+	changeItem,
+	listId,
 }: Props): ReactElement => {
 	const toggleCheckItem = (item: Item): (() => void) => (): void => {
-		const newItem = Object.assign(item)
+		if (!listId) {
+			console.warn("Can't change item status - No list id")
+			return
+		}
+
+		const newItem = JSON.parse(JSON.stringify(item))
 		newItem.isChecked = !newItem.isChecked
 
-		changeListItem(newItem, "RKIS9avcsuajAtOIyi7J", listItems || [])
-			.then((data) => {
-				console.log(data)
-				changeItem(newItem)
-			})
+		changeListItem(newItem, listId, listItems || [])
+			.then((data) => changeItem(data as Item))
+			.catch(e => console.error("Couldn't change item status"))
 	}
 
 	return (

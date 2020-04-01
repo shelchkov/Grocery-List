@@ -7,8 +7,8 @@ import { Input } from "../input/input"
 import { addListItem } from "../../utils/firebase"
 
 interface Props {
-	userId?: string
-	listId?: string
+	userId: string | undefined
+	listId: string | undefined
 	addNewItem: (item: Item) => void
 }
 
