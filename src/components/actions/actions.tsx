@@ -5,6 +5,7 @@ import { Button } from "../button/button"
 
 import { colors, sizes } from "../../utils/styles"
 import { BtnTypes } from "../../utils/enums"
+import { signOut } from "../../utils/firebase"
 
 const ActionsContainer = styled.div`
 	position: fixed;
@@ -24,6 +25,10 @@ const ActionsContainer = styled.div`
 export const Actions = (): ReactElement => (
 	<ActionsContainer>
 		<Button buttonType={BtnTypes.ShareList} text="Share List" />
-		<Button buttonType={BtnTypes.SignOut} text="Sign Out" />
+		<Button
+			buttonType={BtnTypes.SignOut}
+			text="Sign Out"
+			clickHandler={signOut}
+		/>
 	</ActionsContainer>
 )

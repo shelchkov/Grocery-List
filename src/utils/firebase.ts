@@ -68,15 +68,6 @@ export const signUp = async (
 	return createUserDocument(user.user, displayName, email)
 }
 
-export const getListItems = async (
-	listId: string
-): Promise<List | undefined> => {
-	const listRef = firestore.collection("lists").doc(listId)
-	const querySnapshot = await listRef.get()
-	console.log(`List was ${querySnapshot.exists ? "" : "not "}found.`)
-	return querySnapshot.data() as List
-}
-
 interface Response {
 	error?: string
 	id?: string
@@ -99,6 +90,24 @@ const createResponse = (
 
 	return id ? { id } : { success: true }
 
+}
+
+export const signOut = async (): Promise<Response> => {
+	try {
+		await auth.signOut()
+		return createResponse(null)
+	} catch(e) {
+		return createResponse(e)
+	}
+}
+
+export const getListItems = async (
+	listId: string
+): Promise<List | undefined> => {
+	const listRef = firestore.collection("lists").doc(listId)
+	const querySnapshot = await listRef.get()
+	console.log(`List was ${querySnapshot.exists ? "" : "not "}found.`)
+	return querySnapshot.data() as List
 }
 
 const addListToUser = async (
