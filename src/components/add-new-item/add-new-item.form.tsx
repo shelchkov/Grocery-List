@@ -42,13 +42,9 @@ export const AddNewItemForm = ({
 	): void => {
 		event.preventDefault()
 
-		if (!formData || ! formData.name || !userId || !listId) {
+		if (!formData || ! formData.name || !userId) {
 			if (!formData || !formData.name) {
 				console.warn("Item name was not provided")
-			}
-
-			if (!listId) {
-				console.warn("List Id is missing")
 			}
 
 			if (!userId) {

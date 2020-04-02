@@ -23,13 +23,14 @@ const Container = styled.div`
 	background-color: ${colors.grey};
 `
 
-const currentList = 0
+const currentList = 1
 
 export const MainPage = ({ user }: Props): ReactElement => {
-	const [lists, setLists] = useState<List[]>()
+	const [lists, setLists] = useState<{ [key: string]: List }>()
+	const [listId, setListId]= useState<string>()
 
 	useEffect((): void => {
-		if (!user || (lists && lists.length > 0)) {
+		if (!user || Object.keys(lists || {}).length > 0) {
 			return
 		}
 
@@ -38,45 +39,46 @@ export const MainPage = ({ user }: Props): ReactElement => {
 				return
 			}
 
-			const listId = userInfo.lists[currentList]
+			const currentListId = userInfo.lists[currentList]
+			setListId(currentListId)
 
-			getListItems(listId)
+			console.log(userInfo)
+
+			getListItems(currentListId)
 				.then((data?: List): void => {
 					console.log(data)
 					if (data && data.items) {
-						setLists([
-							...(lists || []),
-							{
+						setLists({
+							...lists,
+							[currentListId]: {
 								items: data.items,
-								id: listId,
+								id: currentListId,
 								access: [ListAccess.check]
 							}
-						])
+						})
 					}
 				})
 		})
 	}, [user])
 
 	const changeItem = (item: Item): void => {
-		if (!lists) {
+		if (!lists || !listId) {
 			return
 		}
 
-		setLists([
-			...lists.filter((list: List): boolean => 
-				list.id !== lists[currentList].id
-			),
-			{
-				id: lists[currentList].id,
-				access: lists[currentList].access,
+		setLists({
+			...lists,
+			[listId]: {
+				id: lists[listId].id,
+				access: lists[listId].access,
 				items: [
-					...lists[currentList].items.filter((cur): boolean =>
+					...lists[listId].items.filter((cur): boolean =>
 						cur.id !== item.id
 					),
 					item
 				]
 			}
-		])
+		})
 	}
 
 	useEffect((): void => {
@@ -88,15 +90,14 @@ export const MainPage = ({ user }: Props): ReactElement => {
 			<Logo />
 			<AddNewItemForm
 				userId={user ? user.id : undefined}
-				listId={lists && lists[currentList].id}
+				listId={listId}
 				addNewItem={changeItem}
 			/>
 			<ListItems
-				listItems={lists && lists[currentList] ?
-					lists[currentList].items : undefined
-				}
+				listItems={lists && listId ?
+					lists[listId] && lists[listId].items : undefined}
 				changeItem={changeItem}
-				listId={lists && lists[currentList].id}
+				listId={listId}
 			/>
 			<Actions />
 		</Container>

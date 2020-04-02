@@ -6,7 +6,7 @@ import { config } from "./firebase-constants"
 
 import {
 	DocumentReference,
-	// DocumentData
+	DocumentData
 } from "@firebase/firestore-types"
 import { User, UserCredential } from "@firebase/auth-types"
 
@@ -72,9 +72,29 @@ export const getListItems = async (
 	listId: string
 ): Promise<List | undefined> => {
 	const listRef = firestore.collection("lists").doc(listId)
-	const querySnapshot = await listRef.get()
-	console.log(`List was ${querySnapshot.exists ? "" : "not "}found.`)
-	return querySnapshot.data() as List
+	// console.log(listRef)
+	const itemsRef = listRef.collection("items")
+	const items = await itemsRef.get()
+	// const docs = items.forEach((snapshot): void => {
+	// 	console.log(snapshot.data())
+	// })
+	const docs = items.docs.map((snapshot): Item => 
+		({ ...snapshot.data(), id: snapshot.id } as Item)
+	)
+	console.log(docs)
+
+	// console.log("End")
+	// (snapshot): void => {
+	// 	console.log(snapshot.data())
+	// })
+	const list = { id: listId, items: docs }
+
+	return new Promise((res): void => {
+		res(list as List)
+	})
+	// const querySnapshot = await listRef.get()
+	// console.log(`List was ${querySnapshot.exists ? "" : "not "}found.`)
+	// return querySnapshot.data() as List
 }
 
 interface Response {
@@ -118,42 +138,40 @@ const addListToUser = async (
 	}
 }
 
-export const createId = (): string => Date.now().toString()
+export const getDate = (): string => Date.now().toString()
 
 export const addListItem = async (
 	itemName: string,
 	userId: string,
 	listId?: string,
 ): Promise<Response> => {
-	const item = { name: itemName, isChecked: false, id: createId() }
+	const item = { name: itemName, isChecked: false, createdAt: getDate() }
 
 	if (!listId) {
 		console.log("Creating new list")
 		try {
-			const data = await firestore.collection("lists").add({
-				items: [ item ]
-			})
+			const newList = await firestore.collection("lists").doc()
+			console.log(newList)
 
-			const userList = await addListToUser(userId, data.id)
+			const data = newList.collection("items").add(item)
+			console.log(data)
+
+			const userList = await addListToUser(userId, newList.id)
 
 			console.log(userList)
 
-			return createResponse(userList.error, data.id)
+			return createResponse(userList.error, newList.id)
 		} catch (e) {
 			return createResponse(e)
 		}
 	}
 
-	const itemsRef = firestore.collection("lists").doc(listId)
-
-	console.log(("Trying to add item to existing list"))
-
 	try {
-		await itemsRef.update({
-			items: firebase.firestore.FieldValue.arrayUnion(item)
-		})
+		console.log(("Trying to add item to an existing list"))
+		const listRef = firestore.collection("lists").doc(listId)
+		await listRef.collection("items").add(item)
 
-		return createResponse(null, item.id, item)
+		return createResponse(null, item.createdAt, item)
 	} catch (e) {
 		return createResponse(e)
 	}
