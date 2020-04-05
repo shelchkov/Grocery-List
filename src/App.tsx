@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 
 import { MainPage } from "./pages/main.page"
+import { LoginPage } from "./pages/login.page"
 
 import { signUp, auth } from "./utils/firebase"
 
@@ -30,7 +31,9 @@ const App = (): ReactElement => {
   }, [])
 
   return (
-    <MainPage user={user} />
+    <>
+      {user ? <MainPage user={user} /> : <LoginPage />}
+    </>
   )
 }
 
