@@ -7,7 +7,7 @@ import { Actions } from "../components/actions/actions"
 import { ListItems } from "../components/list-items/list-items"
 
 import { spaces, colors } from "../utils/styles"
-import { getUserInfo, getListItemsSubscribe } from "../utils/firebase"
+import { getUserInfo, getListItems } from "../utils/firebase"
 import { ListAccess } from "../utils/enums"
 
 interface Props {
@@ -44,56 +44,23 @@ export const MainPage = ({ user }: Props): ReactElement => {
 
 			console.log(userInfo)
 
-			// getListItems(currentListId)
-			// 	.then((data?: List): void => {
-			// 		console.log(data)
-			// 		if (data && data.items) {
-			// 			setLists({
-			// 				...lists,
-			// 				[currentListId]: {
-			// 					items: data.items,
-			// 					id: currentListId,
-			// 					access: [ListAccess.check]
-			// 				}
-			// 			})
-			// 		}
-			// 	})
+			const { unsubscribe } = getListItems(
+				currentListId,
+				(items: Item[]): void => {
+					console.log("Items were changed")
+					console.log(items)
 
-			const { unsubscribe } = getListItemsSubscribe(currentListId, (items: Item[]): void => {
-				console.log("Items were changed")
-				console.log(items)
-
-				setLists({
-					...lists,
-					[currentListId]: {
-						items: items,
-						id: currentListId,
-						access: [ListAccess.check]
-					}
+					setLists({
+						...lists,
+						[currentListId]: {
+							items: items,
+							id: currentListId,
+							access: [ListAccess.check]
+						}
+					})
 				})
-			})
 		})
 	}, [user])
-
-	const changeItem = (item: Item): void => {
-		if (!lists || !listId) {
-			return
-		}
-
-		// setLists({
-		// 	...lists,
-		// 	[listId]: {
-		// 		id: lists[listId].id,
-		// 		access: lists[listId].access,
-		// 		items: [
-		// 			...lists[listId].items.filter((cur): boolean =>
-		// 				cur.id !== item.id
-		// 			),
-		// 			item
-		// 		]
-		// 	}
-		// })
-	}
 
 	useEffect((): void => {
 		console.log(lists)
@@ -105,12 +72,10 @@ export const MainPage = ({ user }: Props): ReactElement => {
 			<AddNewItemForm
 				userId={user ? user.id : undefined}
 				listId={listId}
-				addNewItem={changeItem}
 			/>
 			<ListItems
 				listItems={lists && listId ?
 					lists[listId] && lists[listId].items : undefined}
-				changeItem={changeItem}
 				listId={listId}
 			/>
 			<Actions />

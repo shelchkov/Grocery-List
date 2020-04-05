@@ -6,7 +6,7 @@ import { config } from "./firebase-constants"
 
 import {
 	DocumentReference,
-	DocumentData
+	// DocumentData
 } from "@firebase/firestore-types"
 import { User, UserCredential } from "@firebase/auth-types"
 
@@ -72,26 +72,26 @@ interface Subscription {
 	unsubscribe: () => void
 }
 
-const getListItems = async (
-	listId: string
-): Promise<List | undefined> => {
-	const listRef = firestore.collection("lists").doc(listId)
-	const itemsRef = listRef.collection("items")
+// const getListItems = async (
+// 	listId: string
+// ): Promise<List | undefined> => {
+// 	const listRef = firestore.collection("lists").doc(listId)
+// 	const itemsRef = listRef.collection("items")
 
-	const items = await itemsRef.get()
-	const docs = items.docs.map((snapshot): Item => 
-		({ ...snapshot.data(), id: snapshot.id } as Item)
-	)
-	console.log(docs)
+// 	const items = await itemsRef.get()
+// 	const docs = items.docs.map((snapshot): Item => 
+// 		({ ...snapshot.data(), id: snapshot.id } as Item)
+// 	)
+// 	console.log(docs)
 
-	const list = { id: listId, items: docs }
+// 	const list = { id: listId, items: docs }
 
-	return new Promise((res): void => {
-		res(list as List)
-	})
-}
+// 	return new Promise((res): void => {
+// 		res(list as List)
+// 	})
+// }
 
-export const getListItemsSubscribe = (
+export const getListItems = (
 	listId: string,
 	callback: (items: Item[]) => void
 ): Subscription => {
