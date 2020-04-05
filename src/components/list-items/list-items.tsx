@@ -31,10 +31,15 @@ export const ListItems = ({
 			return
 		}
 
-		const newItem = JSON.parse(JSON.stringify(item))
-		newItem.isChecked = !newItem.isChecked
+		if (!item.id) {
+			console.warn("No item id")
+			return
+		}
 
-		changeListItem(newItem, listId, listItems || [])
+		// const newItem = JSON.parse(JSON.stringify(item))
+		// newItem.isChecked = !newItem.isChecked
+
+		changeListItem({ isChecked: !item.isChecked }, listId, item.id)
 			.then((data) => changeItem(data as Item))
 			.catch(e => console.error("Couldn't change item status"))
 	}
