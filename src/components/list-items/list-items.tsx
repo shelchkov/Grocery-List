@@ -2,8 +2,10 @@ import React, { ReactElement } from "react"
 import styled from "styled-components"
 
 import { ListItem } from "../list-item/list-item"
+import { ListItemsMessage } from "./list-items-message"
 
 import { changeListItem } from "../../utils/firebase"
+import { colors } from "../../utils/styles"
 
 interface Props {
 	listItems: Item[] | undefined
@@ -14,6 +16,9 @@ interface Props {
 const ListItemsContainer = styled.div`
 	padding: 13px 0 67px 0;
 `
+
+const loadingText = "Loading..."
+const noItemsText = "No Items were received"
 
 export const ListItems = ({
 	listItems,
@@ -36,21 +41,21 @@ export const ListItems = ({
 
 	return (
 		<ListItemsContainer>
-			{!listItems ? "Loading..." : (<>
-				{listItems.length === 0 ?
-					"No Items were received"
-				: (
-					listItems.map(
-						(item: Item, index: number): ReactElement =>
+			{!listItems ? <ListItemsMessage text={loadingText} /> : (
+				<>
+					{listItems.length === 0 ? 
+						<ListItemsMessage text={noItemsText} />
+					: (
+					listItems.map((item: Item): ReactElement =>
 						<ListItem
 							name={item.name}
 							isChecked={item.isChecked}
-							key={index}
+							key={item.id}
 							toggleCheckItem={toggleCheckItem(item)}
-						/>
-					)
-				)}
-			</>)}
+						/>)
+					)}
+				</>
+			)}
 		</ListItemsContainer>
 	)
 }

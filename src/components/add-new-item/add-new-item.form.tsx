@@ -42,7 +42,7 @@ export const AddNewItemForm = ({
 	): void => {
 		event.preventDefault()
 
-		if (!formData || ! formData.name || !userId) {
+		if (!formData || !formData.name || !userId) {
 			if (!formData || !formData.name) {
 				console.warn("Item name was not provided")
 			}
@@ -51,19 +51,18 @@ export const AddNewItemForm = ({
 				console.warn("Not logged in")
 			}
 
+			setIsFormActive(false)
 			return
 		}
 
-		addListItem(
-			formData.name,
-			userId,
-			listId
-		).then((data): void => {
-			console.log(data)
-			addNewItem(data as Item)
-		}).catch((e) => {
-			console.log(e)
-		}).finally(() => setIsFormActive(false))
+		addListItem(formData.name, userId, listId)
+			.then((data): void => {
+				addNewItem(data as Item)
+			}).catch((e) => {
+				console.error("Error while adding new item", e)
+			}).finally(() => 
+				setIsFormActive(false)
+			)
 	}
 
 	const handleInputChange = (name: AddNewItemInputs) => (
