@@ -68,33 +68,48 @@ export const signUp = async (
 	return createUserDocument(user.user, displayName, email)
 }
 
-export const getListItems = async (
+interface Subscription {
+	unsubscribe: () => void
+}
+
+const getListItems = async (
 	listId: string
 ): Promise<List | undefined> => {
 	const listRef = firestore.collection("lists").doc(listId)
-	// console.log(listRef)
 	const itemsRef = listRef.collection("items")
+
 	const items = await itemsRef.get()
-	// const docs = items.forEach((snapshot): void => {
-	// 	console.log(snapshot.data())
-	// })
 	const docs = items.docs.map((snapshot): Item => 
 		({ ...snapshot.data(), id: snapshot.id } as Item)
 	)
 	console.log(docs)
 
-	// console.log("End")
-	// (snapshot): void => {
-	// 	console.log(snapshot.data())
-	// })
 	const list = { id: listId, items: docs }
 
 	return new Promise((res): void => {
 		res(list as List)
 	})
-	// const querySnapshot = await listRef.get()
-	// console.log(`List was ${querySnapshot.exists ? "" : "not "}found.`)
-	// return querySnapshot.data() as List
+}
+
+export const getListItemsSubscribe = (
+	listId: string,
+	callback: (items: Item[]) => void
+): Subscription => {
+	const listRef = firestore.collection("lists").doc(listId)
+	const itemsRef = listRef.collection("items")
+
+	const unsubscribe = itemsRef.onSnapshot({
+		error: (e: Error): void => {
+			console.log("Subscription Error", e.message)
+		},
+		next: (items): void => {
+			const docs = items.docs.map((snapshot): Item => 
+				({ ...snapshot.data(), id: snapshot.id } as Item)
+			)
+			callback(docs)
+		}})
+
+	return { unsubscribe }
 }
 
 interface Response {

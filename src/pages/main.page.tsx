@@ -7,7 +7,7 @@ import { Actions } from "../components/actions/actions"
 import { ListItems } from "../components/list-items/list-items"
 
 import { spaces, colors } from "../utils/styles"
-import { getListItems, getUserInfo } from "../utils/firebase"
+import { getUserInfo, getListItemsSubscribe } from "../utils/firebase"
 import { ListAccess } from "../utils/enums"
 
 interface Props {
@@ -44,20 +44,34 @@ export const MainPage = ({ user }: Props): ReactElement => {
 
 			console.log(userInfo)
 
-			getListItems(currentListId)
-				.then((data?: List): void => {
-					console.log(data)
-					if (data && data.items) {
-						setLists({
-							...lists,
-							[currentListId]: {
-								items: data.items,
-								id: currentListId,
-								access: [ListAccess.check]
-							}
-						})
+			// getListItems(currentListId)
+			// 	.then((data?: List): void => {
+			// 		console.log(data)
+			// 		if (data && data.items) {
+			// 			setLists({
+			// 				...lists,
+			// 				[currentListId]: {
+			// 					items: data.items,
+			// 					id: currentListId,
+			// 					access: [ListAccess.check]
+			// 				}
+			// 			})
+			// 		}
+			// 	})
+
+			const { unsubscribe } = getListItemsSubscribe(currentListId, (items: Item[]): void => {
+				console.log("Items were changed")
+				console.log(items)
+
+				setLists({
+					...lists,
+					[currentListId]: {
+						items: items,
+						id: currentListId,
+						access: [ListAccess.check]
 					}
 				})
+			})
 		})
 	}, [user])
 
@@ -66,19 +80,19 @@ export const MainPage = ({ user }: Props): ReactElement => {
 			return
 		}
 
-		setLists({
-			...lists,
-			[listId]: {
-				id: lists[listId].id,
-				access: lists[listId].access,
-				items: [
-					...lists[listId].items.filter((cur): boolean =>
-						cur.id !== item.id
-					),
-					item
-				]
-			}
-		})
+		// setLists({
+		// 	...lists,
+		// 	[listId]: {
+		// 		id: lists[listId].id,
+		// 		access: lists[listId].access,
+		// 		items: [
+		// 			...lists[listId].items.filter((cur): boolean =>
+		// 				cur.id !== item.id
+		// 			),
+		// 			item
+		// 		]
+		// 	}
+		// })
 	}
 
 	useEffect((): void => {
