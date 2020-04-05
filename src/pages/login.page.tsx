@@ -20,10 +20,23 @@ const Container = styled.div`
 export const LoginPage = (): ReactElement => {
 	const [form, setForm] = useState<LoginForms>(LoginForms.signIn)
 
+	const changeForm = (): void => {
+		const formTypes = Object.keys(LoginForms)
+		const forms = JSON.parse(JSON.stringify(LoginForms))
+
+		const index = formTypes.findIndex(
+			(element): boolean => forms[element] === form
+		)
+
+		const nextIndex = index === formTypes.length - 1 ? 0 : index + 1
+		
+		setForm(forms[formTypes[nextIndex]] as LoginForms)
+	}
+
 	return (
 		<Container>
 			<Logo />
-			<LoginActions form={form} />
+			<LoginActions form={form} handleClick={changeForm} />
 		</Container>
 	)
 }

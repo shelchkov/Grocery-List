@@ -18,6 +18,6 @@ export enum ListAccess {
 }
 
 export enum LoginForms {
-	signIn = "signIn",
-	signOut = "signOut"
+	signIn = "signIn1",
+	signOut = "signOut2"
 }

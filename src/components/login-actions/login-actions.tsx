@@ -6,13 +6,15 @@ import { LoginForms } from "../../utils/enums"
 import { colors } from "../../utils/styles"
 
 interface Props {
-	form: LoginForms 
+	form: LoginForms
+	handleClick: () => void
 }
 
 const LoginActionComponent = styled.p`
 	position: absolute;
-	bottom: 26px;
-	
+	bottom: 42px;
+	margin: 0;
+
 	color: ${colors.darkBlue};
 	text-decoration: underline;
 `
@@ -22,8 +24,8 @@ const LoginActionsText = {
 	[LoginForms.signOut]: "Sign In"
 }
 
-export const LoginActions = ({ form }: Props): ReactElement => (
-	<LoginActionComponent>
+export const LoginActions = ({ form, handleClick }: Props): ReactElement => (
+	<LoginActionComponent onClick={handleClick}>
 		{LoginActionsText[form]}
 	</LoginActionComponent>
 )
