@@ -22,7 +22,8 @@ interface Styles {
 interface Item {
 	name: string
 	isChecked: boolean
-	id: string
+	id?: string
+	createdAt: string
 }
 
 interface List {

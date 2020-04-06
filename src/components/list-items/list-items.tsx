@@ -5,11 +5,9 @@ import { ListItem } from "../list-item/list-item"
 import { ListItemsMessage } from "./list-items-message"
 
 import { changeListItem } from "../../utils/firebase"
-import { colors } from "../../utils/styles"
 
 interface Props {
 	listItems: Item[] | undefined
-	changeItem: (item: Item) => void
 	listId: string | undefined
 }
 
@@ -22,7 +20,6 @@ const noItemsText = "No Items were received"
 
 export const ListItems = ({
 	listItems,
-	changeItem,
 	listId,
 }: Props): ReactElement => {
 	const toggleCheckItem = (item: Item): (() => void) => (): void => {
@@ -31,11 +28,15 @@ export const ListItems = ({
 			return
 		}
 
-		const newItem = JSON.parse(JSON.stringify(item))
-		newItem.isChecked = !newItem.isChecked
+		if (!item.id) {
+			console.warn("No item id")
+			return
+		}
 
-		changeListItem(newItem, listId, listItems || [])
-			.then((data) => changeItem(data as Item))
+		changeListItem({ isChecked: !item.isChecked }, listId, item.id)
+			.then((data) => {
+				console.log(`${item.name} was ${item.isChecked ? "unchecked" : "checked"}`)
+			})
 			.catch(e => console.error("Couldn't change item status"))
 	}
 
