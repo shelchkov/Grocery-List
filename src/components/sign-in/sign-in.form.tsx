@@ -1,6 +1,10 @@
 import React, { ReactElement, useState } from "react"
+import styled from "styled-components"
 
 import { Input } from "../input/input"
+import { Button } from "../button/button"
+
+import { BtnTypes, ButtonTypes } from "../../utils/enums"
 
 enum SignInInputs {
 	email = "email",
@@ -11,6 +15,15 @@ interface FormData {
 	[SignInInputs.email]?: string,
 	[SignInInputs.password]?: string
 }
+
+const SignInContainer = styled.div`
+	margin-top: 22px;
+`
+
+const ButtonContainer = styled.div`
+	display: flex;
+	justify-content: flex-end;
+`
 
 export const SignInForm = (): ReactElement => {
 	const [formData, setFormData] = useState<FormData>()
@@ -24,19 +37,33 @@ export const SignInForm = (): ReactElement => {
 		event: React.FormEvent<HTMLFormElement>
 	): void => {
 		event.preventDefault()
+
+		console.log(formData)
 	}
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<Input
-				placeholder="Email"
-				onChange={handleInputChange(SignInInputs.email)}
-			/>
+			<SignInContainer>
+				<Input
+					placeholder="Email"
+					onChange={handleInputChange(SignInInputs.email)}
+					style={{ width:"fill-available" }}
+				/>
 
-			<Input
-				placeholder="Password"
-				onChange={handleInputChange(SignInInputs.password)}
-			/>
+				<Input
+					placeholder="Password"
+					onChange={handleInputChange(SignInInputs.password)}
+					style={{ width:"fill-available" }}
+				/>
+
+				<ButtonContainer>
+					<Button
+						buttonType={BtnTypes.SignIn}
+						text="Sign In"
+						type={ButtonTypes.submit}
+					/>
+				</ButtonContainer>
+			</SignInContainer>
 		</form>
 	)
 }
