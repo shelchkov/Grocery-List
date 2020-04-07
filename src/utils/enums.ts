@@ -16,3 +16,8 @@ export enum ListAccess {
 	add = "add",
 	remove = "remove",
 }
+
+export enum LoginForms {
+	signIn = "signIn1",
+	signOut = "signOut2"
+}
