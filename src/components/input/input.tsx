@@ -1,11 +1,14 @@
 import React, { ReactElement } from "react"
 import styled from "styled-components"
 
+import { ErrorMessage } from "./error-message"
+
 import { spaces, colors } from "../../utils/styles"
 
 interface Props {
 	placeholder?: string
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+	errorMessage?: string
 }
 
 const InputComponent = styled.input`
@@ -27,6 +30,13 @@ const InputComponent = styled.input`
 	}
 `
 
-export const Input = ({ placeholder, onChange }: Props): ReactElement => (
-	<InputComponent placeholder={placeholder} onChange={onChange} />
+export const Input = ({
+	placeholder,
+	onChange,
+	errorMessage
+}: Props): ReactElement => (
+	<>
+		<InputComponent placeholder={placeholder} onChange={onChange} />
+		<ErrorMessage message={errorMessage} />
+	</>
 )
