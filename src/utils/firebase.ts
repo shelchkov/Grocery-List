@@ -136,6 +136,15 @@ const createResponse = (
 
 }
 
+export const signOut = async (): Promise<Response> => {
+	try {
+		await auth.signOut()
+		return createResponse(null)
+	} catch(e) {
+		return createResponse(e)
+	}
+}
+
 const addListToUser = async (
 	userId: string,
 	listId: string
