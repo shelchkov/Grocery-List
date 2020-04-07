@@ -9,7 +9,6 @@ import { addListItem } from "../../utils/firebase"
 interface Props {
 	userId: string | undefined
 	listId: string | undefined
-	addNewItem: (item: Item) => void
 }
 
 const FormContainer = styled.div`
@@ -28,7 +27,6 @@ interface FormData {
 export const AddNewItemForm = ({
 	userId,
 	listId,
-	addNewItem
 }: Props): ReactElement => {
 	const [isFormActive, setIsFormActive] = useState<boolean>(false)
 	const [formData, setFormData] = useState<FormData>()
@@ -42,32 +40,31 @@ export const AddNewItemForm = ({
 	): void => {
 		event.preventDefault()
 
-		if (!formData || ! formData.name || !userId || !listId) {
+		if (!formData || !formData.name || !userId) {
 			if (!formData || !formData.name) {
 				console.warn("Item name was not provided")
-			}
-
-			if (!listId) {
-				console.warn("List Id is missing")
 			}
 
 			if (!userId) {
 				console.warn("Not logged in")
 			}
 
+			setIsFormActive(false)
 			return
 		}
 
-		addListItem(
-			formData.name,
-			userId,
-			listId
-		).then((data): void => {
-			console.log(data)
-			addNewItem(data as Item)
-		}).catch((e) => {
-			console.log(e)
-		}).finally(() => setIsFormActive(false))
+		addListItem(formData.name, userId, listId)
+			.then((data): void => {
+				if (listId) {
+					console.log(`New item was added - ${(data as Item).name}`)
+				} else {
+					console.log(`New list was created - ${data.id}`)
+				}
+			}).catch((e) => {
+				console.error("Error while adding new item", e)
+			}).finally(() => 
+				setIsFormActive(false)
+			)
 	}
 
 	const handleInputChange = (name: AddNewItemInputs) => (
