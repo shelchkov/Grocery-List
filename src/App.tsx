@@ -3,7 +3,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { MainPage } from "./pages/main.page"
 import { LoginPage } from "./pages/login.page"
 
-import { signUp, auth } from "./utils/firebase"
+import { auth } from "./utils/firebase"
 
 import { User as UserObj } from "@firebase/auth-types"
 

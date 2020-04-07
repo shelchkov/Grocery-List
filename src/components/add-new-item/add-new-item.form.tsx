@@ -80,6 +80,7 @@ export const AddNewItemForm = ({
 				{isFormActive && <Input
 					placeholder="New Item"
 					onChange={handleInputChange(AddNewItemInputs.name)}
+					errorMessage={null}
 				/>}
 				<AddNewItemButtons
 					isFormActive={isFormActive}

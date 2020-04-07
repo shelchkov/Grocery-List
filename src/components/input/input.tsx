@@ -8,7 +8,7 @@ import { spaces, colors } from "../../utils/styles"
 interface Props {
 	placeholder?: string
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
-	errorMessage?: string
+	errorMessage?: string | null
 	style?: Styles
 }
 
@@ -43,6 +43,7 @@ export const Input = ({
 			onChange={onChange}
 			width={style && style.width}
 		/>
-		<ErrorMessage message={errorMessage} />
+		
+		{errorMessage !== null && <ErrorMessage message={errorMessage} />}
 	</>
 )
