@@ -22,13 +22,18 @@ const ActionsContainer = styled.div`
 	background-color: ${colors.purple};
 `
 
+const handleSignOut = (): void => {
+	signOut().then(console.log)
+		.catch(console.log)
+}
+
 export const Actions = (): ReactElement => (
 	<ActionsContainer>
 		<Button buttonType={BtnTypes.ShareList} text="Share List" />
 		<Button
 			buttonType={BtnTypes.SignOut}
 			text="Sign Out"
-			clickHandler={signOut}
+			clickHandler={handleSignOut}
 		/>
 	</ActionsContainer>
 )

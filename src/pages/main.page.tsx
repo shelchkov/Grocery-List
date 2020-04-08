@@ -68,6 +68,7 @@ export const MainPage = ({ user }: Props): ReactElement => {
 		return (): void => {
 			cleanUp && cleanUp()
 		}
+	// eslint-disable-next-line
 	}, [user])
 
 	useEffect((): void => {

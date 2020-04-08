@@ -63,5 +63,12 @@ export const Button = ({
 
 	const BtnComponent = buttons[buttonType]
 
-	return <BtnComponent onClick={clickHandler} type={type}>{text}</BtnComponent>
+	return (
+		<BtnComponent
+			onClick={clickHandler}
+			type={type}
+		>
+			{text}
+		</BtnComponent>
+	)
 }
