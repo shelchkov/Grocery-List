@@ -4,6 +4,7 @@ import styled from "styled-components"
 
 import { Logo } from "../components/logo/logo"
 import { LoginActions } from "../components/login-actions/login-actions"
+import { SignInForm } from "../components/sign-in/sign-in.form"
 
 import { spaces, colors } from "../utils/styles"
 import { LoginForms } from "../utils/enums"
@@ -36,6 +37,7 @@ export const LoginPage = (): ReactElement => {
 	return (
 		<Container>
 			<Logo />
+			<SignInForm />
 			<LoginActions form={form} handleClick={changeForm} />
 		</Container>
 	)

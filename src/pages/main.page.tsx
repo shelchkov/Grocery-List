@@ -29,10 +29,12 @@ export const MainPage = ({ user }: Props): ReactElement => {
 	const [lists, setLists] = useState<{ [key: string]: List }>()
 	const [listId, setListId]= useState<string>()
 
-	useEffect((): void => {
+	useEffect((): (() => void) | void => {
 		if (!user || Object.keys(lists || {}).length > 0) {
 			return
 		}
+
+		let cleanUp: () => void
 
 		getUserInfo(user.id).then((userInfo?: UserInfo): void => {
 			if (!userInfo || !userInfo.lists) {
@@ -59,7 +61,13 @@ export const MainPage = ({ user }: Props): ReactElement => {
 						}
 					})
 				})
+
+			cleanUp = unsubscribe
 		})
+
+		return (): void => {
+			cleanUp && cleanUp()
+		}
 	}, [user])
 
 	useEffect((): void => {

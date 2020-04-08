@@ -21,7 +21,7 @@ enum AddNewItemInputs {
 }
 
 interface FormData {
-	[AddNewItemInputs.name]: string
+	[AddNewItemInputs.name]?: string
 }
 
 export const AddNewItemForm = ({
@@ -56,7 +56,9 @@ export const AddNewItemForm = ({
 		addListItem(formData.name, userId, listId)
 			.then((data): void => {
 				if (listId) {
-					console.log(`New item was added - ${(data as Item).name}`)
+					console.log(
+						`New item was added - ${(data as Item).name}`
+					)
 				} else {
 					console.log(`New list was created - ${data.id}`)
 				}
@@ -78,6 +80,7 @@ export const AddNewItemForm = ({
 				{isFormActive && <Input
 					placeholder="New Item"
 					onChange={handleInputChange(AddNewItemInputs.name)}
+					errorMessage={null}
 				/>}
 				<AddNewItemButtons
 					isFormActive={isFormActive}
