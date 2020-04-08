@@ -31,9 +31,15 @@ const App = (): ReactElement => {
     return unsubscribe
   }, [])
 
+  const clearUser = (): void => setUser(null)
+
   return (
     <>
-      {user ? <MainPage user={user} /> : <LoginPage />}
+      {user ?
+        <MainPage user={user} clearUser={clearUser} />
+      :
+        <LoginPage />
+      }
     </>
   )
 }

@@ -2,7 +2,9 @@ import React, { ReactElement, useState, useEffect } from "react"
 import styled from "styled-components"
 
 import { Logo } from "../components/logo/logo"
-import { AddNewItemForm } from "../components/add-new-item/add-new-item.form"
+import {
+	AddNewItemForm
+} from "../components/add-new-item/add-new-item.form"
 import { Actions } from "../components/actions/actions"
 import { ListItems } from "../components/list-items/list-items"
 
@@ -12,6 +14,7 @@ import { ListAccess } from "../utils/enums"
 
 interface Props {
 	user: User | null
+	clearUser: () => void
 }
 
 const Container = styled.div`
@@ -25,7 +28,7 @@ const Container = styled.div`
 
 const currentList = 1
 
-export const MainPage = ({ user }: Props): ReactElement => {
+export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 	const [lists, setLists] = useState<{ [key: string]: List }>()
 	const [listId, setListId]= useState<string>()
 
@@ -87,7 +90,7 @@ export const MainPage = ({ user }: Props): ReactElement => {
 					lists[listId] && lists[listId].items : undefined}
 				listId={listId}
 			/>
-			<Actions />
+			<Actions clearUser={clearUser} />
 		</Container>
 	)
 }
