@@ -1,27 +1,19 @@
 import React, { ReactElement, useState, useEffect } from "react"
-import styled from "styled-components"
 
 import { Logo } from "../components/logo/logo"
-import { AddNewItemForm } from "../components/add-new-item/add-new-item.form"
+import {
+	AddNewItemForm
+} from "../components/add-new-item/add-new-item.form"
 import { Actions } from "../components/actions/actions"
 import { ListItems } from "../components/list-items/list-items"
+import { Container } from "../components/ui/container"
 
-import { spaces, colors } from "../utils/styles"
 import { getUserInfo, getListItems } from "../utils/firebase"
 import { ListAccess } from "../utils/enums"
 
 interface Props {
 	user: User | null
 }
-
-const Container = styled.div`
-	min-height: 100vh;
-
-	padding-left: ${spaces[1]};
-	padding-right: ${spaces[1]};
-
-	background-color: ${colors.grey};
-`
 
 const currentList = 1
 
