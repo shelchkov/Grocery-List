@@ -49,7 +49,7 @@ export const MainPage = ({ user }: Props): ReactElement => {
 			const { unsubscribe } = getListItems(
 				currentListId,
 				(items: Item[]): void => {
-					console.log("Items were changed")
+					console.log("Items were received")
 					console.log(items)
 
 					setLists({

@@ -5,6 +5,7 @@ import { Input } from "../input/input"
 import { Button } from "../button/button"
 
 import { BtnTypes, ButtonTypes } from "../../utils/enums"
+import { signIn } from "../../utils/firebase"
 
 enum SignInInputs {
 	email = "email",
@@ -39,6 +40,16 @@ export const SignInForm = (): ReactElement => {
 		event.preventDefault()
 
 		console.log(formData)
+
+		if (!formData || !formData.email || !formData.password) {
+			return
+		}
+
+		signIn(formData.email, formData.password)
+			.catch((e): void => {
+				const { errorCode } = e
+				console.log(errorCode)
+			})
 	}
 
 	return (
