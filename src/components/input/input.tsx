@@ -4,12 +4,14 @@ import styled from "styled-components"
 import { ErrorMessage } from "./error-message"
 
 import { spaces, colors } from "../../utils/styles"
+import { InputTypes } from "../../utils/enums"
 
 interface Props {
 	placeholder?: string
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 	errorMessage?: string | null
 	style?: Styles
+	type?: InputTypes
 }
 
 const InputComponent = styled.input`
@@ -36,12 +38,14 @@ export const Input = ({
 	onChange,
 	errorMessage,
 	style,
+	type = InputTypes.text,
 }: Props): ReactElement => (
 	<>
 		<InputComponent
 			placeholder={placeholder}
 			onChange={onChange}
 			width={style && style.width}
+			type={type}
 		/>
 		
 		{errorMessage !== null && <ErrorMessage message={errorMessage} />}

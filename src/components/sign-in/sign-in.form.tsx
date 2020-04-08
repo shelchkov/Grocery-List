@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { Input } from "../input/input"
 import { Button } from "../button/button"
 
-import { BtnTypes, ButtonTypes } from "../../utils/enums"
+import { BtnTypes, ButtonTypes, InputTypes } from "../../utils/enums"
 import { signIn } from "../../utils/firebase"
 
 enum SignInInputs {
@@ -65,6 +65,7 @@ export const SignInForm = (): ReactElement => {
 					placeholder="Password"
 					onChange={handleInputChange(SignInInputs.password)}
 					style={{ width:"fill-available" }}
+					type={InputTypes.password}
 				/>
 
 				<ButtonContainer>
