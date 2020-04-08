@@ -59,6 +59,7 @@ export const SignInForm = (): ReactElement => {
 					placeholder="Email"
 					onChange={handleInputChange(SignInInputs.email)}
 					style={{ width:"fill-available" }}
+					type={InputTypes.email}
 				/>
 
 				<Input
