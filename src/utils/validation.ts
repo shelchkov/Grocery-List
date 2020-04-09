@@ -1,5 +1,9 @@
-const errorMessages = {
-	required: "Required Field",
+const errorMessages: {
+	[key: string]: (parameter?: number | string) => string
+} = {
+	required: (): string => "Required Field",
+	minLength: (parameter?: number | string): string =>
+		`Minimum length is ${parameter} characters`
 }
 
 export enum SignInInputs {
@@ -12,7 +16,7 @@ export interface SignInFormData {
 	[SignInInputs.password]?: string
 }
 
-interface SignInErrors {
+export interface SignInErrors {
 	[SignInInputs.email]?: string[],
 	[SignInInputs.password]?: string[]
 }
@@ -25,7 +29,8 @@ const signInErrors: {
 }
 
 const checkers: {
-	[key: string]: (value?: string, parameter?: number | string) => boolean
+	[key: string]: (value?: string, parameter?: number | string) =>
+		boolean
 } = {
 	required: (value?: string): boolean => !value,
 	minLength: (value?: string, parameter?: number | string): boolean =>
@@ -37,7 +42,7 @@ export const signInValidation = (
 ): SignInErrors => {
 	if (!formData) {
 		return Object.keys(SignInInputs).map((key): string => 
-			errorMessages.required) as SignInErrors
+			errorMessages.required()) as SignInErrors
 	}
 
 	const errors: SignInErrors = {}
@@ -53,11 +58,13 @@ export const signInValidation = (
 				formData[field as SignInInputs],
 				parameters
 			)) {
+				const errorMessage = errorMessages[error](parameters)
+
 				errors[field as SignInInputs] = 
 				errors[field as SignInInputs] ? [
 					...(errors[field as SignInInputs] as string[]),
-					error
-				] : [ error ]
+					errorMessage
+				] : [ errorMessage ]
 			}
 		})
 	})
