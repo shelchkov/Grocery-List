@@ -8,12 +8,16 @@ import { auth } from "./utils/firebase"
 import { User as UserObj } from "@firebase/auth-types"
 
 const App = (): ReactElement => {
-  const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState<User | null>()
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(
       async (user: UserObj | null): Promise<void> => {
-        if (!user) return
+        console.log(user)
+        if (!user) {
+          setUser(null)
+          return
+        }
 
         const userData = user ? {
           id: user.uid,
@@ -30,10 +34,19 @@ const App = (): ReactElement => {
     return unsubscribe
   }, [])
 
+  const clearUser = (): void => setUser(null)
+
+  if (user === undefined) {
+    // TODO: Loading Page
+    return <LoginPage />
+  }
+
+  if (user === null) {
+    return <LoginPage />
+  }
+
   return (
-    <>
-      {user ? <MainPage user={user} /> : <LoginPage />}
-    </>
+    <MainPage user={user} clearUser={clearUser} />
   )
 }
 

@@ -68,6 +68,24 @@ export const signUp = async (
 	return createUserDocument(user.user, displayName, email)
 }
 
+interface SignInResponse {
+	errorCode?: string
+	success?: boolean
+}
+
+export const signIn = async (
+	email: string,
+	password: string
+): Promise<SignInResponse> => {
+	try {
+		await auth.signInWithEmailAndPassword(email, password)
+		return { success: true }
+	} catch (e) {
+		console.log("Error whilte logging in", e.message)
+		return { errorCode: e.code }
+	}
+}
+
 interface Subscription {
 	unsubscribe: () => void
 }
@@ -169,7 +187,11 @@ export const addListItem = async (
 	userId: string,
 	listId?: string,
 ): Promise<Response> => {
-	const item = { name: itemName, isChecked: false, createdAt: getDate() }
+	const item = {
+		name: itemName,
+		isChecked: false,
+		createdAt: getDate()
+	}
 
 	if (!listId) {
 		console.log("Creating new list")

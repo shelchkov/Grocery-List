@@ -7,6 +7,10 @@ import { colors, sizes } from "../../utils/styles"
 import { BtnTypes } from "../../utils/enums"
 import { signOut } from "../../utils/firebase"
 
+interface Props {
+	clearUser: () => void
+}
+
 const ActionsContainer = styled.div`
 	position: fixed;
 	bottom: 0;
@@ -22,13 +26,19 @@ const ActionsContainer = styled.div`
 	background-color: ${colors.purple};
 `
 
-export const Actions = (): ReactElement => (
-	<ActionsContainer>
-		<Button buttonType={BtnTypes.ShareList} text="Share List" />
-		<Button
-			buttonType={BtnTypes.SignOut}
-			text="Sign Out"
-			clickHandler={signOut}
-		/>
-	</ActionsContainer>
-)
+export const Actions = ({ clearUser }: Props): ReactElement => {
+	const handleSignOut = (): void => {
+	signOut().then(clearUser).catch(console.log)
+}
+
+	return (
+		<ActionsContainer>
+			<Button buttonType={BtnTypes.ShareList} text="Share List" />
+			<Button
+				buttonType={BtnTypes.SignOut}
+				text="Sign Out"
+				clickHandler={handleSignOut}
+			/>
+		</ActionsContainer>
+	)
+}

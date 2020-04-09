@@ -12,6 +12,16 @@ export enum ButtonTypes {
 	submit = "submit",
 }
 
+export enum InputTypes {
+	email = "email",
+	number = "number",
+	checkbox = "checkbox",
+	radio = "radio",
+	password = "password",
+	tel = "tel",
+	text = "text"
+}
+
 export enum ListAccess {
 	check = "check",
 	add = "add",
