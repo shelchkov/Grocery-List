@@ -33,8 +33,13 @@ const checkers: {
 		boolean
 } = {
 	required: (value?: string): boolean => !value,
-	minLength: (value?: string, parameter?: number | string): boolean =>
-		value && parameter && value.length < parameter || false
+	minLength: (value?: string, parameter?: number | string): boolean => {
+		if (!value || !parameter) {
+			return false
+		}
+
+		return value.length < parameter
+	}
 }
 
 export const signInValidation = (
