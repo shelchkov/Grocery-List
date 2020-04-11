@@ -44,7 +44,7 @@ const checkers: {
 
 export const signInValidation = (
 	formData?: SignInFormData
-): SignInErrors => {
+): SignInErrors | undefined => {
 	if (!formData) {
 		return Object.keys(SignInInputs).map((key): string => 
 			errorMessages.required()) as SignInErrors
@@ -73,6 +73,10 @@ export const signInValidation = (
 			}
 		})
 	})
+
+	if (Object.keys(errors).length === 0) {
+		return
+	}
 
 	return errors
 }
