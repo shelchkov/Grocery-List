@@ -11,8 +11,19 @@ import {
 import { User, UserCredential } from "@firebase/auth-types"
 
 firebase.initializeApp(config)
-export const auth = firebase.auth()
+const auth = firebase.auth()
 const firestore = firebase.firestore()
+
+interface Subscription {
+	unsubscribe: () => void
+}
+
+export const subscribeToAuthChange = (
+	callback: (user: User | null) => Promise<void>
+): Subscription => {
+	const unsubscribe = auth.onAuthStateChanged(callback)
+	return { unsubscribe }
+}
 
 const createUser = (
 	email: string,
@@ -84,10 +95,6 @@ export const signIn = async (
 		console.log("Error whilte logging in:", e.message)
 		return { errorCode: e.code }
 	}
-}
-
-interface Subscription {
-	unsubscribe: () => void
 }
 
 // const getListItems = async (
