@@ -26,6 +26,25 @@ const ButtonContainer = styled.div`
 	justify-content: flex-end;
 `
 
+const getSignInError = (errorCode: string): SignInErrors => {
+	switch(errorCode) {
+		case "auth/invalid-email":
+			return { [SignInInputs.email]: ["Email is not valid"] }
+
+		case "auth/user-disabled":
+			return { [SignInInputs.email]: ["User has been disabled"] }
+
+		case "auth/user-not-found":
+			return { [SignInInputs.email]: ["User was not found"] }
+
+		case "auth/wrong-password":
+			return { [SignInInputs.password]: ["Wrong Password"] }
+
+		default:
+			return {}
+	}
+}
+
 export const SignInForm = (): ReactElement => {
 	const [formData, setFormData] = useState<SignInFormData>()
 	const [formErrors, setFormErrors] = useState<SignInErrors>()
@@ -57,9 +76,10 @@ export const SignInForm = (): ReactElement => {
 		}
 
 		signIn(formData.email, formData.password)
-			.catch((e): void => {
-				const { errorCode } = e
-				console.log(errorCode)
+			.then((data): void => {
+				if (data.errorCode) {
+					setFormErrors(getSignInError(data.errorCode))
+				}
 			})
 	}
 
