@@ -239,11 +239,26 @@ export const changeListItem = async (
 	itemId: string,
 ): Promise<Response> => {
 	const listRef = firestore.collection("lists").doc(listId)
-	const itemsRef = listRef.collection("items").doc(itemId)
+	const itemRef = listRef.collection("items").doc(itemId)
 
 	try {
-		await itemsRef.update(itemChanges)
+		await itemRef.update(itemChanges)
 
+		return createResponse(null)
+	} catch (e) {
+		return createResponse(e)
+	}
+}
+
+export const deleteListItem = async (
+	listId: string,
+	itemId: string
+): Promise<Response> => {
+	const listRef = firestore.collection("lists").doc(listId)
+	const itemRef = listRef.collection("items").doc(itemId)
+
+	try {
+		await itemRef.delete()
 		return createResponse(null)
 	} catch (e) {
 		return createResponse(e)
