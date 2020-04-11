@@ -1,6 +1,11 @@
 import React, { ReactElement } from "react"
 import styled from "styled-components"
-import { sizes, fontWeights, colors, textShadows } from "../../utils/styles"
+import {
+	sizes,
+	fontWeights,
+	colors,
+	textShadows
+} from "../../utils/styles"
 
 const LogoComponent = styled.p`
 	padding: 3px 0 19px 0;
@@ -17,6 +22,5 @@ const LogoComponent = styled.p`
 	text-shadow: ${textShadows[0]};
 `
 
-export const Logo = (): ReactElement => {
-	return <LogoComponent>Grocery List</LogoComponent>
-}
+export const Logo = (): ReactElement => 
+	<LogoComponent>Grocery List</LogoComponent>

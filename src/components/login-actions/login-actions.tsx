@@ -24,7 +24,10 @@ const LoginActionsText = {
 	[LoginForms.signOut]: "Sign In"
 }
 
-export const LoginActions = ({ form, handleClick }: Props): ReactElement => (
+export const LoginActions = ({
+	form,
+	handleClick
+}: Props): ReactElement => (
 	<LoginActionComponent onClick={handleClick}>
 		{LoginActionsText[form]}
 	</LoginActionComponent>

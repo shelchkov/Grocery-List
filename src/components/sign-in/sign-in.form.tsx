@@ -56,11 +56,19 @@ export const SignInForm = (): ReactElement => {
 			return
 		}
 
-		signIn(formData.email, formData.password as string)
+		signIn(formData.email, formData.password)
 			.catch((e): void => {
 				const { errorCode } = e
 				console.log(errorCode)
 			})
+	}
+
+	const getFieldError = (name: SignInInputs): string | undefined => {
+		if (!formErrors || !formErrors[name]) {
+			return
+		}
+
+		return (formErrors[name] as string[])[0]
 	}
 
 	return (
@@ -71,8 +79,7 @@ export const SignInForm = (): ReactElement => {
 					onChange={handleInputChange(SignInInputs.email)}
 					style={{ width:"fill-available" }}
 					type={InputTypes.email}
-					errorMessage={formErrors && formErrors.email &&
-						formErrors.email[0]}
+					errorMessage={getFieldError(SignInInputs.email)}
 				/>
 
 				<Input
@@ -80,8 +87,7 @@ export const SignInForm = (): ReactElement => {
 					onChange={handleInputChange(SignInInputs.password)}
 					style={{ width:"fill-available" }}
 					type={InputTypes.password}
-					errorMessage={formErrors && formErrors.password &&
-						formErrors.password[0]}
+					errorMessage={getFieldError(SignInInputs.password)}
 				/>
 
 				<ButtonContainer>

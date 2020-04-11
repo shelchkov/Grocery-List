@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react"
-
 import styled from "styled-components"
 
 import { colors } from "../../utils/styles"
@@ -16,7 +15,5 @@ const MessageContainer = styled.p`
 `
 
 export const ListItemsMessage = ({ text }: Props): ReactElement => (
-	<MessageContainer>
-		{text}
-	</MessageContainer>
+	<MessageContainer>{text}</MessageContainer>
 )

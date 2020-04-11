@@ -1,6 +1,12 @@
 import React, { ReactElement } from "react"
 import styled from "styled-components"
-import { colors, sizes, spaces, boxShadows, fontWeights } from "../../utils/styles"
+import {
+	colors,
+	sizes,
+	spaces,
+	boxShadows,
+	fontWeights
+} from "../../utils/styles"
 
 import { BtnTypes, ButtonTypes } from "../../utils/enums"
 
@@ -13,8 +19,8 @@ interface Props {
 
 const ButtonBase = styled.button`
 	height: ${sizes[2]};
-	color: ${colors.grey};
 
+	color: ${colors.grey};
 	border: none;
 	border-radius: ${spaces[0]};
 	box-shadow: ${boxShadows[0]};
@@ -60,7 +66,6 @@ export const Button = ({
 	clickHandler,
 	type = ButtonTypes.button,
 }: Props): ReactElement | null => {
-
 	const BtnComponent = buttons[buttonType]
 
 	return (
