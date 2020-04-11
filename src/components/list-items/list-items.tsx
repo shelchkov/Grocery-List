@@ -41,28 +41,25 @@ export const ListItems = ({
 			.catch(e => console.error("Couldn't change item status"))
 	}
 
+	if (!listItems || listItems.length === 0) {
+		const text = listItems ? noItemsText : loadingText
+		return (
+			<ListItemsContainer>
+				<ListItemsMessage text={text} />
+			</ListItemsContainer>
+		)
+	}
+
 	return (
 		<ListItemsContainer>
-			{(): ReactElement => {
-				if (!listItems) {
-					return <ListItemsMessage text={loadingText} />
-				}
-
-				if (listItems.length === 0) {
-					return <ListItemsMessage text={noItemsText} />
-				}
-
-				return (
-					<>{listItems.map((item: Item): ReactElement =>
-						<ListItem
-							name={item.name}
-							isChecked={item.isChecked}
-							key={item.id}
-							toggleCheckItem={toggleCheckItem(item)}
-						/>)}
-					</>
-				)
-			}}
+			{listItems.map((item: Item): ReactElement =>
+				<ListItem
+					name={item.name}
+					isChecked={item.isChecked}
+					key={item.id}
+					toggleCheckItem={toggleCheckItem(item)}
+				/>
+			)}
 		</ListItemsContainer>
 	)
 }
