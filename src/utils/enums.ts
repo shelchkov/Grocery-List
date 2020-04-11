@@ -32,3 +32,8 @@ export enum LoginForms {
 	signIn = "signIn1",
 	signOut = "signOut2"
 }
+
+export enum ItemsSort {
+	createdAt = "createdAt",
+	checked = "checked"
+}
