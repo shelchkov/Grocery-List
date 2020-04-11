@@ -29,33 +29,36 @@ export const ListItems = ({
 		}
 
 		if (!item.id) {
-			console.warn("No item id")
+			console.warn("Can't change item status - No item id")
 			return
 		}
 
 		changeListItem({ isChecked: !item.isChecked }, listId, item.id)
 			.then((data) => {
-				console.log(`${item.name} was ${item.isChecked ? "unchecked" : "checked"}`)
+				console.log(`${item.name} was ${item.isChecked ?
+					"unchecked" : "checked"}`)
 			})
 			.catch(e => console.error("Couldn't change item status"))
 	}
 
+	if (!listItems || listItems.length === 0) {
+		const text = listItems ? noItemsText : loadingText
+		return (
+			<ListItemsContainer>
+				<ListItemsMessage text={text} />
+			</ListItemsContainer>
+		)
+	}
+
 	return (
 		<ListItemsContainer>
-			{!listItems ? <ListItemsMessage text={loadingText} /> : (
-				<>
-					{listItems.length === 0 ? 
-						<ListItemsMessage text={noItemsText} />
-					: (
-					listItems.map((item: Item): ReactElement =>
-						<ListItem
-							name={item.name}
-							isChecked={item.isChecked}
-							key={item.id}
-							toggleCheckItem={toggleCheckItem(item)}
-						/>)
-					)}
-				</>
+			{listItems.map((item: Item): ReactElement =>
+				<ListItem
+					name={item.name}
+					isChecked={item.isChecked}
+					key={item.id}
+					toggleCheckItem={toggleCheckItem(item)}
+				/>
 			)}
 		</ListItemsContainer>
 	)

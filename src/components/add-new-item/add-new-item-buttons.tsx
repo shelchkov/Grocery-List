@@ -12,21 +12,17 @@ interface Props {
 export const AddNewItemButtons = ({
 	isFormActive,
 	setFormActive
-}: Props): ReactElement => (
-	<>
-		{isFormActive ? (
-			<Button
-				text="+"
-				buttonType={BtnTypes.Plus}
-				type={ButtonTypes.submit}
-			/>
-		) : (
-			<Button
-				text="Add New Item"
-				buttonType={BtnTypes.AddNewItem}
-				clickHandler={setFormActive}
-				type={ButtonTypes.button}
-			/>
-		)}
-	</>
+}: Props): ReactElement => isFormActive ? (
+	<Button
+		text="+"
+		buttonType={BtnTypes.Plus}
+		type={ButtonTypes.submit}
+	/>
+) : (
+	<Button
+		text="Add New Item"
+		buttonType={BtnTypes.AddNewItem}
+		clickHandler={setFormActive}
+		type={ButtonTypes.button}
+	/>
 )

@@ -19,7 +19,6 @@ const ActionsContainer = styled.div`
 
 	display: flex;
 	justify-content: space-between;
-
 	height: ${sizes[2]};
 	padding: 13px 1.5rem;
 
@@ -28,8 +27,8 @@ const ActionsContainer = styled.div`
 
 export const Actions = ({ clearUser }: Props): ReactElement => {
 	const handleSignOut = (): void => {
-	signOut().then(clearUser).catch(console.log)
-}
+		signOut().then(clearUser).catch(console.log)
+	}
 
 	return (
 		<ActionsContainer>

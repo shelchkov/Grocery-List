@@ -81,7 +81,7 @@ export const signIn = async (
 		await auth.signInWithEmailAndPassword(email, password)
 		return { success: true }
 	} catch (e) {
-		console.log("Error whilte logging in", e.message)
+		console.log("Error whilte logging in:", e.message)
 		return { errorCode: e.code }
 	}
 }
