@@ -37,7 +37,7 @@ export const ListItems = ({
 
 		changeListItem({ isChecked: !item.isChecked }, listId, item.id)
 			.then((data) => {
-				console.log(`${item.name} was ${item.isChecked ?
+				console.log(`Item "${item.name}" was ${item.isChecked ?
 					"unchecked" : "checked"}`)
 			})
 			.catch(e => console.error("Couldn't change item status"))
