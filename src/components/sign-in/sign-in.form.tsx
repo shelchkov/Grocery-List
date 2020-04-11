@@ -38,7 +38,7 @@ const getSignInError = (errorCode: string): SignInErrors => {
 			return { [SignInInputs.email]: ["User was not found"] }
 
 		case "auth/wrong-password":
-			return { [SignInInputs.password]: ["Wrong Password"] }
+			return { [SignInInputs.password]: ["Wrong password"] }
 
 		default:
 			return {}

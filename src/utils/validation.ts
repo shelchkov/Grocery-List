@@ -22,7 +22,7 @@ export interface SignInErrors {
 }
 
 const signInErrors: { 
-	[key: string]: string[] | (string | number)[][]
+	[key: string]: SignInInputs[] | (SignInInputs | number)[][]
 } = {
 	required: [SignInInputs.email, SignInInputs.password],
 	minLength: [[SignInInputs.password, 4]]
