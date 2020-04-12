@@ -1,36 +1,57 @@
-import React, { ReactElement } from "react"
+import React, { ReactElement, useState } from "react"
 
 import { SignInContainer, SignInButtonContainer } from "../ui/containers"
 import { Input } from "../input/input"
 import { Button } from "../button/button"
 
 import { BtnTypes, ButtonTypes } from "../../utils/enums"
+import { SignUpInputs, SignUpFormData } from "../../utils/validation"
 
-export const SignUpForm = (): ReactElement => (
-	<form>
-		<SignInContainer>
-			<Input
-				placeholder="Name"
-				style={{ width: "fill-available" }}
-			/>
+export const SignUpForm = (): ReactElement => {
+	const [formData, setFormData] = useState<SignUpFormData>()
 
-			<Input
-				placeholder="Email"
-				style={{ width: "fill-available" }}
-			/>
+	const handleInputChange = (name: SignUpInputs) => (
+		event: React.ChangeEvent<HTMLInputElement>
+	): void =>
+		setFormData({ ...formData, [name]: event.currentTarget.value })
 
-			<Input
-				placeholder="Password"
-				style={{ width: "fill-available" }}
-			/>
+	const handleSubmit = (
+		event: React.FormEvent<HTMLFormElement>
+	): void => {
+		event.preventDefault()
 
-			<SignInButtonContainer>
-				<Button
-					buttonType={BtnTypes.SignUp}
-					text="Sign Up"
-					type={ButtonTypes.submit}
+		console.log(formData)
+	}
+
+	return (
+		<form onSubmit={handleSubmit}>
+			<SignInContainer>
+				<Input
+					placeholder="Name"
+					style={{ width: "fill-available" }}
+					onChange={handleInputChange(SignUpInputs.name)}
 				/>
-			</SignInButtonContainer>
-		</SignInContainer>
-	</form>
-)
+
+				<Input
+					placeholder="Email"
+					style={{ width: "fill-available" }}
+					onChange={handleInputChange(SignUpInputs.email)}
+				/>
+
+				<Input
+					placeholder="Password"
+					style={{ width: "fill-available" }}
+					onChange={handleInputChange(SignUpInputs.password)}
+				/>
+
+				<SignInButtonContainer>
+					<Button
+						buttonType={BtnTypes.SignUp}
+						text="Sign Up"
+						type={ButtonTypes.submit}
+					/>
+				</SignInButtonContainer>
+			</SignInContainer>
+		</form>
+	)
+}

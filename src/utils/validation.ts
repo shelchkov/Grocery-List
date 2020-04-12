@@ -80,3 +80,22 @@ export const signInValidation = (
 
 	return errors
 }
+
+
+export enum SignUpInputs {
+	name = "name",
+	email = "email",
+	password = "password"
+}
+
+export interface SignUpFormData {
+	[SignUpInputs.name]?: string,
+	[SignUpInputs.email]?: string,
+	[SignUpInputs.password]?: string
+}
+
+export interface SignUpErrors {
+	[SignUpInputs.name]?: string[],
+	[SignUpInputs.email]?: string[],
+	[SignUpInputs.password]?: string[]
+}
