@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react"
 
-import { SignInContainer, SignInButtonContainer } from "../ui/container"
+import { SignInContainer, SignInButtonContainer } from "../ui/containers"
 import { Input } from "../input/input"
 import { Button } from "../button/button"
 

@@ -3,7 +3,7 @@ import React, { ReactElement, useState } from "react"
 import { Logo } from "../components/logo/logo"
 import { LoginActions } from "../components/login-actions/login-actions"
 import { SignInForm } from "../components/sign-in/sign-in.form"
-import { Container } from "../components/ui/container"
+import { Container } from "../components/ui/containers"
 import { SignUpForm } from "../components/sign-up/sign-up.form"
 
 import { LoginForms } from "../utils/enums"

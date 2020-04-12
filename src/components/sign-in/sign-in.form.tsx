@@ -1,9 +1,8 @@
 import React, { ReactElement, useState } from "react"
-import styled from "styled-components"
 
 import { Input } from "../input/input"
 import { Button } from "../button/button"
-import { SignInContainer, SignInButtonContainer } from "../ui/container"
+import { SignInContainer, SignInButtonContainer } from "../ui/containers"
 
 import {
 	BtnTypes,

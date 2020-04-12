@@ -6,7 +6,7 @@ import {
 } from "../components/add-new-item/add-new-item.form"
 import { Actions } from "../components/actions/actions"
 import { ListItems } from "../components/list-items/list-items"
-import { Container } from "../components/ui/container"
+import { Container } from "../components/ui/containers"
 
 import { getUserInfo, getListItems } from "../utils/firebase"
 import { ListAccess } from "../utils/enums"
