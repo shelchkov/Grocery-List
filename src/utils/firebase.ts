@@ -25,21 +25,16 @@ export const subscribeToAuthChange = (
 	return { unsubscribe }
 }
 
-const createUser = (
-	email: string,
-	password: string
-): Promise<UserCredential> =>
-	auth.createUserWithEmailAndPassword(email, password)
+interface SignUpResponse {
+	error?: string
+	success?: boolean
+	alreadyRegistred?: boolean
+}
 
-export const createUserDocument = async (
+const createUserDocument = async (
 	user: User,
-	displayName: string,
 	email: string | null
-): Promise<DocumentReference | undefined> => {
-	if (!user) {
-		return
-	}
-
+): Promise<SignUpResponse> => {
 	const userRef = firestore.collection("users").doc(user.uid)
 	console.log(userRef)
 
@@ -47,36 +42,43 @@ export const createUserDocument = async (
 	console.log(snapShot)
 
 	if (snapShot.exists) {
-		return userRef
+		console.log("User was already registred")
+		return { alreadyRegistred: true }
 	}
 
 	const createdAt = new Date()
 
 	try {
 		await userRef.set({
-			displayName,
 			email,
 			createdAt
 		})
-	} catch (error) {
-		console.error("Error Creating User", error.message)
-	}
 
-	return userRef
+		return { success: true }
+	} catch (error) {
+		console.error("Error Creating User: ", error.message)
+		return { error: error.message }
+	}
 }
 
 export const signUp = async (
 	email: string,
 	password: string,
-	displayName: string
-): Promise<DocumentReference | undefined> => {
-	const user = await createUser(email, password)
-	
-	console.log(user)
+): Promise<SignUpResponse> => {
+	try {
+		const user = await auth
+			.createUserWithEmailAndPassword(email, password)
 
-	if (!user.user) return
+		console.log(user)
 
-	return createUserDocument(user.user, displayName, email)
+		if (!user.user) {
+			return { success: false }
+		}
+
+		return createUserDocument(user.user, email)
+	} catch (e) {
+		return { error: e.message }
+	}
 }
 
 interface SignInResponse {
