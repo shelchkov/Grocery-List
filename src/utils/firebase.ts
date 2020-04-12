@@ -125,20 +125,14 @@ interface Response {
 	error?: string
 	id?: string
 	success?: boolean
-	item?: Item
 }
 
 const createResponse = (
 	error: any,
 	id?: string,
-	item?: Item
 ): Response => {
 	if (error) {
 		return { error: error.message }
-	}
-
-	if (item) {
-		return item
 	}
 
 	return id ? { id } : { success: true }
@@ -171,13 +165,19 @@ const addListToUser = async (
 	}
 }
 
+interface AddItemResponse {
+	error?: string
+	listId?: string,
+	success?: boolean
+}
+
 export const getDate = (): string => Date.now().toString()
 
 export const addListItem = async (
 	itemName: string,
 	userId: string,
 	listId?: string,
-): Promise<Response> => {
+): Promise<AddItemResponse> => {
 	const item = {
 		name: itemName,
 		isChecked: false,
@@ -197,9 +197,9 @@ export const addListItem = async (
 
 			console.log(userList)
 
-			return createResponse(userList.error, newList.id)
+			return { listId: newList.id }
 		} catch (e) {
-			return createResponse(e)
+			return { error: e.message }
 		}
 	}
 
@@ -208,9 +208,9 @@ export const addListItem = async (
 		const listRef = firestore.collection("lists").doc(listId)
 		await listRef.collection("items").add(item)
 
-		return createResponse(null, item.createdAt, item)
+		return { success: true }
 	} catch (e) {
-		return createResponse(e)
+		return { error: e.message }
 	}
 }
 
