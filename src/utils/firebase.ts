@@ -4,11 +4,12 @@ import "firebase/auth"
 
 import { config } from "./firebase-constants"
 
-import {
-	DocumentReference,
-	// DocumentData
-} from "@firebase/firestore-types"
-import { User, UserCredential } from "@firebase/auth-types"
+// import {
+// 	DocumentReference,
+// 	DocumentData
+// } from "@firebase/firestore-types"
+// import { User, UserCredential } from "@firebase/auth-types"
+import { User } from "@firebase/auth-types"
 
 firebase.initializeApp(config)
 const auth = firebase.auth()
@@ -98,25 +99,6 @@ export const signIn = async (
 		return { errorCode: e.code }
 	}
 }
-
-// const getListItems = async (
-// 	listId: string
-// ): Promise<List | undefined> => {
-// 	const listRef = firestore.collection("lists").doc(listId)
-// 	const itemsRef = listRef.collection("items")
-
-// 	const items = await itemsRef.get()
-// 	const docs = items.docs.map((snapshot): Item => 
-// 		({ ...snapshot.data(), id: snapshot.id } as Item)
-// 	)
-// 	console.log(docs)
-
-// 	const list = { id: listId, items: docs }
-
-// 	return new Promise((res): void => {
-// 		res(list as List)
-// 	})
-// }
 
 export const getListItems = (
 	listId: string,
