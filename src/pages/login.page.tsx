@@ -4,6 +4,7 @@ import { Logo } from "../components/logo/logo"
 import { LoginActions } from "../components/login-actions/login-actions"
 import { SignInForm } from "../components/sign-in/sign-in.form"
 import { Container } from "../components/ui/container"
+import { SignUpForm } from "../components/sign-up/sign-up.form"
 
 import { LoginForms } from "../utils/enums"
 
@@ -26,7 +27,7 @@ export const LoginPage = (): ReactElement => {
 	return (
 		<Container>
 			<Logo />
-			<SignInForm />
+			{form === LoginForms.signIn ? <SignInForm /> : <SignUpForm />}
 			<LoginActions form={form} handleClick={changeForm} />
 		</Container>
 	)

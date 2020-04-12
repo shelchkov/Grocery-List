@@ -3,6 +3,7 @@ import styled from "styled-components"
 
 import { Input } from "../input/input"
 import { Button } from "../button/button"
+import { SignInContainer, SignInButtonContainer } from "../ui/container"
 
 import {
 	BtnTypes,
@@ -16,15 +17,6 @@ import {
 	signInValidation,
 	SignInErrors
 } from "../../utils/validation"
-
-const SignInContainer = styled.div`
-	margin-top: 22px;
-`
-
-const ButtonContainer = styled.div`
-	display: flex;
-	justify-content: flex-end;
-`
 
 const getSignInError = (errorCode: string): SignInErrors => {
 	switch(errorCode) {
@@ -110,13 +102,13 @@ export const SignInForm = (): ReactElement => {
 					errorMessage={getFieldError(SignInInputs.password)}
 				/>
 
-				<ButtonContainer>
+				<SignInButtonContainer>
 					<Button
 						buttonType={BtnTypes.SignIn}
 						text="Sign In"
 						type={ButtonTypes.submit}
 					/>
-				</ButtonContainer>
+				</SignInButtonContainer>
 			</SignInContainer>
 		</form>
 	)
