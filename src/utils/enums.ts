@@ -4,6 +4,7 @@ export enum BtnTypes {
 	ShareList = "ShareList",
 	SignOut = "SignOut",
 	SignIn = "SignIn",
+	SignUp = "SignUp"
 }
 
 export enum ButtonTypes {

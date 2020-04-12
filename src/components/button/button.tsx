@@ -58,6 +58,7 @@ const buttons = {
 	[BtnTypes.ShareList]: ShareListBtn,
 	[BtnTypes.SignOut]: SignOutBtn,
 	[BtnTypes.SignIn]: ShareListBtn,
+	[BtnTypes.SignUp]: SignOutBtn
 }
 
 export const Button = ({

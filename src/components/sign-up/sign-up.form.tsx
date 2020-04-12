@@ -26,7 +26,7 @@ export const SignUpForm = (): ReactElement => (
 
 			<SignInButtonContainer>
 				<Button
-					buttonType={BtnTypes.SignIn}
+					buttonType={BtnTypes.SignUp}
 					text="Sign Up"
 					type={ButtonTypes.submit}
 				/>
