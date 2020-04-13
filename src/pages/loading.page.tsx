@@ -20,6 +20,7 @@ interface LoadingStyles {
 }
 
 const LoadingMessage = styled.p<LoadingStyles>`
+	width: 70px;
 	margin: 0;
 	color: ${colors.lightGrey};
 	opacity: ${(p): string => p.opacity};
@@ -30,7 +31,22 @@ const LoadingMessage = styled.p<LoadingStyles>`
 	}
 `
 
-const initStyles = { opacity: ".6", afterContent: "" }
+const getNextOpacity = (currentOpacity: string): string => {
+	if (currentOpacity === ".5") {
+		return ".7"
+	}
+
+	if (currentOpacity === ".7") {
+		return ".9"
+	}
+
+	return ".5"
+}
+
+const getNextContent = (content: string): string => content.length < 3 ?
+	content + "." : ""
+
+const initStyles = { opacity: ".9", afterContent: "" }
 
 export const LoadingPage = (): ReactElement => {
 	const [loadingStyles, setLoadingStyles] = useState(initStyles)
@@ -39,13 +55,10 @@ export const LoadingPage = (): ReactElement => {
 		console.log("useEffect")
 		const timerId = setTimeout((): void => {
 			console.log("Timeout")
-			const newOpacity = 
-				loadingStyles.opacity === ".3" ? ".6" : ".3"
-			const newContent = loadingStyles.afterContent.length < 3 ?
-				loadingStyles.afterContent + "." : ""
+
 			setLoadingStyles({
-				opacity: newOpacity,
-				afterContent: newContent
+				opacity: getNextOpacity(loadingStyles.opacity),
+				afterContent: getNextContent(loadingStyles.afterContent)
 			})
 		}, 1000)
 
