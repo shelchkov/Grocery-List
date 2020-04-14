@@ -30,10 +30,13 @@ export const Actions = ({ clearUser }: Props): ReactElement => {
 
 	const handleSignOut = (): void => {
 		setIsLoading(true)
-		signOut().then((): void => {
+		signOut().then((data): void => {
+			if (data.error) {
+				setIsLoading(false)
+				return
+			}
 			clearUser()
-			setIsLoading(false)
-		}).catch(console.log)
+		})
 	}
 
 	return (

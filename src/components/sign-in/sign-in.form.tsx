@@ -73,8 +73,8 @@ export const SignInForm = (): ReactElement => {
 			.then((data): void => {
 				if (data.errorCode) {
 					setFormErrors(getSignInError(data.errorCode))
+					setIsLoading(false)
 				}
-				setIsLoading(false)
 			})
 	}
 
