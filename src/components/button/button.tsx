@@ -62,6 +62,14 @@ const buttons = {
 	[BtnTypes.SignUp]: SignOutBtn
 }
 
+const getLoadingText = (buttonType: BtnTypes): string => {
+	if (buttonType === BtnTypes.Plus) {
+		return "..."
+	}
+
+	return "Loading..."
+}
+
 export const Button = ({
 	text, 
 	buttonType,
@@ -76,7 +84,7 @@ export const Button = ({
 			onClick={clickHandler}
 			type={type}
 		>
-			{isLoading ? "Loading..." : text}
+			{isLoading ? getLoadingText(buttonType) : text}
 		</BtnComponent>
 	)
 }
