@@ -10,3 +10,12 @@ export const Container = styled.div`
 
 	background-color: ${colors.grey};
 `
+
+export const SignInContainer = styled.div`
+	margin-top: 22px;
+`
+
+export const SignInButtonContainer = styled.div`
+	display: flex;
+	justify-content: flex-end;
+`
