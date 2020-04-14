@@ -39,6 +39,7 @@ const getSignInError = (errorCode: string): SignInErrors => {
 export const SignInForm = (): ReactElement => {
 	const [formData, setFormData] = useState<SignInFormData>()
 	const [formErrors, setFormErrors] = useState<SignInErrors>()
+	const [isLoading, setIsLoading] = useState<boolean>()
 
 	const handleInputChange = (name: SignInInputs) => (
 		event: React.ChangeEvent<HTMLInputElement>
@@ -66,11 +67,14 @@ export const SignInForm = (): ReactElement => {
 			return
 		}
 
+		setIsLoading(true)
+
 		signIn(formData.email, formData.password)
 			.then((data): void => {
 				if (data.errorCode) {
 					setFormErrors(getSignInError(data.errorCode))
 				}
+				setIsLoading(false)
 			})
 	}
 
@@ -106,6 +110,7 @@ export const SignInForm = (): ReactElement => {
 						buttonType={BtnTypes.SignIn}
 						text="Sign In"
 						type={ButtonTypes.submit}
+						isLoading={isLoading}
 					/>
 				</SignInButtonContainer>
 			</SignInContainer>
