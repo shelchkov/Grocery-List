@@ -8,7 +8,8 @@ import { BtnTypes, ButtonTypes } from "../../utils/enums"
 import {
 	SignUpInputs,
 	SignUpFormData,
-	SignUpErrors
+	SignUpErrors,
+	signUpValidation
 } from "../../utils/validation"
 import { signUp } from "../../utils/firebase"
 
@@ -53,6 +54,16 @@ export const SignUpForm = (): ReactElement => {
 		event.preventDefault()
 
 		console.log(formData)
+
+		const errors = signUpValidation(formData)
+
+		setFormErrors(errors)
+
+		if (errors) {
+			console.log(errors)
+			
+			return
+		}
 
 		if (!formData || !formData.email || !formData.password) {
 			return

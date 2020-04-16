@@ -1,24 +1,12 @@
-const errorMessages: {
-	[key: string]: (parameter?: number | string) => string
-} = {
-	required: (): string => "Required Field",
-	minLength: (parameter?: number | string): string =>
-		`Minimum length is ${parameter} characters`
-}
-
 export enum SignInInputs {
 	email = "email",
 	password = "password"
 }
 
-export interface SignInFormData {
-	[SignInInputs.email]?: string,
-	[SignInInputs.password]?: string
-}
-
-export interface SignInErrors {
-	[SignInInputs.email]?: string[],
-	[SignInInputs.password]?: string[]
+export enum SignUpInputs {
+	name = "name",
+	email = "email",
+	password = "password"
 }
 
 const signInErrors: { 
@@ -26,6 +14,29 @@ const signInErrors: {
 } = {
 	required: [SignInInputs.email, SignInInputs.password],
 	minLength: [[SignInInputs.password, 4]]
+}
+
+const signUpErrors: { 
+	[key: string]: SignUpInputs[] | (SignUpInputs | number)[][]
+} = {
+	required: [
+		SignUpInputs.name,
+		SignUpInputs.email,
+		SignUpInputs.password
+	],
+	minLength: [
+		[SignUpInputs.password, 4],
+		[SignUpInputs.name, 2],
+	]
+}
+
+
+const errorMessages: {
+	[key: string]: (parameter?: number | string) => string
+} = {
+	required: (): string => "Required Field",
+	minLength: (parameter?: number | string): string =>
+		`Minimum length is ${parameter} characters`
 }
 
 const checkers: {
@@ -40,6 +51,29 @@ const checkers: {
 
 		return value.length < parameter
 	}
+}
+
+
+export interface SignInFormData {
+	[SignInInputs.email]?: string,
+	[SignInInputs.password]?: string
+}
+
+export interface SignInErrors {
+	[SignInInputs.email]?: string[],
+	[SignInInputs.password]?: string[]
+}
+
+export interface SignUpFormData {
+	[SignUpInputs.name]?: string,
+	[SignUpInputs.email]?: string,
+	[SignUpInputs.password]?: string
+}
+
+export interface SignUpErrors {
+	[SignUpInputs.name]?: string[],
+	[SignUpInputs.email]?: string[],
+	[SignUpInputs.password]?: string[]
 }
 
 export const signInValidation = (
@@ -81,21 +115,41 @@ export const signInValidation = (
 	return errors
 }
 
+export const signUpValidation = (
+	formData?: SignUpFormData
+): SignUpErrors | undefined => {
+	if (!formData) {
+		return Object.keys(SignUpInputs).map((key): string => 
+			errorMessages.required()) as SignUpErrors
+	}
 
-export enum SignUpInputs {
-	name = "name",
-	email = "email",
-	password = "password"
-}
+	const errors: SignUpErrors = {}
 
-export interface SignUpFormData {
-	[SignUpInputs.name]?: string,
-	[SignUpInputs.email]?: string,
-	[SignUpInputs.password]?: string
-}
+	Object.keys(signUpErrors).forEach((error: string): void => {
+		const fields = signUpErrors[error]
 
-export interface SignUpErrors {
-	[SignUpInputs.name]?: string[],
-	[SignUpInputs.email]?: string[],
-	[SignUpInputs.password]?: string[]
+		fields.forEach((input: string | (string | number)[]): void => {
+			const field = Array.isArray(input) ? input[0] : input
+			const parameters = Array.isArray(input) ? input[1] : undefined
+
+			if (checkers[error](
+				formData[field as SignUpInputs],
+				parameters
+			)) {
+				const errorMessage = errorMessages[error](parameters)
+
+				errors[field as SignUpInputs] = 
+				errors[field as SignUpInputs] ? [
+					...(errors[field as SignUpInputs] as string[]),
+					errorMessage
+				] : [ errorMessage ]
+			}
+		})
+	})
+
+	if (Object.keys(errors).length === 0) {
+		return
+	}
+
+	return errors
 }
