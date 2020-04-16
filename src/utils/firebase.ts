@@ -30,6 +30,7 @@ interface SignUpResponse {
 	error?: string
 	success?: boolean
 	alreadyRegistred?: boolean
+	errorCode?: string
 }
 
 const createUserDocument = async (
@@ -78,7 +79,7 @@ export const signUp = async (
 
 		return createUserDocument(user.user, email)
 	} catch (e) {
-		return { error: e.message }
+		return { errorCode: e.code }
 	}
 }
 
