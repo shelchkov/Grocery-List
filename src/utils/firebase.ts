@@ -4,31 +4,38 @@ import "firebase/auth"
 
 import { config } from "./firebase-constants"
 
-import {
-	DocumentReference,
-	// DocumentData
-} from "@firebase/firestore-types"
-import { User, UserCredential } from "@firebase/auth-types"
+// import {
+// 	DocumentReference,
+// 	DocumentData
+// } from "@firebase/firestore-types"
+// import { User, UserCredential } from "@firebase/auth-types"
+import { User } from "@firebase/auth-types"
 
 firebase.initializeApp(config)
-export const auth = firebase.auth()
+const auth = firebase.auth()
 const firestore = firebase.firestore()
 
-const createUser = (
-	email: string,
-	password: string
-): Promise<UserCredential> =>
-	auth.createUserWithEmailAndPassword(email, password)
+interface Subscription {
+	unsubscribe: () => void
+}
 
-export const createUserDocument = async (
+export const subscribeToAuthChange = (
+	callback: (user: User | null) => Promise<void>
+): Subscription => {
+	const unsubscribe = auth.onAuthStateChanged(callback)
+	return { unsubscribe }
+}
+
+interface SignUpResponse {
+	error?: string
+	success?: boolean
+	alreadyRegistred?: boolean
+}
+
+const createUserDocument = async (
 	user: User,
-	displayName: string,
 	email: string | null
-): Promise<DocumentReference | undefined> => {
-	if (!user) {
-		return
-	}
-
+): Promise<SignUpResponse> => {
 	const userRef = firestore.collection("users").doc(user.uid)
 	console.log(userRef)
 
@@ -36,36 +43,43 @@ export const createUserDocument = async (
 	console.log(snapShot)
 
 	if (snapShot.exists) {
-		return userRef
+		console.log("User was already registred")
+		return { alreadyRegistred: true }
 	}
 
 	const createdAt = new Date()
 
 	try {
 		await userRef.set({
-			displayName,
 			email,
 			createdAt
 		})
-	} catch (error) {
-		console.error("Error Creating User", error.message)
-	}
 
-	return userRef
+		return { success: true }
+	} catch (error) {
+		console.error("Error Creating User: ", error.message)
+		return { error: error.message }
+	}
 }
 
 export const signUp = async (
 	email: string,
 	password: string,
-	displayName: string
-): Promise<DocumentReference | undefined> => {
-	const user = await createUser(email, password)
-	
-	console.log(user)
+): Promise<SignUpResponse> => {
+	try {
+		const user = await auth
+			.createUserWithEmailAndPassword(email, password)
 
-	if (!user.user) return
+		console.log(user)
 
-	return createUserDocument(user.user, displayName, email)
+		if (!user.user) {
+			return { success: false }
+		}
+
+		return createUserDocument(user.user, email)
+	} catch (e) {
+		return { error: e.message }
+	}
 }
 
 interface SignInResponse {
@@ -85,29 +99,6 @@ export const signIn = async (
 		return { errorCode: e.code }
 	}
 }
-
-interface Subscription {
-	unsubscribe: () => void
-}
-
-// const getListItems = async (
-// 	listId: string
-// ): Promise<List | undefined> => {
-// 	const listRef = firestore.collection("lists").doc(listId)
-// 	const itemsRef = listRef.collection("items")
-
-// 	const items = await itemsRef.get()
-// 	const docs = items.docs.map((snapshot): Item => 
-// 		({ ...snapshot.data(), id: snapshot.id } as Item)
-// 	)
-// 	console.log(docs)
-
-// 	const list = { id: listId, items: docs }
-
-// 	return new Promise((res): void => {
-// 		res(list as List)
-// 	})
-// }
 
 export const getListItems = (
 	listId: string,
@@ -134,20 +125,14 @@ interface Response {
 	error?: string
 	id?: string
 	success?: boolean
-	item?: Item
 }
 
 const createResponse = (
 	error: any,
 	id?: string,
-	item?: Item
 ): Response => {
 	if (error) {
 		return { error: error.message }
-	}
-
-	if (item) {
-		return item
 	}
 
 	return id ? { id } : { success: true }
@@ -180,13 +165,19 @@ const addListToUser = async (
 	}
 }
 
+interface AddItemResponse {
+	error?: string
+	listId?: string,
+	success?: boolean
+}
+
 export const getDate = (): string => Date.now().toString()
 
 export const addListItem = async (
 	itemName: string,
 	userId: string,
 	listId?: string,
-): Promise<Response> => {
+): Promise<AddItemResponse> => {
 	const item = {
 		name: itemName,
 		isChecked: false,
@@ -206,9 +197,9 @@ export const addListItem = async (
 
 			console.log(userList)
 
-			return createResponse(userList.error, newList.id)
+			return { listId: newList.id }
 		} catch (e) {
-			return createResponse(e)
+			return { error: e.message }
 		}
 	}
 
@@ -217,9 +208,9 @@ export const addListItem = async (
 		const listRef = firestore.collection("lists").doc(listId)
 		await listRef.collection("items").add(item)
 
-		return createResponse(null, item.createdAt, item)
+		return { success: true }
 	} catch (e) {
-		return createResponse(e)
+		return { error: e.message }
 	}
 }
 
@@ -239,11 +230,26 @@ export const changeListItem = async (
 	itemId: string,
 ): Promise<Response> => {
 	const listRef = firestore.collection("lists").doc(listId)
-	const itemsRef = listRef.collection("items").doc(itemId)
+	const itemRef = listRef.collection("items").doc(itemId)
 
 	try {
-		await itemsRef.update(itemChanges)
+		await itemRef.update(itemChanges)
 
+		return createResponse(null)
+	} catch (e) {
+		return createResponse(e)
+	}
+}
+
+export const deleteListItem = async (
+	listId: string,
+	itemId: string
+): Promise<Response> => {
+	const listRef = firestore.collection("lists").doc(listId)
+	const itemRef = listRef.collection("items").doc(itemId)
+
+	try {
+		await itemRef.delete()
 		return createResponse(null)
 	} catch (e) {
 		return createResponse(e)

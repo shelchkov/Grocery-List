@@ -55,12 +55,12 @@ export const AddNewItemForm = ({
 
 		addListItem(formData.name, userId, listId)
 			.then((data): void => {
-				if (listId) {
+				if (!data.listId) {
 					console.log(
-						`New item was added - ${(data as Item).name}`
+						`New item was added - ${formData.name}`
 					)
 				} else {
-					console.log(`New list was created - ${data.id}`)
+					console.log(`New list was created - ${data.listId}`)
 				}
 			}).catch((e) => {
 				console.error("Error while adding new item", e)
