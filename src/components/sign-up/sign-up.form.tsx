@@ -30,6 +30,14 @@ const getSignUpError = (errorCode: string): SignUpErrors => {
 	}
 }
 
+const objectFromExecutions = (
+	values: string[],
+	func: (value: any) => any
+): { [key: string]: any } => 
+	values.reduce((acc, value): { [key: string]: any } =>
+		({ ...acc, [value]: func(value) })
+	, {})
+
 export const SignUpForm = (): ReactElement => {
 	const [formData, setFormData] = useState<SignUpFormData>()
 	const [formErrors, setFormErrors] = useState<SignUpErrors>()
@@ -74,27 +82,32 @@ export const SignUpForm = (): ReactElement => {
 		return (formErrors[name] as string[])[0]
 	}
 
+	const onChangeHandlers = objectFromExecutions(
+		[SignUpInputs.name, SignUpInputs.email, SignUpInputs.password],
+		handleInputChange
+	)
+
 	return (
 		<form onSubmit={handleSubmit}>
 			<SignInContainer>
 				<Input
 					placeholder="Name"
 					style={{ width: "fill-available" }}
-					onChange={handleInputChange(SignUpInputs.name)}
+					onChange={onChangeHandlers[SignUpInputs.name]}
 					errorMessage={getFieldError(SignUpInputs.name)}
 				/>
 
 				<Input
 					placeholder="Email"
 					style={{ width: "fill-available" }}
-					onChange={handleInputChange(SignUpInputs.email)}
+					onChange={onChangeHandlers[SignUpInputs.email]}
 					errorMessage={getFieldError(SignUpInputs.email)}
 				/>
 
 				<Input
 					placeholder="Password"
 					style={{ width: "fill-available" }}
-					onChange={handleInputChange(SignUpInputs.password)}
+					onChange={onChangeHandlers[SignUpInputs.password]}
 					errorMessage={getFieldError(SignUpInputs.password)}
 				/>
 
