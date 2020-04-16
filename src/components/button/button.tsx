@@ -30,6 +30,7 @@ const ButtonBase = styled.button`
 
 	outline: none;
 	cursor: pointer;
+	-webkit-appearance: none;
 `
 
 const AddNewItemBtn = styled(ButtonBase)`
@@ -40,7 +41,6 @@ const AddNewItemBtn = styled(ButtonBase)`
 const PlusBtn = styled(AddNewItemBtn)`
 	width: ${sizes[2]};
 	margin-left: 12px;
-	font-size: ${sizes[1]};
 `
 
 const ShareListBtn = styled(ButtonBase)`
