@@ -6,6 +6,7 @@ import { Button } from "../button/button"
 
 import { BtnTypes, ButtonTypes } from "../../utils/enums"
 import { SignUpInputs, SignUpFormData } from "../../utils/validation"
+import { signUp } from "../../utils/firebase"
 
 export const SignUpForm = (): ReactElement => {
 	const [formData, setFormData] = useState<SignUpFormData>()
@@ -21,6 +22,12 @@ export const SignUpForm = (): ReactElement => {
 		event.preventDefault()
 
 		console.log(formData)
+
+		if (!formData || !formData.email || !formData.password) {
+			return
+		}
+
+		signUp(formData.email, formData.password)
 	}
 
 	return (
