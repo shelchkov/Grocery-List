@@ -17,7 +17,7 @@ interface Props {
 const InputComponent = styled.input`
 	height: 30px;
 	min-width: ${(p): string => p.width ? p.width.toString() : "213px"};
-	padding-left: 11px;
+	padding: 2px 0  0 11px;
 
 	color: ${colors.darkBlue};
 	background: transparent;
@@ -25,7 +25,7 @@ const InputComponent = styled.input`
 	border-radius: ${spaces[0]};
 	border: 1px solid ${colors.darkBlue};
 
-	font-size: 14px;
+	font-size: 16px;
 	outline: none;
 
 	&::placeholder {
