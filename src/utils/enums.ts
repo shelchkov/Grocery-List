@@ -5,7 +5,8 @@ export enum BtnTypes {
 	SignOut = "SignOut",
 	SignIn = "SignIn",
 	SignUp = "SignUp",
-	DeleteItem = "DeleteItem"
+	DeleteItem = "DeleteItem",
+	No = "No"
 }
 
 export enum ButtonTypes {

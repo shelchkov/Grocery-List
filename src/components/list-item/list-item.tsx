@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import React, { ReactElement, useState } from "react"
 import styled from "styled-components"
 
 import { CheckedIcon } from "./checked-icon"
@@ -21,25 +21,62 @@ const ItemContainer = styled.div`
 `
 
 const NameContainer = styled.p`
-	margin: 0 0 0 13px;
+	margin: 0;
 	color: ${colors.darkBlue};
 	font-size: ${sizes[3]};
 `
 
 const IconContainer = styled.div`
 	height: 26px;
+	margin-right: 13px;
 `
 
 export const ListItem = ({
 	name,
 	isChecked,
 	toggleCheckItem
-}: Props): ReactElement => (
-	<ItemContainer>
-		<IconContainer onClick={toggleCheckItem}>
-			{isChecked ? <CheckedIcon /> : <UncheckedIcon />}
-		</IconContainer>
-		<NameContainer>{name}</NameContainer>
-		<Button text="Delete" buttonType={BtnTypes.DeleteItem} />
-	</ItemContainer>
-)
+}: Props): ReactElement => {
+	const [isDeleting, setIsDeleting] = useState<boolean>(false)
+
+	const startDeleting = (): void => setIsDeleting(true)
+
+	const stopDeleting = (): void => setIsDeleting(false)
+
+	const handleDelete = (): void => {
+		setIsDeleting(false)
+	}
+
+	return (
+		<ItemContainer>
+			{isDeleting ? (
+				<>
+					<NameContainer>Delete?</NameContainer>
+					<Button
+						text="Yes"
+						buttonType={BtnTypes.DeleteItem}
+						clickHandler={handleDelete}
+						style={{ width: "60px "}}
+					/>
+					<Button
+						text="No"
+						buttonType={BtnTypes.No}
+						clickHandler={stopDeleting}
+						style={{ width: "60px "}}
+					/>
+				</>
+			) : (
+				<>
+					<IconContainer onClick={toggleCheckItem}>
+						{isChecked ? <CheckedIcon /> : <UncheckedIcon />}
+					</IconContainer>
+					<NameContainer>{name}</NameContainer>
+					<Button
+						text="Delete"
+						buttonType={BtnTypes.DeleteItem}
+						clickHandler={startDeleting}
+					/>
+				</>
+			)}
+		</ItemContainer>
+	)
+}

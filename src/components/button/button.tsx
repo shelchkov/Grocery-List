@@ -15,10 +15,12 @@ interface Props {
 	buttonType: BtnTypes
 	clickHandler?: () => void
 	type?: ButtonTypes
+	style?: Styles
 }
 
 const ButtonBase = styled.button`
 	height: ${sizes[2]};
+	${({ width }: Styles) => width && `width: ${width};`}
 
 	color: ${colors.grey};
 	border: none;
@@ -64,6 +66,13 @@ const DeleteItemBtn = styled(OutlinedButton)`
 	padding: 0 14px;
 `
 
+const NoBtn = styled(DeleteItemBtn)`
+	margin-left: 12px;
+	color: ${colors.grey};
+	background-color: ${colors.darkGreen};
+	border: none;
+`
+
 const buttons = {
 	[BtnTypes.AddNewItem]: AddNewItemBtn,
 	[BtnTypes.Plus]: PlusBtn,
@@ -71,7 +80,8 @@ const buttons = {
 	[BtnTypes.SignOut]: SignOutBtn,
 	[BtnTypes.SignIn]: ShareListBtn,
 	[BtnTypes.SignUp]: SignOutBtn,
-	[BtnTypes.DeleteItem]: DeleteItemBtn
+	[BtnTypes.DeleteItem]: DeleteItemBtn,
+	[BtnTypes.No]: NoBtn
 }
 
 export const Button = ({
@@ -79,6 +89,7 @@ export const Button = ({
 	buttonType,
 	clickHandler,
 	type = ButtonTypes.button,
+	style,
 }: Props): ReactElement | null => {
 	const BtnComponent = buttons[buttonType]
 
@@ -86,6 +97,7 @@ export const Button = ({
 		<BtnComponent
 			onClick={clickHandler}
 			type={type}
+			width={style && style.width}
 		>
 			{text}
 		</BtnComponent>
