@@ -7,11 +7,13 @@ import { Button } from "../button/button"
 
 import { sizes, colors } from "../../utils/styles"
 import { BtnTypes } from "../../utils/enums"
+import { Response } from "../../utils/firebase"
 
 interface Props {
 	name: string
 	isChecked: boolean
 	toggleCheckItem: () => void
+	deleteItem?: () => Promise<Response>
 }
 
 const ItemContainer = styled.div`
@@ -34,7 +36,8 @@ const IconContainer = styled.div`
 export const ListItem = ({
 	name,
 	isChecked,
-	toggleCheckItem
+	toggleCheckItem,
+	deleteItem
 }: Props): ReactElement => {
 	const [isDeleting, setIsDeleting] = useState<boolean>(false)
 
@@ -43,7 +46,16 @@ export const ListItem = ({
 	const stopDeleting = (): void => setIsDeleting(false)
 
 	const handleDelete = (): void => {
-		setIsDeleting(false)
+		if (!deleteItem) {
+			console.warn("No item id or list id was provided")
+
+			return 
+		}
+
+		deleteItem().then(({ error }): void => {
+			error && console.error("Error while deleting item:", error)
+			error && setIsDeleting(false)
+		})
 	}
 
 	return (

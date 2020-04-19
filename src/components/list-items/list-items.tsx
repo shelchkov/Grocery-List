@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { ListItem } from "../list-item/list-item"
 import { ListItemsMessage } from "./list-items-message"
 
-import { changeListItem } from "../../utils/firebase"
+import { changeListItem, deleteListItem } from "../../utils/firebase"
 
 interface Props {
 	listItems: Item[] | undefined
@@ -52,14 +52,18 @@ export const ListItems = ({
 
 	return (
 		<ListItemsContainer>
-			{listItems.map((item: Item): ReactElement =>
-				<ListItem
+			{listItems.map((item: Item): ReactElement => {
+				const deleteItem = listId && item.id ?
+					deleteListItem.bind({}, listId, item.id) : undefined
+
+				return <ListItem
 					name={item.name}
 					isChecked={item.isChecked}
 					key={item.id}
 					toggleCheckItem={toggleCheckItem(item)}
+					deleteItem={deleteItem}
 				/>
-			)}
+			})}
 		</ListItemsContainer>
 	)
 }
