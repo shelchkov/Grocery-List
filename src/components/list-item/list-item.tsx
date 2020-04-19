@@ -3,8 +3,10 @@ import styled from "styled-components"
 
 import { CheckedIcon } from "./checked-icon"
 import { UncheckedIcon } from "./unchecked-icon"
+import { Button } from "../button/button"
 
 import { sizes, colors } from "../../utils/styles"
+import { BtnTypes } from "../../utils/enums"
 
 interface Props {
 	name: string
@@ -38,5 +40,6 @@ export const ListItem = ({
 			{isChecked ? <CheckedIcon /> : <UncheckedIcon />}
 		</IconContainer>
 		<NameContainer>{name}</NameContainer>
+		<Button text="Delete" buttonType={BtnTypes.DeleteItem} />
 	</ItemContainer>
 )

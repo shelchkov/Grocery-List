@@ -32,6 +32,12 @@ const ButtonBase = styled.button`
 	cursor: pointer;
 `
 
+const OutlinedButton = styled(ButtonBase)`
+	color: ${colors.orange};
+	background-color: transparent;
+	border: 1px solid ${colors.orange};
+`
+
 const AddNewItemBtn = styled(ButtonBase)`
 	width: 150px;
 	background-color: ${colors.green};
@@ -52,13 +58,20 @@ const SignOutBtn = styled(ShareListBtn)`
 	background-color: ${colors.orange};
 `
 
+const DeleteItemBtn = styled(OutlinedButton)`
+	height: 29px;
+	margin-left: auto;
+	padding: 0 14px;
+`
+
 const buttons = {
 	[BtnTypes.AddNewItem]: AddNewItemBtn,
 	[BtnTypes.Plus]: PlusBtn,
 	[BtnTypes.ShareList]: ShareListBtn,
 	[BtnTypes.SignOut]: SignOutBtn,
 	[BtnTypes.SignIn]: ShareListBtn,
-	[BtnTypes.SignUp]: SignOutBtn
+	[BtnTypes.SignUp]: SignOutBtn,
+	[BtnTypes.DeleteItem]: DeleteItemBtn
 }
 
 export const Button = ({
