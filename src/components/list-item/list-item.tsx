@@ -12,7 +12,7 @@ import { Response } from "../../utils/firebase"
 interface Props {
 	name: string
 	isChecked: boolean
-	toggleCheckItem: () => void
+	toggleCheckItem?: () => Promise<Response>
 	deleteItem?: () => Promise<Response>
 }
 
@@ -58,6 +58,21 @@ export const ListItem = ({
 		})
 	}
 
+	const handleToggle = (): void => {
+		if (!toggleCheckItem) {
+			console.warn("Couldn't change item - No list id or item id")
+
+			return
+		}
+
+		toggleCheckItem()
+			.then((data) => {
+				data.error ? console.error("Couldn't change item status")
+				: console.log(`${name} was ${isChecked ?
+					"unchecked" : "checked"}`)
+			})
+	}
+
 	return (
 		<ItemContainer>
 			{isDeleting ? (
@@ -78,7 +93,7 @@ export const ListItem = ({
 				</>
 			) : (
 				<>
-					<IconContainer onClick={toggleCheckItem}>
+					<IconContainer onClick={handleToggle}>
 						{isChecked ? <CheckedIcon /> : <UncheckedIcon />}
 					</IconContainer>
 					<NameContainer>{name}</NameContainer>
