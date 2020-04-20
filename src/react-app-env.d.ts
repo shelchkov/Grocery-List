@@ -17,6 +17,7 @@ interface Styles {
 	height?: string
 	backgroundColor?: string
 	color?: string
+	boxShadow?: string
 }
 
 interface Item {

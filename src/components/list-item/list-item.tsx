@@ -101,6 +101,7 @@ export const ListItem = ({
 						text="Delete"
 						buttonType={BtnTypes.DeleteItem}
 						clickHandler={startDeleting}
+						style={{ boxShadow: "none" }}
 					/>
 				</>
 			)}

@@ -25,7 +25,7 @@ const ButtonBase = styled.button`
 	color: ${colors.grey};
 	border: none;
 	border-radius: ${spaces[0]};
-	box-shadow: ${boxShadows[0]};
+	box-shadow: ${(p): string => p.boxShadow ? p.boxShadow : boxShadows[0]};
 
 	font-weight: ${fontWeights[0]};
 	font-size: ${sizes[0]};
@@ -97,7 +97,7 @@ export const Button = ({
 		<BtnComponent
 			onClick={clickHandler}
 			type={type}
-			width={style && style.width}
+			{...style}
 		>
 			{text}
 		</BtnComponent>
