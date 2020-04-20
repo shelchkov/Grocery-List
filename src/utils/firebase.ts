@@ -121,7 +121,7 @@ export const getListItems = (
 	return { unsubscribe }
 }
 
-interface Response {
+export interface Response {
 	error?: string
 	id?: string
 	success?: boolean
