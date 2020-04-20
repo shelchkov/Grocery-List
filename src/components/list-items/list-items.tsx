@@ -5,6 +5,8 @@ import { ListItem } from "../list-item/list-item"
 import { ListItemsMessage } from "./list-items-message"
 
 import { changeListItem } from "../../utils/firebase"
+import { sortItems } from "../../utils/utils"
+import { ItemsSort } from "../../utils/enums" 
 
 interface Props {
 	listItems: Item[] | undefined
@@ -35,7 +37,7 @@ export const ListItems = ({
 
 		changeListItem({ isChecked: !item.isChecked }, listId, item.id)
 			.then((data) => {
-				console.log(`${item.name} was ${item.isChecked ?
+				console.log(`Item "${item.name}" was ${item.isChecked ?
 					"unchecked" : "checked"}`)
 			})
 			.catch(e => console.error("Couldn't change item status"))
@@ -50,9 +52,11 @@ export const ListItems = ({
 		)
 	}
 
+	const sortedListItems = sortItems(listItems, ItemsSort.createdAt)
+
 	return (
 		<ListItemsContainer>
-			{listItems.map((item: Item): ReactElement =>
+			{sortedListItems.map((item: Item): ReactElement =>
 				<ListItem
 					name={item.name}
 					isChecked={item.isChecked}

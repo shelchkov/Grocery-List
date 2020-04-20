@@ -7,13 +7,15 @@ import { Container } from "../components/ui/containers"
 import { SignUpForm } from "../components/sign-up/sign-up.form"
 
 import { LoginForms } from "../utils/enums"
+import { copyObject } from "../utils/utils"
 
 export const LoginPage = (): ReactElement => {
 	const [form, setForm] = useState<LoginForms>(LoginForms.signIn)
 
 	const changeForm = (): void => {
 		const formTypes = Object.keys(LoginForms)
-		const forms = JSON.parse(JSON.stringify(LoginForms))
+		const forms: { [key: string]: LoginForms } = 
+			copyObject(LoginForms)
 
 		const index = formTypes.findIndex(
 			(element): boolean => forms[element] === form
