@@ -16,7 +16,7 @@ interface Props {
 	clearUser: () => void
 }
 
-const currentList = 1
+const currentList = 0
 
 export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 	const [lists, setLists] = useState<{ [key: string]: List }>()
