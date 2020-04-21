@@ -5,10 +5,43 @@ import { Input } from "../input/input"
 import { Button } from "../button/button"
 
 import { BtnTypes, ButtonTypes } from "../../utils/enums"
-import { SignUpInputs, SignUpFormData } from "../../utils/validation"
+import {
+	SignUpInputs,
+	SignUpFormData,
+	SignUpErrors,
+	signUpValidation
+} from "../../utils/validation"
+import { signUp } from "../../utils/firebase"
+
+const getSignUpError = (errorCode: string): SignUpErrors => {
+	switch(errorCode) {
+		case "auth/email-already-in-use":
+			return { [SignUpInputs.email]: ["Email is already in use"] }
+
+		case "auth/invalid-email":
+			return { [SignUpInputs.email]: ["Email is not valid"] }
+
+		case "auth/weak-password":
+			return {
+				[SignUpInputs.password]: ["Password is not strong enought"]
+			}
+
+		default:
+			return {}
+	}
+}
+
+const objectFromExecutions = (
+	values: string[],
+	func: (value: any) => any
+): { [key: string]: any } => 
+	values.reduce((acc, value): { [key: string]: any } =>
+		({ ...acc, [value]: func(value) })
+	, {})
 
 export const SignUpForm = (): ReactElement => {
 	const [formData, setFormData] = useState<SignUpFormData>()
+	const [formErrors, setFormErrors] = useState<SignUpErrors>()
 
 	const handleInputChange = (name: SignUpInputs) => (
 		event: React.ChangeEvent<HTMLInputElement>
@@ -21,7 +54,49 @@ export const SignUpForm = (): ReactElement => {
 		event.preventDefault()
 
 		console.log(formData)
+
+		const errors = signUpValidation(formData)
+
+		setFormErrors(errors)
+
+		if (errors) {
+			console.log(errors)
+			
+			return
+		}
+
+		if (!formData || !formData.email || !formData.password) {
+			return
+		}
+
+		signUp(formData.email, formData.password)
+			.then((data): void => {
+				console.log(data)
+
+				const errorCode = data.errorCode
+
+				if (errorCode) {
+					if (errorCode === "auth/operation-not-allowed") {
+						console.error("Operation is not allowed")
+					}
+
+					setFormErrors(getSignUpError(errorCode))
+				}
+			})
 	}
+
+	const getFieldError = (name: SignUpInputs): string | undefined => {
+		if (!formErrors || !formErrors[name]) {
+			return
+		}
+
+		return (formErrors[name] as string[])[0]
+	}
+
+	const onChangeHandlers = objectFromExecutions(
+		[SignUpInputs.name, SignUpInputs.email, SignUpInputs.password],
+		handleInputChange
+	)
 
 	return (
 		<form onSubmit={handleSubmit}>
@@ -29,19 +104,22 @@ export const SignUpForm = (): ReactElement => {
 				<Input
 					placeholder="Name"
 					style={{ width: "fill-available" }}
-					onChange={handleInputChange(SignUpInputs.name)}
+					onChange={onChangeHandlers[SignUpInputs.name]}
+					errorMessage={getFieldError(SignUpInputs.name)}
 				/>
 
 				<Input
 					placeholder="Email"
 					style={{ width: "fill-available" }}
-					onChange={handleInputChange(SignUpInputs.email)}
+					onChange={onChangeHandlers[SignUpInputs.email]}
+					errorMessage={getFieldError(SignUpInputs.email)}
 				/>
 
 				<Input
 					placeholder="Password"
 					style={{ width: "fill-available" }}
-					onChange={handleInputChange(SignUpInputs.password)}
+					onChange={onChangeHandlers[SignUpInputs.password]}
+					errorMessage={getFieldError(SignUpInputs.password)}
 				/>
 
 				<SignInButtonContainer>
