@@ -16,6 +16,7 @@ interface Props {
 	clickHandler?: () => void
 	type?: ButtonTypes
 	style?: Styles
+	isLoading?: boolean
 }
 
 const ButtonBase = styled.button`
@@ -84,12 +85,21 @@ const buttons = {
 	[BtnTypes.No]: NoBtn
 }
 
+const getLoadingText = (buttonType: BtnTypes): string => {
+	if (buttonType === BtnTypes.Plus) {
+		return "..."
+	}
+
+	return "Loading..."
+}
+
 export const Button = ({
 	text, 
 	buttonType,
 	clickHandler,
 	type = ButtonTypes.button,
 	style,
+	isLoading,
 }: Props): ReactElement | null => {
 	const BtnComponent = buttons[buttonType]
 
@@ -99,7 +109,7 @@ export const Button = ({
 			type={type}
 			{...style}
 		>
-			{text}
+			{isLoading ? getLoadingText(buttonType) : text}
 		</BtnComponent>
 	)
 }
