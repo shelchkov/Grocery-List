@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { ErrorMessage } from "./error-message"
 
 import { spaces, colors } from "../../utils/styles"
-import { InputTypes } from "../../utils/enums"
+import { InputTypes, InputModes } from "../../utils/enums"
 
 interface Props {
 	placeholder?: string
@@ -12,6 +12,7 @@ interface Props {
 	errorMessage?: string | null
 	style?: Styles
 	type?: InputTypes
+	inputMode?: InputModes
 }
 
 const InputComponent = styled.input`
@@ -39,6 +40,7 @@ export const Input = ({
 	errorMessage,
 	style,
 	type = InputTypes.text,
+	inputMode
 }: Props): ReactElement => (
 	<>
 		<InputComponent
@@ -46,6 +48,7 @@ export const Input = ({
 			onChange={onChange}
 			width={style && style.width}
 			type={type}
+			inputMode={inputMode}
 		/>
 		
 		{errorMessage !== null && <ErrorMessage message={errorMessage} />}
