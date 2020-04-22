@@ -4,7 +4,12 @@ import { SignInContainer, SignInButtonContainer } from "../ui/containers"
 import { Input } from "../input/input"
 import { Button } from "../button/button"
 
-import { BtnTypes, ButtonTypes } from "../../utils/enums"
+import {
+	BtnTypes,
+	ButtonTypes,
+	InputTypes,
+	InputModes
+} from "../../utils/enums"
 import {
 	SignUpInputs,
 	SignUpFormData,
@@ -23,7 +28,7 @@ const getSignUpError = (errorCode: string): SignUpErrors => {
 
 		case "auth/weak-password":
 			return {
-				[SignUpInputs.password]: ["Password is not strong enought"]
+				[SignUpInputs.password]:["Password is not strong enought"]
 			}
 
 		default:
@@ -113,6 +118,7 @@ export const SignUpForm = (): ReactElement => {
 					style={{ width: "fill-available" }}
 					onChange={onChangeHandlers[SignUpInputs.email]}
 					errorMessage={getFieldError(SignUpInputs.email)}
+					inputMode={InputModes.email}
 				/>
 
 				<Input
@@ -120,6 +126,7 @@ export const SignUpForm = (): ReactElement => {
 					style={{ width: "fill-available" }}
 					onChange={onChangeHandlers[SignUpInputs.password]}
 					errorMessage={getFieldError(SignUpInputs.password)}
+					type={InputTypes.password}
 				/>
 
 				<SignInButtonContainer>
