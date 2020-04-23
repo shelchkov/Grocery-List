@@ -16,25 +16,7 @@ import {
 	signInValidation,
 	SignInErrors
 } from "../../utils/validation"
-
-const getSignInError = (errorCode: string): SignInErrors => {
-	switch(errorCode) {
-		case "auth/invalid-email":
-			return { [SignInInputs.email]: ["Email is not valid"] }
-
-		case "auth/user-disabled":
-			return { [SignInInputs.email]: ["User has been disabled"] }
-
-		case "auth/user-not-found":
-			return { [SignInInputs.email]: ["User was not found"] }
-
-		case "auth/wrong-password":
-			return { [SignInInputs.password]: ["Wrong password"] }
-
-		default:
-			return {}
-	}
-}
+import { getSignInError } from "../../utils/utils"
 
 export const SignInForm = (): ReactElement => {
 	const [formData, setFormData] = useState<SignInFormData>()

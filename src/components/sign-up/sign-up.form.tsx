@@ -12,24 +12,7 @@ import {
 	signUpValidation
 } from "../../utils/validation"
 import { signUp } from "../../utils/firebase"
-
-const getSignUpError = (errorCode: string): SignUpErrors => {
-	switch(errorCode) {
-		case "auth/email-already-in-use":
-			return { [SignUpInputs.email]: ["Email is already in use"] }
-
-		case "auth/invalid-email":
-			return { [SignUpInputs.email]: ["Email is not valid"] }
-
-		case "auth/weak-password":
-			return {
-				[SignUpInputs.password]: ["Password is not strong enought"]
-			}
-
-		default:
-			return {}
-	}
-}
+import { getSignUpError } from "../../utils/utils"
 
 const objectFromExecutions = (
 	values: string[],
