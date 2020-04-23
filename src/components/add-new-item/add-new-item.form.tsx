@@ -14,6 +14,9 @@ interface Props {
 const FormContainer = styled.div`
 	display: flex;
 	justify-content: flex-end;
+	max-width: 272px;
+	height: 34px;
+	margin-left: auto;
 `
 
 enum AddNewItemInputs {
@@ -81,6 +84,7 @@ export const AddNewItemForm = ({
 					placeholder="New Item"
 					onChange={handleInputChange(AddNewItemInputs.name)}
 					errorMessage={null}
+					style={{ width: "fill-available" }}
 				/>}
 				<AddNewItemButtons
 					isFormActive={isFormActive}
