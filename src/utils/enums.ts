@@ -25,6 +25,11 @@ export enum InputTypes {
 	text = "text"
 }
 
+export enum InputModes {
+	numeric = "numeric",
+	email = "email"
+}
+
 export enum ListAccess {
 	check = "check",
 	add = "add",

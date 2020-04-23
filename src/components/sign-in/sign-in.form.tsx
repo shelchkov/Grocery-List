@@ -7,7 +7,8 @@ import { SignInContainer, SignInButtonContainer } from "../ui/containers"
 import {
 	BtnTypes,
 	ButtonTypes,
-	InputTypes
+	InputTypes,
+	InputModes
 } from "../../utils/enums"
 import { signIn } from "../../utils/firebase"
 import {
@@ -89,8 +90,8 @@ export const SignInForm = (): ReactElement => {
 					placeholder="Email"
 					onChange={handleInputChange(SignInInputs.email)}
 					style={{ width:"fill-available" }}
-					type={InputTypes.email}
 					errorMessage={getFieldError(SignInInputs.email)}
+					inputMode={InputModes.email}
 				/>
 
 				<Input
