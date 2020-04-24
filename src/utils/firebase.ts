@@ -3,6 +3,7 @@ import "firebase/firestore"
 import "firebase/auth"
 
 import { config } from "./firebase-constants"
+import { getDate } from "./utils"
 
 // import {
 // 	DocumentReference,
@@ -171,8 +172,6 @@ interface AddItemResponse {
 	listId?: string,
 	success?: boolean
 }
-
-export const getDate = (): string => Date.now().toString()
 
 export const addListItem = async (
 	itemName: string,
