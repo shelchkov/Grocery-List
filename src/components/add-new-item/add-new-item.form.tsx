@@ -33,6 +33,7 @@ export const AddNewItemForm = ({
 }: Props): ReactElement => {
 	const [isFormActive, setIsFormActive] = useState<boolean>(false)
 	const [formData, setFormData] = useState<FormData>()
+	const [isLoading, setIsLoading] = useState<boolean>(false)
 	
 	const setFormActive = (): void => {
 		setIsFormActive(true)
@@ -56,6 +57,8 @@ export const AddNewItemForm = ({
 			return
 		}
 
+		setIsLoading(true)
+
 		addListItem(formData.name, userId, listId)
 			.then((data): void => {
 				if (!data.listId) {
@@ -67,9 +70,10 @@ export const AddNewItemForm = ({
 				}
 			}).catch((e) => {
 				console.error("Error while adding new item", e)
-			}).finally(() => 
+			}).finally(() => {
 				setIsFormActive(false)
-			)
+				setIsLoading(false)
+			})
 	}
 
 	const handleInputChange = (name: AddNewItemInputs) => (
@@ -89,6 +93,7 @@ export const AddNewItemForm = ({
 				<AddNewItemButtons
 					isFormActive={isFormActive}
 					setFormActive={setFormActive}
+					isLoading={isLoading}
 				/>
 			</FormContainer>
 		</form>

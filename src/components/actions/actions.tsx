@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import React, { ReactElement, useState } from "react"
 import styled from "styled-components"
 
 import { Button } from "../button/button"
@@ -26,8 +26,17 @@ const ActionsContainer = styled.div`
 `
 
 export const Actions = ({ clearUser }: Props): ReactElement => {
+	const [isLoading, setIsLoading] = useState<boolean>()
+
 	const handleSignOut = (): void => {
-		signOut().then(clearUser).catch(console.log)
+		setIsLoading(true)
+		signOut().then((data): void => {
+			if (data.error) {
+				setIsLoading(false)
+				return
+			}
+			clearUser()
+		})
 	}
 
 	return (
@@ -37,6 +46,7 @@ export const Actions = ({ clearUser }: Props): ReactElement => {
 				buttonType={BtnTypes.SignOut}
 				text="Sign Out"
 				clickHandler={handleSignOut}
+				isLoading={isLoading}
 			/>
 		</ActionsContainer>
 	)
