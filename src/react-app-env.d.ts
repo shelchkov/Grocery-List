@@ -20,6 +20,8 @@ interface Styles {
 	boxShadow?: string
 	padding?: string
 	marginTop?: string
+	flexDirection? :string
+	alignItems?: string
 }
 
 interface Item {

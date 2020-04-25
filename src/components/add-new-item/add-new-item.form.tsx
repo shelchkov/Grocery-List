@@ -11,15 +11,22 @@ interface Props {
 	listId: string | undefined
 	style?: Styles
 	isActive?: boolean
+	buttonsStyle?: Styles
 }
 
 const FormContainer = styled.form`
 	display: flex;
+	flex-direction: ${(p: Styles): string => p.flexDirection || "row"};
 	justify-content: flex-end;
+	align-items: ${(p: Styles): string => p.alignItems || "stretch"};
 	max-width: 272px;
-	height: 34px;
+	height: ${(p: Styles): string => p.height || "34px"};
 	margin-left: auto;
-	margin-top: ${(p: Styles): string => p.marginTop || "0"}
+	margin-top: ${(p: Styles): string => p.marginTop || "0"};
+	padding: ${(p: Styles): string => p.padding || "0"};
+
+	background-color: ${(p: Styles): string => p.backgroundColor ||
+		"transparent"};
 `
 
 enum AddNewItemInputs {
@@ -34,7 +41,8 @@ export const AddNewItemForm = ({
 	userId,
 	listId,
 	style,
-	isActive
+	isActive,
+	buttonsStyle
 }: Props): ReactElement => {
 	const [isFormActive, setIsFormActive] = useState<boolean>(
 		isActive || false
@@ -97,9 +105,10 @@ export const AddNewItemForm = ({
 				style={{ width: "fill-available" }}
 			/>}
 			<AddNewItemButtons
-				isFormActive={isFormActive}
+				isFormActive={isActive ? false : isFormActive}
 				setFormActive={setFormActive}
 				isLoading={isLoading}
+				style={buttonsStyle}
 			/>
 		</FormContainer>
 	)

@@ -1,6 +1,9 @@
 import React, { ReactElement } from "react"
+import styled from "styled-components"
 
 import { AddNewItemForm } from "./add-new-item.form"
+
+import { colors } from "../../utils/styles"
 
 interface Props {
 	userId: string | undefined
@@ -8,8 +11,30 @@ interface Props {
 	style?: Styles
 }
 
-// const style = {}
+const FormContainer = styled.div`
+	margin-top: 60px;
+	max-height: 142px;
+	background-color: ${colors.lightGrey};
+`
+
+const style = {
+	padding: "28px 40px 30px 40px",
+	flexDirection: "column",
+	alignItems: "center",
+	height: "auto"
+}
+
+const buttonsStyle = {
+	marginTop: "16px"
+}
 
 export const AddNewItemDesktop = (props: Props): ReactElement => (
-	<AddNewItemForm {...props} isActive />
+	<FormContainer>
+		<AddNewItemForm
+			{...props}
+			isActive
+			style={style}
+			buttonsStyle={buttonsStyle}
+		/>
+	</FormContainer>
 )

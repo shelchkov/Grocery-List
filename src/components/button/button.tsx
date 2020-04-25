@@ -22,6 +22,7 @@ interface Props {
 const ButtonBase = styled.button`
 	height: ${sizes[2]};
 	${({ width }: Styles) => width && `width: ${width};`}
+	margin-top: ${(p: Styles): string => p.marginTop || "0"};
 
 	color: ${colors.grey};
 	border: none;
