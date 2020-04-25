@@ -1,4 +1,5 @@
 import React, { ReactElement, useState, useEffect } from "react"
+import styled from "styled-components"
 
 import { Logo } from "../components/logo/logo"
 import {
@@ -7,6 +8,8 @@ import {
 import { Actions } from "../components/actions/actions"
 import { ListItems } from "../components/list-items/list-items"
 import { Container } from "../components/ui/containers"
+import { MobileLayout, MediumLayout } from "../components/ui/layouts"
+import { Navigation } from "../components/navigation/navigation"
 
 import { getUserInfo, getListItems } from "../utils/firebase"
 import { ListAccess } from "../utils/enums"
@@ -69,18 +72,33 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 	}, [lists])
 
 	return (
-		<Container>
-			<Logo />
-			<AddNewItemForm
-				userId={user ? user.id : undefined}
-				listId={listId}
-			/>
-			<ListItems
-				listItems={lists && listId ?
-					lists[listId] && lists[listId].items : undefined}
-				listId={listId}
-			/>
-			<Actions clearUser={clearUser} />
-		</Container>
+		<>
+			<Container>
+				<MobileLayout><Logo /></MobileLayout>
+				<MediumLayout><Navigation /></MediumLayout>
+
+				<MobileLayout>
+					<AddNewItemForm
+						userId={user ? user.id : undefined}
+						listId={listId}
+					/>
+				</MobileLayout>
+				<MediumLayout>
+					<AddNewItemForm
+						userId={user ? user.id : undefined}
+						listId={listId}
+						style={{ marginTop: "20px" }}
+					/>
+				</MediumLayout>
+
+
+				<ListItems
+					listItems={lists && listId ?
+						lists[listId] && lists[listId].items : undefined}
+					listId={listId}
+				/>
+				<Actions clearUser={clearUser} />
+			</Container>
+		</>
 	)
 }

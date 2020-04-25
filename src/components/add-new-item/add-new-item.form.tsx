@@ -9,14 +9,16 @@ import { addListItem } from "../../utils/firebase"
 interface Props {
 	userId: string | undefined
 	listId: string | undefined
+	style?: Styles
 }
 
-const FormContainer = styled.div`
+const FormContainer = styled.form`
 	display: flex;
 	justify-content: flex-end;
 	max-width: 272px;
 	height: 34px;
 	margin-left: auto;
+	margin-top: ${(p: Styles): string => p.marginTop || "0"}
 `
 
 enum AddNewItemInputs {
@@ -30,6 +32,7 @@ interface FormData {
 export const AddNewItemForm = ({
 	userId,
 	listId,
+	style,
 }: Props): ReactElement => {
 	const [isFormActive, setIsFormActive] = useState<boolean>(false)
 	const [formData, setFormData] = useState<FormData>()
@@ -82,20 +85,18 @@ export const AddNewItemForm = ({
 		setFormData({ ...formData, [name]: event.currentTarget.value })
 
 	return (
-		<form onSubmit={handleAddingNewItem}>
-			<FormContainer>
-				{isFormActive && <Input
-					placeholder="New Item"
-					onChange={handleInputChange(AddNewItemInputs.name)}
-					errorMessage={null}
-					style={{ width: "fill-available" }}
-				/>}
-				<AddNewItemButtons
-					isFormActive={isFormActive}
-					setFormActive={setFormActive}
-					isLoading={isLoading}
-				/>
-			</FormContainer>
-		</form>
+		<FormContainer onSubmit={handleAddingNewItem} {...style}>
+			{isFormActive && <Input
+				placeholder="New Item"
+				onChange={handleInputChange(AddNewItemInputs.name)}
+				errorMessage={null}
+				style={{ width: "fill-available" }}
+			/>}
+			<AddNewItemButtons
+				isFormActive={isFormActive}
+				setFormActive={setFormActive}
+				isLoading={isLoading}
+			/>
+		</FormContainer>
 	)
 }

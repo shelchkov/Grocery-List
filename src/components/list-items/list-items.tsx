@@ -15,6 +15,8 @@ interface Props {
 
 const ListItemsContainer = styled.div`
 	padding: 13px 0 67px 0;
+	margin: 0 auto;
+	max-width: 540px;
 `
 
 const loadingText = "Loading..."
