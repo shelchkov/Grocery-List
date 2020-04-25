@@ -2,6 +2,7 @@ import React, { ReactElement, useState } from "react"
 import styled from "styled-components"
 
 import { Button } from "../button/button"
+import { MobileLayout, MediumLayout } from "../ui/layouts"
 
 import { colors, sizes } from "../../utils/styles"
 import { BtnTypes } from "../../utils/enums"
@@ -19,10 +20,17 @@ const ActionsContainer = styled.div`
 
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	height: ${sizes[2]};
 	padding: 13px 1.5rem;
 
-	background-color: ${colors.purple};
+	color: ${colors.darkBlue};
+	background-color: ${(p: Styles): string => 
+		p.backgroundColor || colors.purple};
+`
+
+const Action = styled.p`
+	cursor: pointer;
 `
 
 export const Actions = ({ clearUser }: Props): ReactElement => {
@@ -40,14 +48,25 @@ export const Actions = ({ clearUser }: Props): ReactElement => {
 	}
 
 	return (
-		<ActionsContainer>
-			<Button buttonType={BtnTypes.ShareList} text="Share List" />
-			<Button
-				buttonType={BtnTypes.SignOut}
-				text="Sign Out"
-				clickHandler={handleSignOut}
-				isLoading={isLoading}
-			/>
-		</ActionsContainer>
+		<>
+			<MobileLayout>
+				<ActionsContainer>				
+					<Button buttonType={BtnTypes.ShareList} text="Share List" />
+					<Button
+						buttonType={BtnTypes.SignOut}
+						text="Sign Out"
+						clickHandler={handleSignOut}
+						isLoading={isLoading}
+					/>
+				</ActionsContainer>
+			</MobileLayout>
+
+			<MediumLayout>
+				<ActionsContainer backgroundColor={colors.grey}>
+					<Action>{"<"} Previous List</Action>
+					<Action>Next List {">"}</Action>
+				</ActionsContainer>
+			</MediumLayout>
+		</>
 	)
 }

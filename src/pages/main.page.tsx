@@ -98,6 +98,7 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 						lists[listId] && lists[listId].items : undefined}
 					listId={listId}
 				/>
+
 				<Actions clearUser={clearUser} />
 			</Container>
 		</>
