@@ -7,8 +7,12 @@ import {
 	textShadows
 } from "../../utils/styles"
 
+interface Props {
+	style?: Styles
+}
+
 const LogoComponent = styled.p`
-	padding: 3px 0 19px 0;
+	padding: ${(p: Styles): string => p.padding || "3px 0 19px 0"};
 	margin: 0;
 
 	color: ${colors.lightGrey};
@@ -22,5 +26,5 @@ const LogoComponent = styled.p`
 	text-shadow: ${textShadows[0]};
 `
 
-export const Logo = (): ReactElement => 
-	<LogoComponent>Grocery List</LogoComponent>
+export const Logo = ({ style }: Props): ReactElement => 
+	<LogoComponent {...style}>Grocery List</LogoComponent>
