@@ -90,6 +90,7 @@ export const AddNewItemForm = ({
 			}).finally(() => {
 				!isActive && setIsFormActive(false)
 				setIsLoading(false)
+				setFormData(undefined)
 			})
 	}
 
@@ -105,6 +106,7 @@ export const AddNewItemForm = ({
 				onChange={handleInputChange(AddNewItemInputs.name)}
 				errorMessage={null}
 				style={{ ...inputStyle, width: "fill-available" }}
+				value={formData && formData.name}
 			/>}
 			<AddNewItemButtons
 				isFormActive={isFormActive}

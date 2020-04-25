@@ -12,6 +12,7 @@ interface Props {
 	errorMessage?: string | null
 	style?: Styles
 	type?: InputTypes
+	value?: string
 }
 
 const InputComponent = styled.input`
@@ -40,12 +41,15 @@ export const Input = ({
 	errorMessage,
 	style,
 	type = InputTypes.text,
+	value = ""
 }: Props): ReactElement => (
 	<>
+		{console.log(value)}
 		<InputComponent
 			placeholder={placeholder}
 			onChange={onChange}
 			type={type}
+			value={value}
 			{...style}
 		/>
 		
