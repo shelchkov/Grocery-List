@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from "react"
 import styled from "styled-components"
 
-import { MediumLayout } from "../ui/layouts"
+import { MediumDesktopLayout } from "../ui/layouts"
 import { Logo } from "../logo/logo"
 
 import { colors } from "../../utils/styles"
@@ -49,7 +49,7 @@ export const Navigation = ({ clearUser }: Props): ReactElement => {
 	}
 
 	return (
-		<MediumLayout>
+		<MediumDesktopLayout>
 			<NavBar>
 				<Logo style={{ padding: "0" }} />
 
@@ -60,6 +60,6 @@ export const Navigation = ({ clearUser }: Props): ReactElement => {
 					</MenuItem>
 				</Menu>
 			</NavBar>
-		</MediumLayout>
+		</MediumDesktopLayout>
 	)
 }

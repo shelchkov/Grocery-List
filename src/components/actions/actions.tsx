@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from "react"
 import styled from "styled-components"
 
 import { Button } from "../button/button"
-import { MobileLayout, MediumLayout } from "../ui/layouts"
+import { MobileLayout, MediumDesktopLayout } from "../ui/layouts"
 
 import { colors, sizes } from "../../utils/styles"
 import { BtnTypes } from "../../utils/enums"
@@ -61,12 +61,12 @@ export const Actions = ({ clearUser }: Props): ReactElement => {
 				</ActionsContainer>
 			</MobileLayout>
 
-			<MediumLayout>
+			<MediumDesktopLayout>
 				<ActionsContainer backgroundColor={colors.grey}>
 					<Action>{"<"} Previous List</Action>
 					<Action>Next List {">"}</Action>
 				</ActionsContainer>
-			</MediumLayout>
+			</MediumDesktopLayout>
 		</>
 	)
 }

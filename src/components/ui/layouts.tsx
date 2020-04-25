@@ -11,11 +11,26 @@ export const MobileLayout = styled.div`
 export const MediumLayout = styled.div`
 	display: none;
 	
-	@media (min-width: ${breakpoints.sm}) and 
+	@media (min-width: ${breakpoints.sm}) and
 		(max-width: ${breakpoints.preLg}) {
 			display: flex;
 			width: 100%;
 	}
 `
 
-// export const Desktop
+export const MediumDesktopLayout = styled.div`
+	display: none;
+	
+	@media (min-width: ${breakpoints.sm}) {
+		display: flex;
+		width: 100%;
+	}
+`
+
+export const DesktopLayout = styled.div`
+	display: none;
+
+	@media (min-width: ${breakpoints.lg}) {
+		display: flex;
+	}
+`

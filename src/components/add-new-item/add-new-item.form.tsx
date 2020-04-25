@@ -10,6 +10,7 @@ interface Props {
 	userId: string | undefined
 	listId: string | undefined
 	style?: Styles
+	isActive?: boolean
 }
 
 const FormContainer = styled.form`
@@ -33,8 +34,11 @@ export const AddNewItemForm = ({
 	userId,
 	listId,
 	style,
+	isActive
 }: Props): ReactElement => {
-	const [isFormActive, setIsFormActive] = useState<boolean>(false)
+	const [isFormActive, setIsFormActive] = useState<boolean>(
+		isActive || false
+	)
 	const [formData, setFormData] = useState<FormData>()
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	
@@ -56,7 +60,7 @@ export const AddNewItemForm = ({
 				console.warn("Not logged in")
 			}
 
-			setIsFormActive(false)
+			!isActive && setIsFormActive(false)
 			return
 		}
 
@@ -74,7 +78,7 @@ export const AddNewItemForm = ({
 			}).catch((e) => {
 				console.error("Error while adding new item", e)
 			}).finally(() => {
-				setIsFormActive(false)
+				!isActive && setIsFormActive(false)
 				setIsLoading(false)
 			})
 	}

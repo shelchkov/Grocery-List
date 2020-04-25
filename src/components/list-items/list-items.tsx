@@ -7,6 +7,7 @@ import { ListItemsMessage } from "./list-items-message"
 import { changeListItem, deleteListItem } from "../../utils/firebase"
 import { sortItems } from "../../utils/utils"
 import { ItemsSort } from "../../utils/enums" 
+import { breakpoints } from "../../utils/styles"
 
 interface Props {
 	listItems: Item[] | undefined
@@ -16,7 +17,12 @@ interface Props {
 const ListItemsContainer = styled.div`
 	padding: 13px 0 67px 0;
 	margin: 0 auto;
+	min-width: 272px;
 	max-width: 540px;
+
+	@media (min-width: ${breakpoints.lg}) {
+		margin: 60px 0 0 0;
+	}
 `
 
 const loadingText = "Loading..."
