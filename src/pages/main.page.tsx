@@ -1,5 +1,4 @@
 import React, { ReactElement, useState, useEffect } from "react"
-import styled from "styled-components"
 
 import { Logo } from "../components/logo/logo"
 import {
@@ -75,7 +74,9 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 		<>
 			<Container>
 				<MobileLayout><Logo /></MobileLayout>
-				<MediumLayout><Navigation /></MediumLayout>
+				<MediumLayout>
+					<Navigation clearUser={clearUser}/>
+				</MediumLayout>
 
 				<MobileLayout>
 					<AddNewItemForm

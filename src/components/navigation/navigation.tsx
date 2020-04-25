@@ -1,10 +1,15 @@
-import React, { ReactElement } from "react"
+import React, { ReactElement, useState } from "react"
 import styled from "styled-components"
 
 import { MediumLayout } from "../ui/layouts"
 import { Logo } from "../logo/logo"
 
 import { colors } from "../../utils/styles"
+import { signOut } from "../../utils/firebase"
+
+interface Props {
+	clearUser: () => void
+}
 
 const NavBar = styled.div`
 	height: 68px;
@@ -29,15 +34,32 @@ const MenuItem = styled.p`
 	cursor: pointer;
 `
 
-export const Navigation = (): ReactElement => (
-	<MediumLayout>
-		<NavBar>
-			<Logo style={{ padding: "0" }} />
+export const Navigation = ({ clearUser }: Props): ReactElement => {
+	const [isLoading, setIsLoading] = useState<boolean>()
 
-			<Menu>
-				<MenuItem isFirst>Share List</MenuItem>
-				<MenuItem>Sign Out</MenuItem>
-			</Menu>
-		</NavBar>
-	</MediumLayout>
-)
+	const handleSignOut = (): void => {
+		setIsLoading(true)
+		signOut().then((data): void => {
+			if (data.error) {
+				setIsLoading(false)
+				return
+			}
+			clearUser()
+		})
+	}
+
+	return (
+		<MediumLayout>
+			<NavBar>
+				<Logo style={{ padding: "0" }} />
+
+				<Menu>
+					<MenuItem isFirst>Share List</MenuItem>
+					<MenuItem onClick={handleSignOut}>
+						{isLoading ? "Signing Out..." : "Sign Out"}
+					</MenuItem>
+				</Menu>
+			</NavBar>
+		</MediumLayout>
+	)
+}
