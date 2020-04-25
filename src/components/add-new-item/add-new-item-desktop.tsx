@@ -15,6 +15,8 @@ const FormContainer = styled.div`
 	margin-top: 60px;
 	max-height: 142px;
 	background-color: ${colors.lightGrey};
+	border: 1px solid ${colors.darkBlue};
+	border-radius: 10px;
 `
 
 const style = {
@@ -28,6 +30,10 @@ const buttonsStyle = {
 	marginTop: "16px"
 }
 
+const inputStyle = {
+	backgroundColor: colors.grey
+}
+
 export const AddNewItemDesktop = (props: Props): ReactElement => (
 	<FormContainer>
 		<AddNewItemForm
@@ -35,6 +41,7 @@ export const AddNewItemDesktop = (props: Props): ReactElement => (
 			isActive
 			style={style}
 			buttonsStyle={buttonsStyle}
+			inputStyle={inputStyle}
 		/>
 	</FormContainer>
 )

@@ -12,6 +12,7 @@ interface Props {
 	style?: Styles
 	isActive?: boolean
 	buttonsStyle?: Styles
+	inputStyle?: Styles
 }
 
 const FormContainer = styled.form`
@@ -42,7 +43,8 @@ export const AddNewItemForm = ({
 	listId,
 	style,
 	isActive,
-	buttonsStyle
+	buttonsStyle,
+	inputStyle
 }: Props): ReactElement => {
 	const [isFormActive, setIsFormActive] = useState<boolean>(
 		isActive || false
@@ -102,13 +104,14 @@ export const AddNewItemForm = ({
 				placeholder="New Item"
 				onChange={handleInputChange(AddNewItemInputs.name)}
 				errorMessage={null}
-				style={{ width: "fill-available" }}
+				style={{ ...inputStyle, width: "fill-available" }}
 			/>}
 			<AddNewItemButtons
-				isFormActive={isActive ? false : isFormActive}
+				isFormActive={isFormActive}
 				setFormActive={setFormActive}
 				isLoading={isLoading}
 				style={buttonsStyle}
+				shouldSubmit={isActive}
 			/>
 		</FormContainer>
 	)

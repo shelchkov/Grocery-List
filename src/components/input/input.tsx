@@ -20,7 +20,7 @@ const InputComponent = styled.input`
 	padding: 2px 0  0 11px;
 
 	color: ${colors.darkBlue};
-	background: transparent;
+	background: ${(p: Styles): string => p.backgroundColor || "transparent"};
 	
 	border-radius: ${spaces[0]};
 	border: 1px solid ${colors.darkBlue};
@@ -45,8 +45,8 @@ export const Input = ({
 		<InputComponent
 			placeholder={placeholder}
 			onChange={onChange}
-			width={style && style.width}
 			type={type}
+			{...style}
 		/>
 		
 		{errorMessage !== null && <ErrorMessage message={errorMessage} />}
