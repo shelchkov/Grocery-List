@@ -14,11 +14,15 @@ interface Props {
 }
 
 const NavBar = styled.div`
+	position: fixed;
+	top: 0;
+	left: 40px;
+	right: 40px;
 	height: 68px;
-	width: 100%;
 	padding: 0 40px;
 	margin-left: -40px;
 	margin-right: -40px;
+	
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -27,6 +31,10 @@ const NavBar = styled.div`
 
 const Menu = styled.div`
 	display: flex;
+`
+
+const EmptySpace = styled.div`
+	height: 68px;
 `
 
 export const Navigation = ({ clearUser }: Props): ReactElement => {
@@ -62,6 +70,8 @@ export const Navigation = ({ clearUser }: Props): ReactElement => {
 					/>
 				</Menu>
 			</NavBar>
+
+			<EmptySpace />
 		</MediumDesktopLayout>
 	)
 }
