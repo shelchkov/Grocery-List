@@ -1,10 +1,11 @@
 import React, { ReactElement, useState } from "react"
-import styled from "styled-components"
 
 import { AddNewItemButtons } from "./add-new-item-buttons"
 import { Input } from "../input/input"
+import { FormContainer } from "./form-container"
 
 import { addListItem } from "../../utils/firebase"
+import { NewItemFormData, AddNewItemInputs } from "../../utils/validation"
 
 interface Props {
 	userId: string | undefined
@@ -13,29 +14,6 @@ interface Props {
 	isActive?: boolean
 	buttonsStyle?: Styles
 	inputStyle?: Styles
-}
-
-const FormContainer = styled.form`
-	display: flex;
-	flex-direction: ${(p: Styles): string => p.flexDirection || "row"};
-	justify-content: flex-end;
-	align-items: ${(p: Styles): string => p.alignItems || "stretch"};
-	max-width: 272px;
-	height: ${(p: Styles): string => p.height || "34px"};
-	margin-left: auto;
-	margin-top: ${(p: Styles): string => p.marginTop || "0"};
-	padding: ${(p: Styles): string => p.padding || "0"};
-
-	background-color: ${(p: Styles): string => p.backgroundColor ||
-		"transparent"};
-`
-
-enum AddNewItemInputs {
-	name = "name"
-}
-
-interface FormData {
-	[AddNewItemInputs.name]?: string
 }
 
 export const AddNewItemForm = ({
@@ -49,7 +27,7 @@ export const AddNewItemForm = ({
 	const [isFormActive, setIsFormActive] = useState<boolean>(
 		isActive || false
 	)
-	const [formData, setFormData] = useState<FormData>()
+	const [formData, setFormData] = useState<NewItemFormData>()
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	
 	const setFormActive = (): void => {
@@ -85,12 +63,9 @@ export const AddNewItemForm = ({
 				} else {
 					console.log(`New list was created - ${data.listId}`)
 				}
-			}).catch((e) => {
-				console.error("Error while adding new item", e)
-			}).finally(() => {
+
 				!isActive && setIsFormActive(false)
 				setIsLoading(false)
-				console.log("Clear Form")
 				setFormData(undefined)
 			})
 	}

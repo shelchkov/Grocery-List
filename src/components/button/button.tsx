@@ -1,12 +1,15 @@
 import React, { ReactElement } from "react"
-import styled from "styled-components"
+
+import { WithoutBgButton } from "./base-button"
 import {
-	colors,
-	sizes,
-	spaces,
-	boxShadows,
-	fontWeights
-} from "../../utils/styles"
+	AddNewItemBtn,
+	PlusBtn,
+	ShareListBtn,
+	SignOutBtn,
+	DeleteItemBtn,
+	NoBtn,
+	DesktopActionBtn
+} from "./styled-buttons"
 
 import { BtnTypes, ButtonTypes } from "../../utils/enums"
 
@@ -18,73 +21,6 @@ interface Props {
 	style?: Styles
 	isLoading?: boolean
 }
-
-const ButtonBase = styled.button`
-	height: ${sizes[2]};
-	${({ width }: Styles) => width && `width: ${width};`}
-	margin-top: ${(p: Styles): string => p.marginTop || "0"};
-	margin-left: ${(p: Styles): string => p.marginLeft || "0"};
-
-	color: ${colors.grey};
-	border: none;
-	border-radius: ${spaces[0]};
-	box-shadow: ${(p): string => p.boxShadow ? p.boxShadow : boxShadows[0]};
-
-	font-weight: ${fontWeights[0]};
-	font-size: ${sizes[0]};
-
-	outline: none;
-	cursor: pointer;
-	-webkit-appearance: none;
-`
-
-const OutlinedButton = styled(ButtonBase)`
-	color: ${colors.orange};
-	background-color: transparent;
-	border: 1px solid ${colors.orange};
-`
-
-const WithoutBgButton = styled(ButtonBase)`
-	background-color: transparent;
-	color: ${colors.grey};
-	box-shadow: none;
-`
-
-const AddNewItemBtn = styled(ButtonBase)`
-	width: 150px;
-	background-color: ${colors.green};
-`
-
-const PlusBtn = styled(AddNewItemBtn)`
-	width: ${sizes[2]};
-	margin-left: 12px;
-`
-
-const ShareListBtn = styled(ButtonBase)`
-	width: 130px;
-	background-color: ${colors.darkGreen};
-`
-
-const SignOutBtn = styled(ShareListBtn)`
-	background-color: ${colors.orange};
-`
-
-const DeleteItemBtn = styled(OutlinedButton)`
-	height: 29px;
-	margin-left: auto;
-	padding: 0 14px;
-`
-
-const NoBtn = styled(DeleteItemBtn)`
-	margin-left: 12px;
-	color: ${colors.grey};
-	background-color: ${colors.darkGreen};
-	border: none;
-`
-
-const DesktopActionBtn = styled(WithoutBgButton)`
-	color: ${colors.darkBlue};
-`
 
 const buttons = {
 	[BtnTypes.AddNewItem]: AddNewItemBtn,
