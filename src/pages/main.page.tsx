@@ -14,7 +14,6 @@ import { Container } from "../components/ui/containers"
 import {
 	MobileLayout,
 	MediumLayout,
-	MediumDesktopLayout,
 	DesktopLayout
 } from "../components/ui/layouts"
 import { Navigation } from "../components/navigation/navigation"
@@ -85,43 +84,41 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 	}, [lists])
 
 	return (
-		<>
-			<Container>
-				<MobileLayout><Logo /></MobileLayout>
-				<Navigation clearUser={clearUser}/>
+		<Container>
+			<MobileLayout><Logo /></MobileLayout>
+			<Navigation clearUser={clearUser}/>
 
-				<MobileLayout>
-					<AddNewItemForm
+			<MobileLayout>
+				<AddNewItemForm
+					userId={user ? user.id : undefined}
+					listId={listId}
+				/>
+			</MobileLayout>
+			<MediumLayout>
+				<AddNewItemForm
+					userId={user ? user.id : undefined}
+					listId={listId}
+					style={{ marginTop: "20px" }}
+				/>
+			</MediumLayout>
+
+			<ListContainer>
+				<ListItems
+					listItems={lists && listId ?
+						lists[listId] && lists[listId].items
+						: undefined}
+					listId={listId}
+				/>
+
+				<DesktopLayout>
+					<AddNewItemDesktop 
 						userId={user ? user.id : undefined}
 						listId={listId}
-					/>
-				</MobileLayout>
-				<MediumLayout>
-					<AddNewItemForm
-						userId={user ? user.id : undefined}
-						listId={listId}
-						style={{ marginTop: "20px" }}
-					/>
-				</MediumLayout>
+					 />
+				</DesktopLayout>
+			</ListContainer>
 
-				<ListContainer>
-					<ListItems
-						listItems={lists && listId ?
-							lists[listId] && lists[listId].items
-							: undefined}
-						listId={listId}
-					/>
-
-					<DesktopLayout>
-						<AddNewItemDesktop 
-							userId={user ? user.id : undefined}
-							listId={listId}
-						 />
-					</DesktopLayout>
-				</ListContainer>
-
-				<Actions clearUser={clearUser} />
-			</Container>
-		</>
+			<Actions clearUser={clearUser} />
+		</Container>
 	)
 }

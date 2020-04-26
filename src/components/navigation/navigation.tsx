@@ -29,13 +29,6 @@ const Menu = styled.div`
 	display: flex;
 `
 
-const MenuItem = styled.p`
-	margin: 0 0 0 ${(p: { isFirst?: boolean }): string =>
-		p.isFirst ? "0" : "40px"};
-	color: ${colors.grey};
-	cursor: pointer;
-`
-
 export const Navigation = ({ clearUser }: Props): ReactElement => {
 	const [isLoading, setIsLoading] = useState<boolean>()
 

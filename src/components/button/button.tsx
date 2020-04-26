@@ -82,7 +82,9 @@ const NoBtn = styled(DeleteItemBtn)`
 	border: none;
 `
 
-const DesktopActionBtn = styled(WithoutBgButton)``
+const DesktopActionBtn = styled(WithoutBgButton)`
+	color: ${colors.darkBlue};
+`
 
 const buttons = {
 	[BtnTypes.AddNewItem]: AddNewItemBtn,
@@ -94,6 +96,7 @@ const buttons = {
 	[BtnTypes.DeleteItem]: DeleteItemBtn,
 	[BtnTypes.No]: NoBtn,
 	[BtnTypes.MenuItem]: WithoutBgButton,
+	[BtnTypes.DesktopAction]: DesktopActionBtn
 }
 
 const getLoadingText = (buttonType: BtnTypes): string => {

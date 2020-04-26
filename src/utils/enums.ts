@@ -8,6 +8,7 @@ export enum BtnTypes {
 	DeleteItem = "DeleteItem",
 	No = "No",
 	MenuItem = "MenuItem",
+	DesktopAction = "DesktopAction"
 }
 
 export enum ButtonTypes {

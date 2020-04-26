@@ -29,10 +29,6 @@ const ActionsContainer = styled.div`
 		p.backgroundColor || colors.purple};
 `
 
-const Action = styled.p`
-	cursor: pointer;
-`
-
 export const Actions = ({ clearUser }: Props): ReactElement => {
 	const [isLoading, setIsLoading] = useState<boolean>()
 
@@ -63,8 +59,14 @@ export const Actions = ({ clearUser }: Props): ReactElement => {
 
 			<MediumDesktopLayout>
 				<ActionsContainer backgroundColor={colors.grey}>
-					<Action>{"<"} Previous List</Action>
-					<Action>Next List {">"}</Action>
+					<Button
+						text="< Previous List"
+						buttonType={BtnTypes.DesktopAction}
+					/>
+					<Button
+						text="Next List >"
+						buttonType={BtnTypes.DesktopAction}
+					/>
 				</ActionsContainer>
 			</MediumDesktopLayout>
 		</>
