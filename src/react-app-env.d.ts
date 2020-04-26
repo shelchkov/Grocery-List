@@ -22,6 +22,7 @@ interface Styles {
 	marginTop?: string
 	flexDirection? :string
 	alignItems?: string
+	marginLeft?: string
 }
 
 interface Item {

@@ -90,6 +90,7 @@ export const AddNewItemForm = ({
 			}).finally(() => {
 				!isActive && setIsFormActive(false)
 				setIsLoading(false)
+				console.log("Clear Form")
 				setFormData(undefined)
 			})
 	}

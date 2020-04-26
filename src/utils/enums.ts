@@ -6,7 +6,8 @@ export enum BtnTypes {
 	SignIn = "SignIn",
 	SignUp = "SignUp",
 	DeleteItem = "DeleteItem",
-	No = "No"
+	No = "No",
+	MenuItem = "MenuItem",
 }
 
 export enum ButtonTypes {

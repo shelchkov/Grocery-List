@@ -23,6 +23,7 @@ const ButtonBase = styled.button`
 	height: ${sizes[2]};
 	${({ width }: Styles) => width && `width: ${width};`}
 	margin-top: ${(p: Styles): string => p.marginTop || "0"};
+	margin-left: ${(p: Styles): string => p.marginLeft || "0"};
 
 	color: ${colors.grey};
 	border: none;
@@ -41,6 +42,12 @@ const OutlinedButton = styled(ButtonBase)`
 	color: ${colors.orange};
 	background-color: transparent;
 	border: 1px solid ${colors.orange};
+`
+
+const WithoutBgButton = styled(ButtonBase)`
+	background-color: transparent;
+	color: ${colors.grey};
+	box-shadow: none;
 `
 
 const AddNewItemBtn = styled(ButtonBase)`
@@ -75,6 +82,8 @@ const NoBtn = styled(DeleteItemBtn)`
 	border: none;
 `
 
+const DesktopActionBtn = styled(WithoutBgButton)``
+
 const buttons = {
 	[BtnTypes.AddNewItem]: AddNewItemBtn,
 	[BtnTypes.Plus]: PlusBtn,
@@ -83,7 +92,8 @@ const buttons = {
 	[BtnTypes.SignIn]: ShareListBtn,
 	[BtnTypes.SignUp]: SignOutBtn,
 	[BtnTypes.DeleteItem]: DeleteItemBtn,
-	[BtnTypes.No]: NoBtn
+	[BtnTypes.No]: NoBtn,
+	[BtnTypes.MenuItem]: WithoutBgButton,
 }
 
 const getLoadingText = (buttonType: BtnTypes): string => {

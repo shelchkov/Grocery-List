@@ -3,9 +3,11 @@ import styled from "styled-components"
 
 import { MediumDesktopLayout } from "../ui/layouts"
 import { Logo } from "../logo/logo"
+import { Button } from "../button/button"
 
 import { colors } from "../../utils/styles"
 import { signOut } from "../../utils/firebase"
+import { BtnTypes } from "../../utils/enums"
 
 interface Props {
 	clearUser: () => void
@@ -54,10 +56,17 @@ export const Navigation = ({ clearUser }: Props): ReactElement => {
 				<Logo style={{ padding: "0" }} />
 
 				<Menu>
-					<MenuItem isFirst>Share List</MenuItem>
-					<MenuItem onClick={handleSignOut}>
-						{isLoading ? "Signing Out..." : "Sign Out"}
-					</MenuItem>
+					<Button
+						text="Share List"
+						buttonType={BtnTypes.MenuItem}
+					/>
+					<Button
+						text="Sign Out"
+						buttonType={BtnTypes.MenuItem}
+						isLoading={isLoading}
+						clickHandler={handleSignOut}
+						style={{ marginLeft: "40px" }}
+					/>
 				</Menu>
 			</NavBar>
 		</MediumDesktopLayout>
