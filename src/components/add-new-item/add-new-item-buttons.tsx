@@ -8,24 +8,30 @@ interface Props {
 	isFormActive: boolean
 	setFormActive: () => void
 	isLoading: boolean
+	style?: Styles
+	shouldSubmit?: boolean
 }
 
 export const AddNewItemButtons = ({
 	isFormActive,
 	setFormActive,
 	isLoading,
-}: Props): ReactElement => isFormActive ? (
+	style,
+	shouldSubmit
+}: Props): ReactElement => !shouldSubmit && isFormActive ? (
 	<Button
 		text="+"
 		buttonType={BtnTypes.Plus}
 		type={ButtonTypes.submit}
 		isLoading={isLoading}
+		style={style}
 	/>
 ) : (
 	<Button
 		text="Add New Item"
 		buttonType={BtnTypes.AddNewItem}
 		clickHandler={setFormActive}
-		type={ButtonTypes.button}
+		type={shouldSubmit ? ButtonTypes.submit : ButtonTypes.button}
+		style={style}
 	/>
 )

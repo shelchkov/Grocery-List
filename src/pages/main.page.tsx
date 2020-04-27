@@ -1,12 +1,22 @@
 import React, { ReactElement, useState, useEffect } from "react"
+import styled from "styled-components"
 
 import { Logo } from "../components/logo/logo"
 import {
 	AddNewItemForm
 } from "../components/add-new-item/add-new-item.form"
+import {
+	AddNewItemDesktop
+} from "../components/add-new-item/add-new-item-desktop"
 import { Actions } from "../components/actions/actions"
 import { ListItems } from "../components/list-items/list-items"
 import { Container } from "../components/ui/containers"
+import {
+	MobileLayout,
+	MediumLayout,
+	DesktopLayout
+} from "../components/ui/layouts"
+import { Navigation } from "../components/navigation/navigation"
 
 import { getUserInfo, getListItems } from "../utils/firebase"
 import { ListAccess } from "../utils/enums"
@@ -17,6 +27,11 @@ interface Props {
 }
 
 const currentList = 0
+
+const ListContainer = styled.div`
+	display: flex;
+	justify-content: space-evenly;
+`
 
 export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 	const [lists, setLists] = useState<{ [key: string]: List }>()
@@ -70,16 +85,39 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 
 	return (
 		<Container>
-			<Logo />
-			<AddNewItemForm
-				userId={user ? user.id : undefined}
-				listId={listId}
-			/>
-			<ListItems
-				listItems={lists && listId ?
-					lists[listId] && lists[listId].items : undefined}
-				listId={listId}
-			/>
+			<MobileLayout><Logo /></MobileLayout>
+			<Navigation clearUser={clearUser}/>
+
+			<MobileLayout>
+				<AddNewItemForm
+					userId={user ? user.id : undefined}
+					listId={listId}
+				/>
+			</MobileLayout>
+			<MediumLayout>
+				<AddNewItemForm
+					userId={user ? user.id : undefined}
+					listId={listId}
+					style={{ marginTop: "20px" }}
+				/>
+			</MediumLayout>
+
+			<ListContainer>
+				<ListItems
+					listItems={lists && listId ?
+						lists[listId] && lists[listId].items
+						: undefined}
+					listId={listId}
+				/>
+
+				<DesktopLayout>
+					<AddNewItemDesktop 
+						userId={user ? user.id : undefined}
+						listId={listId}
+					 />
+				</DesktopLayout>
+			</ListContainer>
+
 			<Actions clearUser={clearUser} />
 		</Container>
 	)

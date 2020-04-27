@@ -9,6 +9,10 @@ export enum SignUpInputs {
 	password = "password"
 }
 
+export enum AddNewItemInputs {
+	name = "name"
+}
+
 const signInErrors: { 
 	[key: string]: SignInInputs[] | (SignInInputs | number)[][]
 } = {
@@ -75,6 +79,11 @@ export interface SignUpErrors {
 	[SignUpInputs.email]?: string[],
 	[SignUpInputs.password]?: string[]
 }
+
+export interface NewItemFormData {
+	[AddNewItemInputs.name]?: string
+}
+
 
 export const signInValidation = (
 	formData?: SignInFormData

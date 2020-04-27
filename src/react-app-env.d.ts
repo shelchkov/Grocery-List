@@ -18,6 +18,11 @@ interface Styles {
 	backgroundColor?: string
 	color?: string
 	boxShadow?: string
+	padding?: string
+	marginTop?: string
+	flexDirection? :string
+	alignItems?: string
+	marginLeft?: string
 }
 
 interface Item {

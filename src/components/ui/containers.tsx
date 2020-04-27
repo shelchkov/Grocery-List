@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-import { spaces, colors } from "../../utils/styles"
+import { spaces, colors, breakpoints } from "../../utils/styles"
 
 export const Container = styled.div`
 	min-height: 100vh;
@@ -9,6 +9,11 @@ export const Container = styled.div`
 	padding-right: ${spaces[1]};
 
 	background-color: ${colors.grey};
+
+	@media (min-width: ${breakpoints.sm}) {
+		padding-left: 40px;
+		padding-right: 40px;
+	}
 `
 
 export const SignInContainer = styled.div`

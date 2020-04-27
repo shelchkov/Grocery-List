@@ -1,38 +1,33 @@
 import React, { ReactElement, useState } from "react"
-import styled from "styled-components"
 
 import { AddNewItemButtons } from "./add-new-item-buttons"
 import { Input } from "../input/input"
+import { FormContainer } from "./form-container"
 
 import { addListItem } from "../../utils/firebase"
+import { NewItemFormData, AddNewItemInputs } from "../../utils/validation"
 
 interface Props {
 	userId: string | undefined
 	listId: string | undefined
-}
-
-const FormContainer = styled.div`
-	display: flex;
-	justify-content: flex-end;
-	max-width: 272px;
-	height: 34px;
-	margin-left: auto;
-`
-
-enum AddNewItemInputs {
-	name = "name"
-}
-
-interface FormData {
-	[AddNewItemInputs.name]?: string
+	style?: Styles
+	isActive?: boolean
+	buttonsStyle?: Styles
+	inputStyle?: Styles
 }
 
 export const AddNewItemForm = ({
 	userId,
 	listId,
+	style,
+	isActive,
+	buttonsStyle,
+	inputStyle
 }: Props): ReactElement => {
-	const [isFormActive, setIsFormActive] = useState<boolean>(false)
-	const [formData, setFormData] = useState<FormData>()
+	const [isFormActive, setIsFormActive] = useState<boolean>(
+		isActive || false
+	)
+	const [formData, setFormData] = useState<NewItemFormData>()
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	
 	const setFormActive = (): void => {
@@ -53,7 +48,7 @@ export const AddNewItemForm = ({
 				console.warn("Not logged in")
 			}
 
-			setIsFormActive(false)
+			!isActive && setIsFormActive(false)
 			return
 		}
 
@@ -68,11 +63,10 @@ export const AddNewItemForm = ({
 				} else {
 					console.log(`New list was created - ${data.listId}`)
 				}
-			}).catch((e) => {
-				console.error("Error while adding new item", e)
-			}).finally(() => {
-				setIsFormActive(false)
+
+				!isActive && setIsFormActive(false)
 				setIsLoading(false)
+				setFormData(undefined)
 			})
 	}
 
@@ -82,20 +76,21 @@ export const AddNewItemForm = ({
 		setFormData({ ...formData, [name]: event.currentTarget.value })
 
 	return (
-		<form onSubmit={handleAddingNewItem}>
-			<FormContainer>
-				{isFormActive && <Input
-					placeholder="New Item"
-					onChange={handleInputChange(AddNewItemInputs.name)}
-					errorMessage={null}
-					style={{ width: "fill-available" }}
-				/>}
-				<AddNewItemButtons
-					isFormActive={isFormActive}
-					setFormActive={setFormActive}
-					isLoading={isLoading}
-				/>
-			</FormContainer>
-		</form>
+		<FormContainer onSubmit={handleAddingNewItem} {...style}>
+			{isFormActive && <Input
+				placeholder="New Item"
+				onChange={handleInputChange(AddNewItemInputs.name)}
+				errorMessage={null}
+				style={{ ...inputStyle, width: "fill-available" }}
+				value={formData && formData.name}
+			/>}
+			<AddNewItemButtons
+				isFormActive={isFormActive}
+				setFormActive={setFormActive}
+				isLoading={isLoading}
+				style={buttonsStyle}
+				shouldSubmit={isActive}
+			/>
+		</FormContainer>
 	)
 }

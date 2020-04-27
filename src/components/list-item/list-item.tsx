@@ -31,6 +31,7 @@ const NameContainer = styled.p`
 const IconContainer = styled.div`
 	height: 26px;
 	margin-right: 13px;
+	cursor: pointer;
 `
 
 export const ListItem = ({
@@ -93,7 +94,10 @@ export const ListItem = ({
 				</>
 			) : (
 				<>
-					<IconContainer onClick={handleToggle}>
+					<IconContainer
+						onClick={handleToggle}
+						title={isChecked ? "Uncheck Item" : "Check Item"}
+					>
 						{isChecked ? <CheckedIcon /> : <UncheckedIcon />}
 					</IconContainer>
 					<NameContainer>{name}</NameContainer>

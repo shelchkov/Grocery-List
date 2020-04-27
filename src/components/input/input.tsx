@@ -1,9 +1,8 @@
 import React, { ReactElement } from "react"
-import styled from "styled-components"
 
 import { ErrorMessage } from "./error-message"
+import { InputComponent } from "./input-component"
 
-import { spaces, colors } from "../../utils/styles"
 import { InputTypes } from "../../utils/enums"
 
 interface Props {
@@ -12,27 +11,8 @@ interface Props {
 	errorMessage?: string | null
 	style?: Styles
 	type?: InputTypes
+	value?: string
 }
-
-const InputComponent = styled.input`
-	height: 30px;
-	width: ${(p): string => p.width ? p.width.toString() : "213px"};
-	padding: 2px 0  0 11px;
-
-	color: ${colors.darkBlue};
-	background: transparent;
-	
-	border-radius: ${spaces[0]};
-	border: 1px solid ${colors.darkBlue};
-
-	font-size: 16px;
-	outline: none;
-	-webkit-appearance: none;
-
-	&::placeholder {
-		color: ${colors.lightGrey};
-	}
-`
 
 export const Input = ({
 	placeholder,
@@ -40,13 +20,15 @@ export const Input = ({
 	errorMessage,
 	style,
 	type = InputTypes.text,
+	value = ""
 }: Props): ReactElement => (
 	<>
 		<InputComponent
 			placeholder={placeholder}
 			onChange={onChange}
-			width={style && style.width}
 			type={type}
+			value={value}
+			{...style}
 		/>
 		
 		{errorMessage !== null && <ErrorMessage message={errorMessage} />}
