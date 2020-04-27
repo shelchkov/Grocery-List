@@ -2,6 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 
 import { MainPage } from "./pages/main.page"
 import { LoginPage } from "./pages/login.page"
+import { LoadingPage } from "./pages/loading.page"
 
 import { subscribeToAuthChange } from "./utils/firebase"
 
@@ -32,8 +33,7 @@ const App = (): ReactElement => {
   const clearUser = (): void => setUser(null)
 
   if (user === undefined) {
-    // TODO: Loading Page
-    return <LoginPage />
+    return <LoadingPage />
   }
 
   if (user === null) {
