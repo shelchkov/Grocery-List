@@ -68,7 +68,9 @@ export const LoginPage = (): ReactElement => {
 						<SignInForm setActiveForm={
 							form !== LoginForms.signIn ? setForm
 							: undefined
-						}/>
+						} inputStyle={form === LoginForms.signIn ? {
+							backgroundColor: colors.grey
+						} : undefined}/>
 					</DesktopFormContainer>
 					<DesktopFormContainer
 						isActive={form === LoginForms.signUp}
@@ -76,7 +78,9 @@ export const LoginPage = (): ReactElement => {
 						<SignUpForm setActiveForm={
 							form !== LoginForms.signUp ? setForm
 							: undefined
-						}/>
+						} inputStyle={form === LoginForms.signUp ? {
+							backgroundColor: colors.grey
+						} : undefined}/>
 					</DesktopFormContainer>
 				</FormsContainer>
 			</MediumDesktopLayout>

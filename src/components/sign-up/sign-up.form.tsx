@@ -16,6 +16,7 @@ import { getSignUpError } from "../../utils/utils"
 
 interface Props {
 	setActiveForm?: (form: LoginForms) => void
+	inputStyle?: Styles
 }
 
 const objectFromExecutions = (
@@ -27,7 +28,8 @@ const objectFromExecutions = (
 	, {})
 
 export const SignUpForm = ({
-	setActiveForm
+	setActiveForm,
+	inputStyle
 }: Props): ReactElement => {
 	const [formData, setFormData] = useState<SignUpFormData>()
 	const [formErrors, setFormErrors] = useState<SignUpErrors>()
@@ -96,7 +98,7 @@ export const SignUpForm = ({
 			<SignInContainer>
 				<Input
 					placeholder="Name"
-					style={{ width: "fill-available" }}
+					style={{ ...inputStyle, width: "fill-available" }}
 					onChange={onChangeHandlers[SignUpInputs.name]}
 					errorMessage={getFieldError(SignUpInputs.name)}
 					onFocus={handleInputFocus}
@@ -104,7 +106,7 @@ export const SignUpForm = ({
 
 				<Input
 					placeholder="Email"
-					style={{ width: "fill-available" }}
+					style={{ ...inputStyle, width: "fill-available" }}
 					onChange={onChangeHandlers[SignUpInputs.email]}
 					errorMessage={getFieldError(SignUpInputs.email)}
 					onFocus={handleInputFocus}
@@ -112,7 +114,7 @@ export const SignUpForm = ({
 
 				<Input
 					placeholder="Password"
-					style={{ width: "fill-available" }}
+					style={{ ...inputStyle, width: "fill-available" }}
 					onChange={onChangeHandlers[SignUpInputs.password]}
 					errorMessage={getFieldError(SignUpInputs.password)}
 					onFocus={handleInputFocus}

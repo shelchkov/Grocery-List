@@ -21,10 +21,12 @@ import { getSignInError } from "../../utils/utils"
 
 interface Props {
 	setActiveForm?: (form: LoginForms) => void
+	inputStyle?: Styles
 }
 
 export const SignInForm = ({
-	setActiveForm
+	setActiveForm,
+	inputStyle
 }: Props): ReactElement => {
 	const [formData, setFormData] = useState<SignInFormData>()
 	const [formErrors, setFormErrors] = useState<SignInErrors>()
@@ -85,7 +87,7 @@ export const SignInForm = ({
 				<Input
 					placeholder="Email"
 					onChange={handleInputChange(SignInInputs.email)}
-					style={{ width:"fill-available" }}
+					style={{ ...inputStyle, width:"fill-available" }}
 					type={InputTypes.email}
 					errorMessage={getFieldError(SignInInputs.email)}
 					onFocus={handleInputFocus}
@@ -94,7 +96,7 @@ export const SignInForm = ({
 				<Input
 					placeholder="Password"
 					onChange={handleInputChange(SignInInputs.password)}
-					style={{ width:"fill-available" }}
+					style={{ ...inputStyle, width:"fill-available" }}
 					type={InputTypes.password}
 					errorMessage={getFieldError(SignInInputs.password)}
 					onFocus={handleInputFocus}
