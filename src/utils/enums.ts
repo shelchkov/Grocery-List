@@ -34,8 +34,8 @@ export enum ListAccess {
 }
 
 export enum LoginForms {
-	signIn = "signIn1",
-	signOut = "signOut2"
+	signIn = "signIn",
+	signUp = "signUp"
 }
 
 export enum ItemsSort {

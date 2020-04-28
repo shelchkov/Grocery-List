@@ -21,7 +21,7 @@ const LoginActionComponent = styled.p`
 
 const LoginActionsText = {
 	[LoginForms.signIn]: "Create Account",
-	[LoginForms.signOut]: "Sign In"
+	[LoginForms.signUp]: "Sign In"
 }
 
 export const LoginActions = ({
