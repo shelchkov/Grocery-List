@@ -12,6 +12,7 @@ interface Props {
 	style?: Styles
 	type?: InputTypes
 	value?: string
+	onFocus?: () => void
 }
 
 export const Input = ({
@@ -20,7 +21,8 @@ export const Input = ({
 	errorMessage,
 	style,
 	type = InputTypes.text,
-	value = ""
+	value = "",
+	onFocus,
 }: Props): ReactElement => (
 	<>
 		<InputComponent
@@ -28,6 +30,7 @@ export const Input = ({
 			onChange={onChange}
 			type={type}
 			value={value}
+			onFocus={onFocus}
 			{...style}
 		/>
 		
