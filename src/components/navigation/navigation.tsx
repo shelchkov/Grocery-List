@@ -10,7 +10,7 @@ import { signOut } from "../../utils/firebase"
 import { BtnTypes } from "../../utils/enums"
 
 interface Props {
-	clearUser: () => void
+	clearUser?: () => void
 }
 
 const NavBar = styled.div`
@@ -47,7 +47,7 @@ export const Navigation = ({ clearUser }: Props): ReactElement => {
 				setIsLoading(false)
 				return
 			}
-			clearUser()
+			clearUser && clearUser()
 		})
 	}
 
@@ -56,7 +56,7 @@ export const Navigation = ({ clearUser }: Props): ReactElement => {
 			<NavBar>
 				<Logo style={{ padding: "0" }} />
 
-				<Menu>
+				{clearUser && <Menu>
 					<Button
 						text="Share List"
 						buttonType={BtnTypes.MenuItem}
@@ -68,7 +68,7 @@ export const Navigation = ({ clearUser }: Props): ReactElement => {
 						clickHandler={handleSignOut}
 						style={{ marginLeft: "40px" }}
 					/>
-				</Menu>
+				</Menu>}
 			</NavBar>
 
 			<EmptySpace />
