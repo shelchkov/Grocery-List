@@ -1,13 +1,37 @@
 import React, { ReactElement, useState } from "react"
+import styled from "styled-components"
 
 import { Logo } from "../components/logo/logo"
 import { LoginActions } from "../components/login-actions/login-actions"
 import { SignInForm } from "../components/sign-in/sign-in.form"
 import { Container } from "../components/ui/containers"
 import { SignUpForm } from "../components/sign-up/sign-up.form"
+import {
+	MobileLayout,
+	MediumDesktopLayout
+} from "../components/ui/layouts"
+import { Navigation } from "../components/navigation/navigation"
 
 import { LoginForms } from "../utils/enums"
 import { copyObject } from "../utils/utils"
+import { colors } from "../utils/styles"
+
+const DesktopFormContainer = styled.div`
+	// margin-top: 60px;
+	padding: 0 40px 30px 40px;
+	margin: 160px 40px 20px 40px;
+	// max-height: 142px;
+	background-color: ${(p: { isActive: boolean }): string =>
+		p.isActive ? colors.lightGrey : "transparent"};
+	border: 1px solid ${(p: { isActive: boolean }): string =>
+		p.isActive ? colors.darkBlue : "none"};
+	border-radius: 10px;
+`
+
+const FormsContainer = styled.div`
+	display: flex;
+	margin: 0 auto;
+`
 
 export const LoginPage = (): ReactElement => {
 	const [form, setForm] = useState<LoginForms>(LoginForms.signIn)
@@ -28,9 +52,30 @@ export const LoginPage = (): ReactElement => {
 
 	return (
 		<Container>
-			<Logo />
-			{form === LoginForms.signIn ? <SignInForm /> : <SignUpForm />}
-			<LoginActions form={form} handleClick={changeForm} />
+			<MobileLayout><Logo /></MobileLayout>
+			<Navigation />
+
+			<MobileLayout>
+				{form === LoginForms.signIn ?
+					<SignInForm /> : <SignUpForm />
+				}
+				<LoginActions form={form} handleClick={changeForm} />
+			</MobileLayout>
+
+			<MediumDesktopLayout>
+				<FormsContainer>
+					<DesktopFormContainer
+						isActive={form === LoginForms.signIn}
+					>
+						<SignInForm />
+					</DesktopFormContainer>
+					<DesktopFormContainer
+						isActive={form === LoginForms.signUp}
+					>
+						<SignUpForm />
+					</DesktopFormContainer>
+				</FormsContainer>
+			</MediumDesktopLayout>
 		</Container>
 	)
 }
