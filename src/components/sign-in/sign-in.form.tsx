@@ -90,6 +90,7 @@ export const SignInForm = ({
 					style={{ ...inputStyle, width:"fill-available" }}
 					type={InputTypes.email}
 					errorMessage={getFieldError(SignInInputs.email)}
+					value={formData && formData.email}
 					onFocus={handleInputFocus}
 				/>
 
@@ -100,6 +101,7 @@ export const SignInForm = ({
 					type={InputTypes.password}
 					errorMessage={getFieldError(SignInInputs.password)}
 					onFocus={handleInputFocus}
+					value={formData && formData.password}
 				/>
 
 				<SignInButtonContainer>

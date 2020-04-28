@@ -102,6 +102,7 @@ export const SignUpForm = ({
 					onChange={onChangeHandlers[SignUpInputs.name]}
 					errorMessage={getFieldError(SignUpInputs.name)}
 					onFocus={handleInputFocus}
+					value={formData && formData.name}
 				/>
 
 				<Input
@@ -110,6 +111,7 @@ export const SignUpForm = ({
 					onChange={onChangeHandlers[SignUpInputs.email]}
 					errorMessage={getFieldError(SignUpInputs.email)}
 					onFocus={handleInputFocus}
+					value={formData && formData.email}
 				/>
 
 				<Input
@@ -118,6 +120,7 @@ export const SignUpForm = ({
 					onChange={onChangeHandlers[SignUpInputs.password]}
 					errorMessage={getFieldError(SignUpInputs.password)}
 					onFocus={handleInputFocus}
+					value={formData && formData.password}
 				/>
 
 				<SignInButtonContainer>
