@@ -4,7 +4,7 @@ import { SignInContainer, SignInButtonContainer } from "../ui/containers"
 import { Input } from "../input/input"
 import { Button } from "../button/button"
 
-import { BtnTypes, ButtonTypes } from "../../utils/enums"
+import { BtnTypes, ButtonTypes, LoginForms } from "../../utils/enums"
 import {
 	SignUpInputs,
 	SignUpFormData,
@@ -14,6 +14,10 @@ import {
 import { signUp } from "../../utils/firebase"
 import { getSignUpError } from "../../utils/utils"
 
+interface Props {
+	setActiveForm?: (form: LoginForms) => void
+}
+
 const objectFromExecutions = (
 	values: string[],
 	func: (value: any) => any
@@ -22,7 +26,9 @@ const objectFromExecutions = (
 		({ ...acc, [value]: func(value) })
 	, {})
 
-export const SignUpForm = (): ReactElement => {
+export const SignUpForm = ({
+	setActiveForm
+}: Props): ReactElement => {
 	const [formData, setFormData] = useState<SignUpFormData>()
 	const [formErrors, setFormErrors] = useState<SignUpErrors>()
 
@@ -81,6 +87,10 @@ export const SignUpForm = (): ReactElement => {
 		handleInputChange
 	)
 
+	const handleInputFocus = (): void => {
+		setActiveForm && setActiveForm(LoginForms.signUp)
+	}
+
 	return (
 		<form onSubmit={handleSubmit}>
 			<SignInContainer>
@@ -89,6 +99,7 @@ export const SignUpForm = (): ReactElement => {
 					style={{ width: "fill-available" }}
 					onChange={onChangeHandlers[SignUpInputs.name]}
 					errorMessage={getFieldError(SignUpInputs.name)}
+					onFocus={handleInputFocus}
 				/>
 
 				<Input
@@ -96,6 +107,7 @@ export const SignUpForm = (): ReactElement => {
 					style={{ width: "fill-available" }}
 					onChange={onChangeHandlers[SignUpInputs.email]}
 					errorMessage={getFieldError(SignUpInputs.email)}
+					onFocus={handleInputFocus}
 				/>
 
 				<Input
@@ -103,6 +115,7 @@ export const SignUpForm = (): ReactElement => {
 					style={{ width: "fill-available" }}
 					onChange={onChangeHandlers[SignUpInputs.password]}
 					errorMessage={getFieldError(SignUpInputs.password)}
+					onFocus={handleInputFocus}
 				/>
 
 				<SignInButtonContainer>

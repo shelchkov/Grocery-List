@@ -17,10 +17,8 @@ import { copyObject } from "../utils/utils"
 import { colors } from "../utils/styles"
 
 const DesktopFormContainer = styled.div`
-	// margin-top: 60px;
 	padding: 0 40px 30px 40px;
 	margin: 160px 40px 20px 40px;
-	// max-height: 142px;
 	background-color: ${(p: { isActive: boolean }): string =>
 		p.isActive ? colors.lightGrey : "transparent"};
 	border: 1px solid ${(p: { isActive: boolean }): string =>
@@ -67,12 +65,18 @@ export const LoginPage = (): ReactElement => {
 					<DesktopFormContainer
 						isActive={form === LoginForms.signIn}
 					>
-						<SignInForm />
+						<SignInForm setActiveForm={
+							form !== LoginForms.signIn ? setForm
+							: undefined
+						}/>
 					</DesktopFormContainer>
 					<DesktopFormContainer
 						isActive={form === LoginForms.signUp}
 					>
-						<SignUpForm />
+						<SignUpForm setActiveForm={
+							form !== LoginForms.signUp ? setForm
+							: undefined
+						}/>
 					</DesktopFormContainer>
 				</FormsContainer>
 			</MediumDesktopLayout>
