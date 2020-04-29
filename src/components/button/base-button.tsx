@@ -22,8 +22,9 @@ export const ButtonBase = styled.button`
 	font-weight: ${fontWeights[0]};
 	font-size: ${sizes[0]};
 
+	opacity: ${(p: Styles): string => p.opacity || "1"};
 	outline: none;
-	cursor: pointer;
+	cursor: ${(p: Styles): string => p.cursor || "pointer"};
 	-webkit-appearance: none;
 `
 
