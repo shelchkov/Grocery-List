@@ -7,7 +7,8 @@ import { SignInContainer, SignInButtonContainer } from "../ui/containers"
 import {
 	BtnTypes,
 	ButtonTypes,
-	InputTypes
+	InputTypes,
+	LoginForms
 } from "../../utils/enums"
 import { signIn } from "../../utils/firebase"
 import {
@@ -18,7 +19,15 @@ import {
 } from "../../utils/validation"
 import { getSignInError } from "../../utils/utils"
 
-export const SignInForm = (): ReactElement => {
+interface Props {
+	setActiveForm?: (form: LoginForms) => void
+	inputStyle?: Styles
+}
+
+export const SignInForm = ({
+	setActiveForm,
+	inputStyle
+}: Props): ReactElement => {
 	const [formData, setFormData] = useState<SignInFormData>()
 	const [formErrors, setFormErrors] = useState<SignInErrors>()
 	const [isLoading, setIsLoading] = useState<boolean>()
@@ -68,23 +77,31 @@ export const SignInForm = (): ReactElement => {
 		return (formErrors[name] as string[])[0]
 	}
 
+	const handleInputFocus = (): void => {
+		setActiveForm && setActiveForm(LoginForms.signIn)
+	}
+
 	return (
 		<form onSubmit={handleSubmit}>
 			<SignInContainer>
 				<Input
 					placeholder="Email"
 					onChange={handleInputChange(SignInInputs.email)}
-					style={{ width:"fill-available" }}
+					style={{ ...inputStyle, width:"fill-available" }}
 					type={InputTypes.email}
 					errorMessage={getFieldError(SignInInputs.email)}
+					value={formData && formData.email}
+					onFocus={handleInputFocus}
 				/>
 
 				<Input
 					placeholder="Password"
 					onChange={handleInputChange(SignInInputs.password)}
-					style={{ width:"fill-available" }}
+					style={{ ...inputStyle, width:"fill-available" }}
 					type={InputTypes.password}
 					errorMessage={getFieldError(SignInInputs.password)}
+					onFocus={handleInputFocus}
+					value={formData && formData.password}
 				/>
 
 				<SignInButtonContainer>
