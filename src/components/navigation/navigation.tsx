@@ -60,6 +60,7 @@ export const Navigation = ({ clearUser }: Props): ReactElement => {
 					<Button
 						text="Share List"
 						buttonType={BtnTypes.MenuItem}
+						isDisabled
 					/>
 					<Button
 						text="Sign Out"
