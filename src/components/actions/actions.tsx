@@ -30,7 +30,11 @@ export const Actions = ({ clearUser }: Props): ReactElement => {
 		<>
 			<MobileLayout>
 				<ActionsContainer>				
-					<Button buttonType={BtnTypes.ShareList} text="Share List" />
+					<Button
+						buttonType={BtnTypes.ShareList}
+						text="Share List"
+						isDisabled
+					/>
 					<Button
 						buttonType={BtnTypes.SignOut}
 						text="Sign Out"
@@ -45,10 +49,12 @@ export const Actions = ({ clearUser }: Props): ReactElement => {
 					<Button
 						text="< Previous List"
 						buttonType={BtnTypes.DesktopAction}
+						isDisabled
 					/>
 					<Button
 						text="Next List >"
 						buttonType={BtnTypes.DesktopAction}
+						isDisabled
 					/>
 				</ActionsContainer>
 			</MediumDesktopLayout>

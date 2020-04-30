@@ -23,6 +23,8 @@ interface Styles {
 	flexDirection? :string
 	alignItems?: string
 	marginLeft?: string
+	opacity?: string
+	cursor?: string
 }
 
 interface Item {

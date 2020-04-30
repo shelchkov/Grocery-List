@@ -20,6 +20,7 @@ interface Props {
 	type?: ButtonTypes
 	style?: Styles
 	isLoading?: boolean
+	isDisabled?: boolean
 }
 
 const buttons = {
@@ -50,6 +51,7 @@ export const Button = ({
 	type = ButtonTypes.button,
 	style,
 	isLoading,
+	isDisabled,
 }: Props): ReactElement | null => {
 	const BtnComponent = buttons[buttonType]
 
@@ -57,6 +59,8 @@ export const Button = ({
 		<BtnComponent
 			onClick={clickHandler}
 			type={type}
+			opacity={isDisabled ? "0.7" : "1"}
+			cursor={isDisabled ? "default" : "pointer"}
 			{...style}
 		>
 			{isLoading ? getLoadingText(buttonType) : text}
