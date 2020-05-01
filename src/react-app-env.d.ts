@@ -15,14 +15,16 @@ interface UserInfo {
 interface Styles {
 	width?: string
 	height?: string
-	backgroundColor?: string
-	color?: string
-	boxShadow?: string
 	padding?: string
 	marginTop?: string
-	flexDirection? :string
-	alignItems?: string
 	marginLeft?: string
+	color?: string
+	backgroundColor?: string
+	display?: string
+	flexDirection? :string
+	justifyContent?: string
+	alignItems?: string
+	boxShadow?: string
 	opacity?: string
 	cursor?: string
 }

@@ -1,14 +1,18 @@
 import styled from "styled-components"
 
-import { spaces, colors, breakpoints } from "../../utils/styles"
+import { colors, spaces, breakpoints } from "../../utils/styles"
+import { stylesGenerator } from "../../utils/styles-generator"
 
-export const Container = styled.div`
+export const BaseContainer = styled.div`
 	min-height: 100vh;
+	background-color: ${colors.grey};
 
+	${(p: Styles): string => stylesGenerator(p)}
+`
+
+export const Container = styled(BaseContainer)`
 	padding-left: ${spaces[1]};
 	padding-right: ${spaces[1]};
-
-	background-color: ${colors.grey};
 
 	@media (min-width: ${breakpoints.sm}) {
 		padding-left: 40px;

@@ -8,7 +8,9 @@ const stylesList: { [key: string]: string } = {
 	color: "color",
 	backgroundColor: "background-color",
 	
+	display: "display",
 	flexDirection: "flex-direction",
+	justifyContent: "justifyContent",
 	alignItems: "align-items",
 
 	boxShadow: "box-shadow",
