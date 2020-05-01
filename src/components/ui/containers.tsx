@@ -28,3 +28,18 @@ export const SignInButtonContainer = styled.div`
 	display: flex;
 	justify-content: flex-end;
 `
+
+export const DesktopFormContainer = styled.div`
+	padding: 0 40px 30px 40px;
+	margin: 160px 40px 20px 40px;
+	background-color: ${(p: { isActive: boolean }): string =>
+		p.isActive ? colors.lightGrey : "transparent"};
+	border: 1px solid ${(p: { isActive: boolean }): string =>
+		p.isActive ? colors.darkBlue : "none"};
+	border-radius: 10px;
+`
+
+export const FormsContainer = styled.div`
+	display: flex;
+	margin: 0 auto;
+`

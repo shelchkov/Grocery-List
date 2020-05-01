@@ -1,35 +1,22 @@
 import React, { ReactElement, useState } from "react"
-import styled from "styled-components"
 
-import { Logo } from "../components/logo/logo"
+import { Header } from "../components/header/header"
 import { LoginActions } from "../components/login-actions/login-actions"
 import { SignInForm } from "../components/sign-in/sign-in.form"
-import { Container } from "../components/ui/containers"
+import {
+	Container,
+	DesktopFormContainer,
+	FormsContainer
+} from "../components/ui/containers"
 import { SignUpForm } from "../components/sign-up/sign-up.form"
 import {
 	MobileLayout,
 	MediumDesktopLayout
 } from "../components/ui/layouts"
-import { Navigation } from "../components/navigation/navigation"
 
 import { LoginForms } from "../utils/enums"
 import { copyObject } from "../utils/utils"
 import { colors } from "../utils/styles"
-
-const DesktopFormContainer = styled.div`
-	padding: 0 40px 30px 40px;
-	margin: 160px 40px 20px 40px;
-	background-color: ${(p: { isActive: boolean }): string =>
-		p.isActive ? colors.lightGrey : "transparent"};
-	border: 1px solid ${(p: { isActive: boolean }): string =>
-		p.isActive ? colors.darkBlue : "none"};
-	border-radius: 10px;
-`
-
-const FormsContainer = styled.div`
-	display: flex;
-	margin: 0 auto;
-`
 
 export const LoginPage = (): ReactElement => {
 	const [form, setForm] = useState<LoginForms>(LoginForms.signIn)
@@ -50,8 +37,7 @@ export const LoginPage = (): ReactElement => {
 
 	return (
 		<Container>
-			<MobileLayout><Logo /></MobileLayout>
-			<Navigation />
+			<Header />
 
 			<MobileLayout>
 				{form === LoginForms.signIn ?
