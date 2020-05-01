@@ -7,25 +7,24 @@ import {
 	boxShadows,
 	fontWeights
 } from "../../utils/styles"
+import { stylesGenerator } from "../../utils/styles-generator"
 
 export const ButtonBase = styled.button`
 	height: ${sizes[2]};
-	${({ width }: Styles) => width && `width: ${width};`}
-	margin-top: ${(p: Styles): string => p.marginTop || "0"};
-	margin-left: ${(p: Styles): string => p.marginLeft || "0"};
 
 	color: ${colors.grey};
 	border: none;
 	border-radius: ${spaces[0]};
-	box-shadow: ${(p: Styles): string => p.boxShadow || boxShadows[0]};
+	box-shadow: ${boxShadows[0]};
 
 	font-weight: ${fontWeights[0]};
 	font-size: ${sizes[0]};
 
-	opacity: ${(p: Styles): string => p.opacity || "1"};
 	outline: none;
-	cursor: ${(p: Styles): string => p.cursor || "pointer"};
+	cursor: pointer;
 	-webkit-appearance: none;
+
+	${(p: Styles): string => stylesGenerator(p)}
 `
 
 export const OutlinedButton = styled(ButtonBase)`
