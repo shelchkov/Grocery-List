@@ -1,20 +1,20 @@
 import styled from "styled-components"
 
 import { colors } from "../../utils/styles"
+import { stylesGenerator } from "../../utils/styles-generator"
 
 export const FormContainer = styled.form`
 	display: flex;
-	flex-direction: ${(p: Styles): string => p.flexDirection || "row"};
+	flex-direction: row;
 	justify-content: flex-end;
-	align-items: ${(p: Styles): string => p.alignItems || "stretch"};
+	align-items: stretch;
 	max-width: 272px;
-	height: ${(p: Styles): string => p.height || "34px"};
+	height: 34px;
 	margin-left: auto;
-	margin-top: ${(p: Styles): string => p.marginTop || "0"};
-	padding: ${(p: Styles): string => p.padding || "0"};
 
-	background-color: ${(p: Styles): string => p.backgroundColor ||
-		"transparent"};
+	background-color: "transparent";
+
+	${(p: Styles): string => stylesGenerator(p)}
 `
 export const DesktopFormContainer = styled.div`
 	margin-top: 60px;

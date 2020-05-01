@@ -2,6 +2,7 @@ import React, { ReactElement, useState, useEffect } from "react"
 import styled from "styled-components"
 
 import { colors } from "../../utils/styles"
+import { stylesGenerator } from "../../utils/styles-generator"
 
 interface LoadingStyles {
 	opacity: string
@@ -12,12 +13,13 @@ const LoadingComponent = styled.p<LoadingStyles>`
 	width: 70px;
 	margin: 0;
 	color: ${colors.lightGrey};
-	opacity: ${(p): string => p.opacity};
 	transition: opacity 1s ease-in-out;
 
 	&:after {
 		content: '${(p): string => p.afterContent}';
 	}
+
+	${(p: Styles): string => stylesGenerator(p)}
 `
 
 const getNextOpacity = (currentOpacity: string): string => {

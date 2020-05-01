@@ -1,6 +1,7 @@
 import styled from "styled-components"
 
 import { colors, sizes } from "../../utils/styles"
+import { stylesGenerator } from "../../utils/styles-generator"
 
 export const ActionsContainer = styled.div`
 	position: fixed;
@@ -15,6 +16,7 @@ export const ActionsContainer = styled.div`
 	padding: 13px 1.5rem;
 
 	color: ${colors.darkBlue};
-	background-color: ${(p: Styles): string => 
-		p.backgroundColor || colors.purple};
+	background-color: ${colors.purple};
+
+	${(p: Styles): string => stylesGenerator(p)}
 `
