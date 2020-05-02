@@ -13,20 +13,23 @@ interface UserInfo {
 }
 
 interface Styles {
-	width?: string
-	height?: string
-	padding?: string
-	marginTop?: string
-	marginLeft?: string
-	color?: string
-	backgroundColor?: string
-	display?: string
-	flexDirection? :string
-	justifyContent?: string
-	alignItems?: string
-	boxShadow?: string
-	opacity?: string
-	cursor?: string
+	width?: string | string[]
+	height?: string | string[]
+	maxHeight?: string | string[]
+	padding?: string | string[]
+	marginTop?: string | string[]
+	marginLeft?: string | string[]
+	color?: string | string[]
+	backgroundColor?: string | string[]
+	display?: string | string[]
+	flexDirection? :string | string[]
+	justifyContent?: string | string[]
+	alignItems?: string | string[]
+	border?: string | string[]
+	borderRadius?: string | string[]
+	boxShadow?: string | string[]
+	opacity?: string | string[]
+	cursor?: string | string[]
 }
 
 interface Item {
