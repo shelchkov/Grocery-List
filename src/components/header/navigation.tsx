@@ -1,30 +1,24 @@
-import React, { ReactElement, useState } from "react"
+import React, { ReactElement, useEffect } from "react"
 
 import { Logo } from "../logo/logo"
 import { Button } from "../button/button"
 import { Div } from "../ui/div"
 import { NavBar } from "./navbar"
 
-import { signOut } from "../../utils/firebase"
 import { BtnTypes } from "../../utils/enums"
+import { useSignOut } from "../../effects/use-sign-out.effect"
 
 interface Props {
 	clearUser?: () => void
 }
 
 export const Navigation = ({ clearUser }: Props): ReactElement => {
-	const [isLoading, setIsLoading] = useState<boolean>()
+	const { isLoading, isSuccess, startSignOut } = useSignOut()
 
-	const handleSignOut = (): void => {
-		setIsLoading(true)
-		signOut().then((data): void => {
-			if (data.error) {
-				setIsLoading(false)
-				return
-			}
-			clearUser && clearUser()
-		})
-	}
+	useEffect((): void => {
+		isSuccess && clearUser && clearUser()
+	// eslint-disable-next-line
+	}, [isSuccess])
 
 	return (
 		<>
@@ -41,7 +35,7 @@ export const Navigation = ({ clearUser }: Props): ReactElement => {
 						text="Sign Out"
 						buttonType={BtnTypes.MenuItem}
 						isLoading={isLoading}
-						clickHandler={handleSignOut}
+						clickHandler={startSignOut}
 						style={{ marginLeft: "40px" }}
 					/>
 				</Div>}

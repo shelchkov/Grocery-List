@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react"
+import React, { ReactElement, useEffect } from "react"
 
 import { Button } from "../button/button"
 import { MobileLayout, MediumDesktopLayout } from "../ui/layouts"
@@ -6,25 +6,19 @@ import { ActionsContainer } from "./actions-container"
 
 import { colors } from "../../utils/styles"
 import { BtnTypes } from "../../utils/enums"
-import { signOut } from "../../utils/firebase"
+import { useSignOut } from "../../effects/use-sign-out.effect"
 
 interface Props {
 	clearUser: () => void
 }
 
 export const Actions = ({ clearUser }: Props): ReactElement => {
-	const [isLoading, setIsLoading] = useState<boolean>()
+	const { isLoading, isSuccess, startSignOut } = useSignOut()
 
-	const handleSignOut = (): void => {
-		setIsLoading(true)
-		signOut().then((data): void => {
-			if (data.error) {
-				setIsLoading(false)
-				return
-			}
-			clearUser()
-		})
-	}
+	useEffect((): void => {
+		isSuccess && clearUser()
+	// eslint-disable-next-line
+	}, [isSuccess])
 
 	return (
 		<>
@@ -38,7 +32,7 @@ export const Actions = ({ clearUser }: Props): ReactElement => {
 					<Button
 						buttonType={BtnTypes.SignOut}
 						text="Sign Out"
-						clickHandler={handleSignOut}
+						clickHandler={startSignOut}
 						isLoading={isLoading}
 					/>
 				</ActionsContainer>
