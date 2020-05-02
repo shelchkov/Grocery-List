@@ -1,41 +1,16 @@
 import React, { ReactElement, useState } from "react"
-import styled from "styled-components"
 
 import { Logo } from "../logo/logo"
 import { Button } from "../button/button"
 import { Div } from "../ui/div"
+import { NavBar } from "./navbar"
 
-import { colors } from "../../utils/styles"
 import { signOut } from "../../utils/firebase"
 import { BtnTypes } from "../../utils/enums"
 
 interface Props {
 	clearUser?: () => void
 }
-
-const NavBar = styled(Div)`
-	position: fixed;
-	top: 0;
-	left: 40px;
-	right: 40px;
-	height: 68px;
-	padding: 0 40px;
-	margin-left: -40px;
-	margin-right: -40px;
-	
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color: ${colors.darkBlue};
-`
-
-const Menu = styled.div`
-	display: flex;
-`
-
-const EmptySpace = styled(Div)`
-	height: 68px;
-`
 
 export const Navigation = ({ clearUser }: Props): ReactElement => {
 	const [isLoading, setIsLoading] = useState<boolean>()
@@ -56,7 +31,7 @@ export const Navigation = ({ clearUser }: Props): ReactElement => {
 			<NavBar display={["none", "flex"]}>
 				<Logo style={{ padding: "0" }} />
 
-				{clearUser && <Menu>
+				{clearUser && <Div display="flex">
 					<Button
 						text="Share List"
 						buttonType={BtnTypes.MenuItem}
@@ -69,10 +44,10 @@ export const Navigation = ({ clearUser }: Props): ReactElement => {
 						clickHandler={handleSignOut}
 						style={{ marginLeft: "40px" }}
 					/>
-				</Menu>}
+				</Div>}
 			</NavBar>
 
-			<EmptySpace display={["none", "flex"]}/>
+			<Div height="68px" display={["none", "flex"]}/>
 		</>
 	)
 }
