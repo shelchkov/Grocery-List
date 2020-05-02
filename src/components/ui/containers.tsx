@@ -1,13 +1,13 @@
 import styled from "styled-components"
 
+import { Div } from "./div"
+
 import { colors, spaces, breakpoints } from "../../utils/styles"
 import { stylesGenerator } from "../../utils/styles-generator"
 
-export const BaseContainer = styled.div`
+export const BaseContainer = styled(Div)`
 	min-height: 100vh;
 	background-color: ${colors.grey};
-
-	${(p: Styles): string => stylesGenerator(p)}
 `
 
 export const Container = styled(BaseContainer)`
@@ -39,7 +39,26 @@ export const DesktopFormContainer = styled.div`
 	border-radius: 10px;
 `
 
-export const FormsContainer = styled.div`
+export const FormsContainer = styled(Div)`
 	display: flex;
 	margin: 0 auto;
+`
+
+export const ListContainer = styled.div`
+	display: flex;
+	justify-content: space-evenly;
+`
+
+export const NewItemFormContainer = styled.form`
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: stretch;
+	max-width: 272px;
+	height: 34px;
+	margin-left: auto;
+
+	background-color: "transparent";
+
+	${(p: Styles): string => stylesGenerator(p)}
 `

@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from "react"
 
 import { AddNewItemButtons } from "./add-new-item-buttons"
 import { Input } from "../input/input"
-import { FormContainer } from "./form-container"
+import { NewItemFormContainer } from "../ui/containers"
 
 import { addListItem } from "../../utils/firebase"
 import { NewItemFormData, AddNewItemInputs } from "../../utils/validation"
@@ -76,7 +76,10 @@ export const AddNewItemForm = ({
 		setFormData({ ...formData, [name]: event.currentTarget.value })
 
 	return (
-		<FormContainer onSubmit={handleAddingNewItem} {...style}>
+		<NewItemFormContainer
+			onSubmit={handleAddingNewItem}
+			{...(style as any)}
+		>
 			{isFormActive && <Input
 				placeholder="New Item"
 				onChange={handleInputChange(AddNewItemInputs.name)}
@@ -91,6 +94,6 @@ export const AddNewItemForm = ({
 				style={buttonsStyle}
 				shouldSubmit={isActive}
 			/>
-		</FormContainer>
+		</NewItemFormContainer>
 	)
 }

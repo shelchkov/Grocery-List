@@ -26,12 +26,7 @@ const LogoComponent = styled.p`
 
 	text-shadow: ${textShadows[0]};
 
-	${(p: Styles): string => {
-		console.log(p)
-		const styles = stylesGenerator(p)
-		console.log(styles)
-		return styles
-	}}
+	${(p: Styles): string => stylesGenerator(p)}
 `
 
 export const Logo = ({ style }: Props): ReactElement => 
