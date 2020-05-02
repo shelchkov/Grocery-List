@@ -1,9 +1,9 @@
 import React, { ReactElement, useState } from "react"
 import styled from "styled-components"
 
-import { MediumDesktopLayout } from "../ui/layouts"
 import { Logo } from "../logo/logo"
 import { Button } from "../button/button"
+import { Div } from "../ui/div"
 
 import { colors } from "../../utils/styles"
 import { signOut } from "../../utils/firebase"
@@ -13,7 +13,7 @@ interface Props {
 	clearUser?: () => void
 }
 
-const NavBar = styled.div`
+const NavBar = styled(Div)`
 	position: fixed;
 	top: 0;
 	left: 40px;
@@ -33,7 +33,7 @@ const Menu = styled.div`
 	display: flex;
 `
 
-const EmptySpace = styled.div`
+const EmptySpace = styled(Div)`
 	height: 68px;
 `
 
@@ -52,8 +52,8 @@ export const Navigation = ({ clearUser }: Props): ReactElement => {
 	}
 
 	return (
-		<MediumDesktopLayout>
-			<NavBar>
+		<>
+			<NavBar display={["none", "flex"]}>
 				<Logo style={{ padding: "0" }} />
 
 				{clearUser && <Menu>
@@ -72,7 +72,7 @@ export const Navigation = ({ clearUser }: Props): ReactElement => {
 				</Menu>}
 			</NavBar>
 
-			<EmptySpace />
-		</MediumDesktopLayout>
+			<EmptySpace display={["none", "flex"]}/>
+		</>
 	)
 }
