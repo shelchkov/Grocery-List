@@ -31,7 +31,7 @@ export const Input = ({
 			type={type}
 			value={value}
 			onFocus={onFocus}
-			{...style}
+			{...(style as any)}
 		/>
 		
 		{errorMessage !== null && <ErrorMessage message={errorMessage} />}

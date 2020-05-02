@@ -1,15 +1,16 @@
 import React, { ReactElement, useState, useEffect } from "react"
 import styled from "styled-components"
 
-import { colors } from "../../utils/styles"
-import { stylesGenerator } from "../../utils/styles-generator"
+import { P } from "../ui/p"
 
-interface LoadingStyles {
+import { colors } from "../../utils/styles"
+
+type LoadingStyles = Styles & {
 	opacity: string
 	afterContent: string
 }
 
-const LoadingComponent = styled.p<LoadingStyles>`
+const LoadingComponent = styled(P)<LoadingStyles>`
 	width: 70px;
 	margin: 0;
 	color: ${colors.lightGrey};
@@ -18,8 +19,6 @@ const LoadingComponent = styled.p<LoadingStyles>`
 	&:after {
 		content: '${(p): string => p.afterContent}';
 	}
-
-	${(p: Styles): string => stylesGenerator(p)}
 `
 
 const getNextOpacity = (currentOpacity: string): string => {
@@ -34,8 +33,8 @@ const getNextOpacity = (currentOpacity: string): string => {
 	return ".5"
 }
 
-const getNextContent = (content: string): string => content.length < 3 ?
-	content + "." : ""
+const getNextContent = (content: string): string =>
+	content.length < 3 ? content + "." : ""
 
 const initStyles = { opacity: ".9", afterContent: "" }
 
