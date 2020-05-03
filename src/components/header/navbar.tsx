@@ -1,21 +1,20 @@
 import styled from "styled-components"
 
-import { Div } from "../ui/div"
-
 import { colors } from "../../utils/styles"
+import { stylesGenerator } from "../../utils/styles-generator"
 
-export const NavBar = styled(Div)`
+export const NavBar = styled.div`
 	position: fixed;
 	top: 0;
-	left: 40px;
-	right: 40px;
+	left: 0;
+	right: 0;
 	height: 68px;
 	padding: 0 40px;
-	margin-left: -40px;
-	margin-right: -40px;
-	
+
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	background-color: ${colors.darkBlue};
+
+	${(p: Styles): string => stylesGenerator(p)}
 `
