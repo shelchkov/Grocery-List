@@ -94,43 +94,41 @@ export const SignUpForm = ({
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<SignInContainer>
-				<Input
-					placeholder="Name"
-					style={{ ...inputStyle, width: "fill-available" }}
-					onChange={onChangeHandlers[SignUpInputs.name]}
-					errorMessage={getFieldError(SignUpInputs.name)}
-					onFocus={handleInputFocus}
-					value={formData && formData.name}
-				/>
+		<SignInContainer onSubmit={handleSubmit}>
+			<Input
+				placeholder="Name"
+				style={{ ...inputStyle, width: "fill-available" }}
+				onChange={onChangeHandlers[SignUpInputs.name]}
+				errorMessage={getFieldError(SignUpInputs.name)}
+				onFocus={handleInputFocus}
+				value={formData && formData.name}
+			/>
 
-				<Input
-					placeholder="Email"
-					style={{ ...inputStyle, width: "fill-available" }}
-					onChange={onChangeHandlers[SignUpInputs.email]}
-					errorMessage={getFieldError(SignUpInputs.email)}
-					onFocus={handleInputFocus}
-					value={formData && formData.email}
-				/>
+			<Input
+				placeholder="Email"
+				style={{ ...inputStyle, width: "fill-available" }}
+				onChange={onChangeHandlers[SignUpInputs.email]}
+				errorMessage={getFieldError(SignUpInputs.email)}
+				onFocus={handleInputFocus}
+				value={formData && formData.email}
+			/>
 
-				<Input
-					placeholder="Password"
-					style={{ ...inputStyle, width: "fill-available" }}
-					onChange={onChangeHandlers[SignUpInputs.password]}
-					errorMessage={getFieldError(SignUpInputs.password)}
-					onFocus={handleInputFocus}
-					value={formData && formData.password}
-				/>
+			<Input
+				placeholder="Password"
+				style={{ ...inputStyle, width: "fill-available" }}
+				onChange={onChangeHandlers[SignUpInputs.password]}
+				errorMessage={getFieldError(SignUpInputs.password)}
+				onFocus={handleInputFocus}
+				value={formData && formData.password}
+			/>
 
-				<SignInButtonContainer>
-					<Button
-						buttonType={BtnTypes.SignUp}
-						text="Sign Up"
-						type={ButtonTypes.submit}
-					/>
-				</SignInButtonContainer>
-			</SignInContainer>
-		</form>
+			<SignInButtonContainer>
+				<Button
+					buttonType={BtnTypes.SignUp}
+					text="Sign Up"
+					type={ButtonTypes.submit}
+				/>
+			</SignInButtonContainer>
+		</SignInContainer>
 	)
 }

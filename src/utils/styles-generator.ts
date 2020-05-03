@@ -2,18 +2,22 @@ import { breakpoints } from "./styles"
 
 const stylesList: { [key: string]: string } = {
 	width: "width",
+	minWidth: "min-width",
+	maxWidth: "max-width",
 	height: "height",
 	maxHeight: "max-height",
 	padding: "padding",
 	marginTop: "margin-top",
 	marginLeft: "margin-left",
 
+	left: "left",
+
 	color: "color",
 	backgroundColor: "background-color",
 	
 	display: "display",
 	flexDirection: "flex-direction",
-	justifyContent: "justifyContent",
+	justifyContent: "justify-content",
 	alignItems: "align-items",
 
 	border: "border",

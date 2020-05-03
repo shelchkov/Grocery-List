@@ -14,11 +14,14 @@ interface UserInfo {
 
 interface Styles {
 	width?: string | string[]
+	minWidth?: string | string[]
+	maxWidth?: string | string[]
 	height?: string | string[]
 	maxHeight?: string | string[]
 	padding?: string | string[]
 	marginTop?: string | string[]
 	marginLeft?: string | string[]
+	left?: string | string[]
 	color?: string | string[]
 	backgroundColor?: string | string[]
 	display?: string | string[]

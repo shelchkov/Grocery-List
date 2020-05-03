@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react"
 
-import { ErrorMessage } from "./error-message"
 import { InputComponent } from "./input-component"
+import { ErrorMessage } from "./error-message"
 
 import { InputTypes } from "../../utils/enums"
 

@@ -82,37 +82,35 @@ export const SignInForm = ({
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<SignInContainer>
-				<Input
-					placeholder="Email"
-					onChange={handleInputChange(SignInInputs.email)}
-					style={{ ...inputStyle, width:"fill-available" }}
-					type={InputTypes.email}
-					errorMessage={getFieldError(SignInInputs.email)}
-					value={formData && formData.email}
-					onFocus={handleInputFocus}
-				/>
+		<SignInContainer onSubmit={handleSubmit}>
+			<Input
+				placeholder="Email"
+				onChange={handleInputChange(SignInInputs.email)}
+				style={{ ...inputStyle, width:"fill-available" }}
+				type={InputTypes.email}
+				errorMessage={getFieldError(SignInInputs.email)}
+				value={formData && formData.email}
+				onFocus={handleInputFocus}
+			/>
 
-				<Input
-					placeholder="Password"
-					onChange={handleInputChange(SignInInputs.password)}
-					style={{ ...inputStyle, width:"fill-available" }}
-					type={InputTypes.password}
-					errorMessage={getFieldError(SignInInputs.password)}
-					onFocus={handleInputFocus}
-					value={formData && formData.password}
-				/>
+			<Input
+				placeholder="Password"
+				onChange={handleInputChange(SignInInputs.password)}
+				style={{ ...inputStyle, width:"fill-available" }}
+				type={InputTypes.password}
+				errorMessage={getFieldError(SignInInputs.password)}
+				onFocus={handleInputFocus}
+				value={formData && formData.password}
+			/>
 
-				<SignInButtonContainer>
-					<Button
-						buttonType={BtnTypes.SignIn}
-						text="Sign In"
-						type={ButtonTypes.submit}
-						isLoading={isLoading}
-					/>
-				</SignInButtonContainer>
-			</SignInContainer>
-		</form>
+			<SignInButtonContainer>
+				<Button
+					buttonType={BtnTypes.SignIn}
+					text="Sign In"
+					type={ButtonTypes.submit}
+					isLoading={isLoading}
+				/>
+			</SignInButtonContainer>
+		</SignInContainer>
 	)
 }
