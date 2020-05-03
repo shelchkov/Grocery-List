@@ -20,8 +20,15 @@ const ListItemsContainer = styled.div`
 	min-width: 272px;
 	max-width: 540px;
 
+	@media (min-width: ${breakpoints.sm}) {
+		min-width: 483px;
+		max-width: 650px;
+	}
+
 	@media (min-width: ${breakpoints.lg}) {
 		margin: 47px 0 0 0;
+		min-width: 640px;
+		max-width: 640px;
 	}
 `
 
@@ -34,6 +41,7 @@ export const ListItems = ({
 }: Props): ReactElement => {
 	if (!listItems || listItems.length === 0) {
 		const text = listItems ? noItemsText : loadingText
+		
 		return (
 			<ListItemsContainer>
 				<ListItemsMessage text={text} />

@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react"
 
+import { BaseContainer } from "../components/ui/containers"
 import { Logo } from "../components/logo/logo"
 import { LoadingMessage } from "../components/loading/loading-message"
-import { BaseContainer } from "../components/ui/containers"
 
 export const LoadingPage = (): ReactElement => (
 	<BaseContainer
