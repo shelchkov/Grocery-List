@@ -26,6 +26,5 @@ export const fontWeights: number[] = [400]
 
 export const breakpoints: { [key: string]: string } = {
 	sm: "32rem",
-	preLg: "1023px",
 	lg:"64rem"
 }

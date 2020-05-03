@@ -1,12 +1,11 @@
 import React, { ReactElement, useEffect } from "react"
 
+import { ActionsContainer } from "../ui/containers"
 import { Button } from "../button/button"
-import { MobileLayout, MediumDesktopLayout } from "../ui/layouts"
-import { ActionsContainer } from "./actions-container"
 
-import { colors } from "../../utils/styles"
-import { BtnTypes } from "../../utils/enums"
 import { useSignOut } from "../../effects/use-sign-out.effect"
+import { BtnTypes } from "../../utils/enums"
+import { colors } from "../../utils/styles"
 
 interface Props {
 	clearUser: () => void
@@ -22,36 +21,35 @@ export const Actions = ({ clearUser }: Props): ReactElement => {
 
 	return (
 		<>
-			<MobileLayout>
-				<ActionsContainer>				
-					<Button
-						buttonType={BtnTypes.ShareList}
-						text="Share List"
-						isDisabled
-					/>
-					<Button
-						buttonType={BtnTypes.SignOut}
-						text="Sign Out"
-						clickHandler={startSignOut}
-						isLoading={isLoading}
-					/>
-				</ActionsContainer>
-			</MobileLayout>
+			<ActionsContainer display={["flex", "none"]}>
+				<Button
+					buttonType={BtnTypes.ShareList}
+					text="Share List"
+					isDisabled
+				/>
+				<Button
+					buttonType={BtnTypes.SignOut}
+					text="Sign Out"
+					clickHandler={startSignOut}
+					isLoading={isLoading}
+				/>
+			</ActionsContainer>
 
-			<MediumDesktopLayout>
-				<ActionsContainer backgroundColor={colors.grey}>
-					<Button
-						text="< Previous List"
-						buttonType={BtnTypes.DesktopAction}
-						isDisabled
-					/>
-					<Button
-						text="Next List >"
-						buttonType={BtnTypes.DesktopAction}
-						isDisabled
-					/>
-				</ActionsContainer>
-			</MediumDesktopLayout>
+			<ActionsContainer
+				display={["none", "flex"]}
+				backgroundColor={colors.grey}
+			>
+				<Button
+					text="< Previous List"
+					buttonType={BtnTypes.DesktopAction}
+					isDisabled
+				/>
+				<Button
+					text="Next List >"
+					buttonType={BtnTypes.DesktopAction}
+					isDisabled
+				/>
+			</ActionsContainer>
 		</>
 	)
 }

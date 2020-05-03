@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 import { Div } from "./div"
 
-import { colors, spaces, breakpoints } from "../../utils/styles"
+import { colors, spaces, breakpoints, sizes } from "../../utils/styles"
 import { stylesGenerator } from "../../utils/styles-generator"
 
 export const BaseContainer = styled(Div)`
@@ -20,8 +20,13 @@ export const Container = styled(BaseContainer)`
 	}
 `
 
-export const SignInContainer = styled.div`
+export const SignInContainer = styled.form`
 	margin-top: 22px;
+	width: 272px;
+
+	@media (min-width: ${breakpoints.sm}) {
+		margin-top: 52px;
+	}
 `
 
 export const SignInButtonContainer = styled.div`
@@ -39,9 +44,12 @@ export const DesktopFormContainer = styled.div`
 	border-radius: 10px;
 `
 
-export const FormsContainer = styled(Div)`
-	display: flex;
+export const FormsContainer = styled.div`
 	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+
+	${(p: Styles): string => stylesGenerator(p)}
 `
 
 export const ListContainer = styled.div`
@@ -58,7 +66,25 @@ export const NewItemFormContainer = styled.form`
 	height: 34px;
 	margin-left: auto;
 
-	background-color: "transparent";
+	background-color: transparent;
+
+	${(p: Styles): string => stylesGenerator(p)}
+`
+
+export const ActionsContainer = styled.div`
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: ${sizes[2]};
+	padding: 13px 1.5rem;
+
+	color: ${colors.darkBlue};
+	background-color: ${colors.purple};
 
 	${(p: Styles): string => stylesGenerator(p)}
 `
