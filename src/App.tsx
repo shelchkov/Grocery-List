@@ -1,36 +1,13 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement } from 'react'
 
-import { MainPage } from "./pages/main.page"
-import { LoginPage } from "./pages/login.page"
 import { LoadingPage } from "./pages/loading.page"
+import { LoginPage } from "./pages/login.page"
+import { MainPage } from "./pages/main.page"
 
-import { subscribeToAuthChange } from "./utils/firebase"
-
-import { User as UserObj } from "@firebase/auth-types"
+import { useAuth } from "./effects/use-auth.effect"
 
 const App = (): ReactElement => {
-  const [user, setUser] = useState<User | null>()
-
-  useEffect(() => {
-    const { unsubscribe } = subscribeToAuthChange(
-      async (user: UserObj | null): Promise<void> => {
-        console.log(user)
-
-        const userData = user ? {
-          id: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-          isVerified: user.emailVerified,
-        } : null
-
-        setUser(userData)
-      }
-    )
-
-    return unsubscribe
-  }, [])
-
-  const clearUser = (): void => setUser(null)
+  const { user, clearUser } = useAuth()
 
   if (user === undefined) {
     return <LoadingPage />
