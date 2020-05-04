@@ -1,19 +1,16 @@
 import React, { ReactElement, useState } from "react"
 
+import { Container, FormsContainer } from "../components/ui/containers"
 import { Header } from "../components/header/header"
 import { Div } from "../components/ui/div"
-import { LoginActions } from "../components/login-actions/login-actions"
-import { SignInForm } from "../components/sign-in/sign-in.form"
 import {
-	Container,
-	DesktopFormContainer,
-	FormsContainer
-} from "../components/ui/containers"
-import { SignUpForm } from "../components/sign-up/sign-up.form"
+	MobileLoginLayout
+} from "../components/login-forms/mobile-login-layout"
+import { DesktopSignIn } from "../components/login-forms/desktop-sign-in"
+import { DesktopSignUp } from "../components/login-forms/desktop-sign-up"
 
 import { LoginForms } from "../utils/enums"
 import { copyObject } from "../utils/utils"
-import { colors } from "../utils/styles"
 
 export const LoginPage = (): ReactElement => {
 	const [form, setForm] = useState<LoginForms>(LoginForms.signIn)
@@ -40,37 +37,19 @@ export const LoginPage = (): ReactElement => {
 				display={["flex", "flex", "none"]}
 				justifyContent="center"
 			>
-				{form === LoginForms.signIn ?
-					<SignInForm /> : <SignUpForm />
-				}
-				<LoginActions
-					form={form}
-					handleClick={changeForm}
-					style={{ left: ["24px", "40px"] }}
-				/>
+				<MobileLoginLayout form={form} changeForm={changeForm} />
 			</Div>
 
 			<FormsContainer display={["none", "none", "flex"]}>
-				<DesktopFormContainer
+				<DesktopSignIn
 					isActive={form === LoginForms.signIn}
-				>
-					<SignInForm setActiveForm={
-						form !== LoginForms.signIn ? setForm
-						: undefined
-					} inputStyle={form === LoginForms.signIn ? {
-						backgroundColor: colors.grey
-					} : undefined}/>
-				</DesktopFormContainer>
-				<DesktopFormContainer
+					setForm={setForm}
+				/>
+
+				<DesktopSignUp
 					isActive={form === LoginForms.signUp}
-				>
-					<SignUpForm setActiveForm={
-						form !== LoginForms.signUp ? setForm
-						: undefined
-					} inputStyle={form === LoginForms.signUp ? {
-						backgroundColor: colors.grey
-					} : undefined}/>
-				</DesktopFormContainer>
+					setForm={setForm}
+				/>
 			</FormsContainer>
 		</Container>
 	)
