@@ -11,8 +11,8 @@ import { Actions } from "../components/actions/actions"
 import { ListItems } from "../components/list-items/list-items"
 import { Container, ListContainer } from "../components/ui/containers"
 
-import { getUserInfo, getListItems } from "../utils/firebase"
-import { ListAccess } from "../utils/enums"
+import { getUserInfo } from "../utils/firebase"
+import { useListsFetch } from "../effects/use-lists-fetch.effect"
 
 interface Props {
 	user: User | null
@@ -22,15 +22,14 @@ interface Props {
 const currentList = 0
 
 export const MainPage = ({ user, clearUser }: Props): ReactElement => {
-	const [lists, setLists] = useState<{ [key: string]: List }>()
+	// const [lists, setLists] = useState<{ [key: string]: List }>()
 	const [listId, setListId]= useState<string>()
+	const { lists } = useListsFetch(listId)
 
-	useEffect((): (() => void) | void => {
+	useEffect((): void => {
 		if (!user || Object.keys(lists || {}).length > 0) {
 			return
 		}
-
-		let cleanUp: () => void
 
 		getUserInfo(user.id).then((userInfo?: UserInfo): void => {
 			if (!userInfo || !userInfo.lists) {
@@ -41,29 +40,7 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 			setListId(currentListId)
 
 			console.log(userInfo)
-
-			const { unsubscribe } = getListItems(
-				currentListId,
-				(items: Item[]): void => {
-					console.log("Items were received")
-					console.log(items)
-
-					setLists({
-						...lists,
-						[currentListId]: {
-							items: items,
-							id: currentListId,
-							access: [ListAccess.check]
-						}
-					})
-				})
-
-			cleanUp = unsubscribe
 		})
-
-		return (): void => {
-			cleanUp && cleanUp()
-		}
 	// eslint-disable-next-line
 	}, [user])
 
