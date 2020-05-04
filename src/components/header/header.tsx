@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react"
 
-import { Logo } from "../logo/logo"
+import { Logo } from "./logo"
 import { Navigation } from "./navigation"
 
 export const Header = (): ReactElement => (

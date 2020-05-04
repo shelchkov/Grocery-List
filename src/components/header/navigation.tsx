@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from "react"
 
-import { Logo } from "../logo/logo"
+import { Logo } from "./logo"
 import { Button } from "../button/button"
 import { Div } from "../ui/div"
 import { NavBar } from "./navbar"
