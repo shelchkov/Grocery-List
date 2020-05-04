@@ -17,7 +17,9 @@ export const useListsFetch = (
 	console.log("useLists", listId)
 	const [lists, setLists] = useState<Lists>()
 
-	useEffect((): (() => void) | void => {
+	let cleanUp: (() => void)[]
+
+	useEffect((): void => {
 		console.log("Start fetch w/", listId)
 
 		if (!listId || (lists && lists[listId])) {
@@ -41,13 +43,16 @@ export const useListsFetch = (
 			}
 		)
 
-		return unsubscribe
+		cleanUp.push(unsubscribe)
 	// eslint-disable-next-line
 	}, [listId])
 
-	// if (!listId) {
-	// 	return
-	// }
+	useEffect((): (() => void) => (): void => {
+		console.log("cleanUp")
+		console.log(cleanUp)
+		cleanUp.forEach((fn) => fn())
+	// eslint-disable-next-line
+	}, [])
 
 	return { lists }
 }
