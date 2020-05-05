@@ -15,7 +15,7 @@ const style = {
 	flexDirection: "column",
 	alignItems: "center",
 	height: "auto",
-	maxHeight: "142px",
+	maxHeight: "84px",
 	marginTop: "60px",
 	backgroundColor: colors.lightGrey,
 	border: `1px solid ${colors.darkBlue}`,
