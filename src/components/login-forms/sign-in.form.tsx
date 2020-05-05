@@ -1,22 +1,17 @@
-import React, { ReactElement, useState } from "react"
+import React, { ReactElement } from "react"
 
 import { Input } from "../input/input"
 import { Button } from "../button/button"
 import { SignInContainer, SignInButtonContainer } from "../ui/containers"
+
+import { useSignIn } from "../../effects/use-sign-in.effect"
 
 import {
 	BtnTypes,
 	ButtonTypes,
 	InputTypes,
 } from "../../utils/enums"
-import { signIn } from "../../utils/firebase"
-import {
-	SignInInputs,
-	SignInFormData,
-	signInValidation,
-	SignInErrors
-} from "../../utils/validation"
-import { getSignInError } from "../../utils/utils"
+import { SignInInputs } from "../../utils/validation"
 
 interface Props {
 	handleInputFocus?: () => void | undefined
@@ -27,54 +22,13 @@ export const SignInForm = ({
 	handleInputFocus,
 	inputStyle
 }: Props): ReactElement => {
-	const [formData, setFormData] = useState<SignInFormData>()
-	const [formErrors, setFormErrors] = useState<SignInErrors>()
-	const [isLoading, setIsLoading] = useState<boolean>()
-
-	const handleInputChange = (name: SignInInputs) => (
-		event: React.ChangeEvent<HTMLInputElement>
-	): void =>
-		setFormData({ ...formData, [name]: event.currentTarget.value })
-
-	const handleSubmit = (
-		event: React.FormEvent<HTMLFormElement>
-	): void => {
-		event.preventDefault()
-
-		console.log(formData)
-		const errors = signInValidation(formData)
-
-		if (errors) {
-			console.log(errors)
-			setFormErrors(errors)
-
-			return
-		}
-
-		console.log("Submitting")
-
-		if (!formData || !formData.email || !formData.password) {
-			return
-		}
-
-		setIsLoading(true)
-
-		signIn(formData.email, formData.password)
-			.then((data): void => {
-				if (data.errorCode) {
-					setFormErrors(getSignInError(data.errorCode))
-					setIsLoading(false)
-				}
-			})
-	}
-
-	const getFieldError = (name: SignInInputs): string | undefined => {
-		if (!formErrors || !formErrors[name]) {
-			return
-		}
-
-		return (formErrors[name] as string[])[0]
-	}
+	const {
+		isLoading,
+		getFieldValue,
+		getFieldError,
+		handleSubmit,
+		handleInputChange
+	} = useSignIn()
 
 	return (
 		<SignInContainer onSubmit={handleSubmit}>
@@ -84,7 +38,7 @@ export const SignInForm = ({
 				style={{ ...inputStyle, width:"fill-available" }}
 				type={InputTypes.email}
 				errorMessage={getFieldError(SignInInputs.email)}
-				value={formData && formData.email}
+				value={getFieldValue(SignInInputs.email)}
 				onFocus={handleInputFocus}
 			/>
 
@@ -95,7 +49,7 @@ export const SignInForm = ({
 				type={InputTypes.password}
 				errorMessage={getFieldError(SignInInputs.password)}
 				onFocus={handleInputFocus}
-				value={formData && formData.password}
+				value={getFieldValue(SignInInputs.password)}
 			/>
 
 			<SignInButtonContainer>
