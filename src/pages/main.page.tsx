@@ -38,7 +38,7 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 
 	return (
 		<Container>
-			<Header />
+			<Header clearUser={clearUser} />
 
 			<AddNewItemForm
 				userId={user ? user.id : undefined}
