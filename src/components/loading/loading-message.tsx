@@ -13,7 +13,7 @@ interface LoadingState {
 
 const LoadingComponent = styled(P)<LoadingState & Styles>`
 	width: 70px;
-	margin: 0;
+	margin: 0 auto;
 	color: ${colors.lightGrey};
 	transition: opacity 1s ease-in-out;
 
