@@ -11,8 +11,8 @@ import { Actions } from "../components/actions/actions"
 import { ListItems } from "../components/list-items/list-items"
 import { Container, ListContainer } from "../components/ui/containers"
 
-import { getUserInfo } from "../utils/firebase"
 import { useListsFetch } from "../effects/use-lists-fetch.effect"
+import { useUserInfoFetch } from "../effects/use-user-info-fetch.effect"
 
 interface Props {
 	user: User | null
@@ -22,27 +22,15 @@ interface Props {
 const currentList = 0
 
 export const MainPage = ({ user, clearUser }: Props): ReactElement => {
-	// const [lists, setLists] = useState<{ [key: string]: List }>()
 	const [listId, setListId]= useState<string>()
 	const { lists } = useListsFetch(listId)
+	const userInfo = useUserInfoFetch(user ? user.id : undefined)
 
 	useEffect((): void => {
-		if (!user || Object.keys(lists || {}).length > 0) {
-			return
+		if (userInfo) {
+			setListId(userInfo.lists[currentList])
 		}
-
-		getUserInfo(user.id).then((userInfo?: UserInfo): void => {
-			if (!userInfo || !userInfo.lists) {
-				return
-			}
-
-			const currentListId = userInfo.lists[currentList]
-			setListId(currentListId)
-
-			console.log(userInfo)
-		})
-	// eslint-disable-next-line
-	}, [user])
+	}, [userInfo])
 
 	useEffect((): void => {
 		console.log(lists)
