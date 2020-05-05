@@ -29,6 +29,11 @@ export const LoginPage = (): ReactElement => {
 		setForm(forms[formTypes[nextIndex]] as LoginForms)
 	}
 
+	const isSignInActive = form === LoginForms.signIn
+	const handleSignInFocus = (): void => setForm(LoginForms.signIn)
+	const isSignUpActive = form === LoginForms.signUp
+	const handleSignUpFocus = (): void => setForm(LoginForms.signUp)
+
 	return (
 		<Container>
 			<Header />
@@ -42,13 +47,17 @@ export const LoginPage = (): ReactElement => {
 
 			<FormsContainer display={["none", "none", "flex"]}>
 				<DesktopSignIn
-					isActive={form === LoginForms.signIn}
-					setForm={setForm}
+					isActive={isSignInActive}
+					handleInputFocus={
+						isSignInActive ? undefined : handleSignInFocus
+					}
 				/>
 
 				<DesktopSignUp
-					isActive={form === LoginForms.signUp}
-					setForm={setForm}
+					isActive={isSignUpActive}
+					handleInputFocus={
+						isSignUpActive ? undefined : handleSignUpFocus
+					}
 				/>
 			</FormsContainer>
 		</Container>

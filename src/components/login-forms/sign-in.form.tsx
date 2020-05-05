@@ -8,7 +8,6 @@ import {
 	BtnTypes,
 	ButtonTypes,
 	InputTypes,
-	LoginForms
 } from "../../utils/enums"
 import { signIn } from "../../utils/firebase"
 import {
@@ -20,12 +19,12 @@ import {
 import { getSignInError } from "../../utils/utils"
 
 interface Props {
-	setActiveForm?: (form: LoginForms) => void
+	handleInputFocus?: () => void | undefined
 	inputStyle?: Styles
 }
 
 export const SignInForm = ({
-	setActiveForm,
+	handleInputFocus,
 	inputStyle
 }: Props): ReactElement => {
 	const [formData, setFormData] = useState<SignInFormData>()
@@ -75,10 +74,6 @@ export const SignInForm = ({
 		}
 
 		return (formErrors[name] as string[])[0]
-	}
-
-	const handleInputFocus = (): void => {
-		setActiveForm && setActiveForm(LoginForms.signIn)
 	}
 
 	return (

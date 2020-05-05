@@ -4,7 +4,7 @@ import { SignInContainer, SignInButtonContainer } from "../ui/containers"
 import { Input } from "../input/input"
 import { Button } from "../button/button"
 
-import { BtnTypes, ButtonTypes, LoginForms } from "../../utils/enums"
+import { BtnTypes, ButtonTypes } from "../../utils/enums"
 import {
 	SignUpInputs,
 	SignUpFormData,
@@ -15,7 +15,7 @@ import { signUp } from "../../utils/firebase"
 import { getSignUpError } from "../../utils/utils"
 
 interface Props {
-	setActiveForm?: (form: LoginForms) => void
+	handleInputFocus?: (() => void) | undefined
 	inputStyle?: Styles
 }
 
@@ -28,7 +28,7 @@ const objectFromExecutions = (
 	, {})
 
 export const SignUpForm = ({
-	setActiveForm,
+	handleInputFocus,
 	inputStyle
 }: Props): ReactElement => {
 	const [formData, setFormData] = useState<SignUpFormData>()
@@ -88,10 +88,6 @@ export const SignUpForm = ({
 		[SignUpInputs.name, SignUpInputs.email, SignUpInputs.password],
 		handleInputChange
 	)
-
-	const handleInputFocus = (): void => {
-		setActiveForm && setActiveForm(LoginForms.signUp)
-	}
 
 	return (
 		<SignInContainer onSubmit={handleSubmit}>

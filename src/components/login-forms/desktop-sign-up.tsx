@@ -3,23 +3,22 @@ import React, { ReactElement } from "react"
 import { DesktopFormContainer } from "../ui/containers"
 import { SignUpForm } from "./sign-up.form"
 
-import { LoginForms } from "../../utils/enums"
 import { colors } from "../../utils/styles"
 
 interface Props {
 	isActive: boolean
-	setForm: (form: LoginForms) => void
+	handleInputFocus: (() => void) | undefined
 }
 
 export const DesktopSignUp = ({
 	isActive,
-	setForm
+	handleInputFocus
 }: Props): ReactElement => (
 	<DesktopFormContainer
 		isActive={isActive}
 	>
 		<SignUpForm
-			setActiveForm={isActive ? undefined : setForm}
+			handleInputFocus={handleInputFocus}
 			inputStyle={
 				isActive ? { backgroundColor: colors.grey } : undefined
 			}
