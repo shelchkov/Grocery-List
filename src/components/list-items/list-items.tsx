@@ -1,13 +1,14 @@
 import React, { ReactElement } from "react"
 import styled from "styled-components"
 
-import { ListItem } from "../list-item/list-item"
+import { LoadingMessage } from "../loading/loading-message"
 import { ListItemsMessage } from "./list-items-message"
+import { ListItem } from "../list-item/list-item"
 
-import { changeListItem, deleteListItem } from "../../utils/firebase"
+import { breakpoints } from "../../utils/styles"
 import { sortItems } from "../../utils/utils"
 import { ItemsSort } from "../../utils/enums" 
-import { breakpoints } from "../../utils/styles"
+import { deleteListItem, changeListItem } from "../../utils/firebase"
 
 interface Props {
 	listItems: Item[] | undefined
@@ -32,19 +33,24 @@ const ListItemsContainer = styled.div`
 	}
 `
 
-const loadingText = "Loading..."
 const noItemsText = "No Items were received"
 
 export const ListItems = ({
 	listItems,
 	listId,
 }: Props): ReactElement => {
-	if (!listItems || listItems.length === 0) {
-		const text = listItems ? noItemsText : loadingText
-		
+	if (!listItems) {
 		return (
 			<ListItemsContainer>
-				<ListItemsMessage text={text} />
+				<LoadingMessage />
+			</ListItemsContainer>
+		)
+	}
+
+	if (listItems.length === 0) {
+		return (
+			<ListItemsContainer>
+				<ListItemsMessage text={noItemsText} />
 			</ListItemsContainer>
 		)
 	}
