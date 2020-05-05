@@ -17,7 +17,7 @@ export const useListsFetch = (
 	console.log("useLists", listId)
 	const [lists, setLists] = useState<Lists>()
 
-	let cleanUp: (() => void)[]
+	let cleanUp: (() => void)[] = []
 
 	useEffect((): void => {
 		console.log("Start fetch w/", listId)
