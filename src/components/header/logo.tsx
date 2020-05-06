@@ -6,13 +6,14 @@ import {
 	colors,
 	textShadows
 } from "../../utils/styles"
+import { stylesGenerator } from "../../utils/styles-generator"
 
 interface Props {
 	style?: Styles
 }
 
 const LogoComponent = styled.p`
-	padding: ${(p: Styles): string => p.padding || "3px 0 19px 0"};
+	padding: 3px 0 19px 0;
 	margin: 0;
 
 	color: ${colors.lightGrey};
@@ -24,7 +25,9 @@ const LogoComponent = styled.p`
 	letter-spacing: .22rem;
 
 	text-shadow: ${textShadows[0]};
+
+	${(p: Styles): string => stylesGenerator(p)}
 `
 
 export const Logo = ({ style }: Props): ReactElement => 
-	<LogoComponent {...style}>Grocery List</LogoComponent>
+	<LogoComponent {...(style as any)}>Grocery List</LogoComponent>

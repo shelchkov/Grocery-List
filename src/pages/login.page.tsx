@@ -1,35 +1,16 @@
 import React, { ReactElement, useState } from "react"
-import styled from "styled-components"
 
-import { Logo } from "../components/logo/logo"
-import { LoginActions } from "../components/login-actions/login-actions"
-import { SignInForm } from "../components/sign-in/sign-in.form"
-import { Container } from "../components/ui/containers"
-import { SignUpForm } from "../components/sign-up/sign-up.form"
+import { Container, FormsContainer } from "../components/ui/containers"
+import { Header } from "../components/header/header"
+import { Div } from "../components/ui/div"
 import {
-	MobileLayout,
-	MediumDesktopLayout
-} from "../components/ui/layouts"
-import { Navigation } from "../components/navigation/navigation"
+	MobileLoginLayout
+} from "../components/login-forms/mobile-login-layout"
+import { DesktopSignIn } from "../components/login-forms/desktop-sign-in"
+import { DesktopSignUp } from "../components/login-forms/desktop-sign-up"
 
 import { LoginForms } from "../utils/enums"
 import { copyObject } from "../utils/utils"
-import { colors } from "../utils/styles"
-
-const DesktopFormContainer = styled.div`
-	padding: 0 40px 30px 40px;
-	margin: 160px 40px 20px 40px;
-	background-color: ${(p: { isActive: boolean }): string =>
-		p.isActive ? colors.lightGrey : "transparent"};
-	border: 1px solid ${(p: { isActive: boolean }): string =>
-		p.isActive ? colors.darkBlue : "none"};
-	border-radius: 10px;
-`
-
-const FormsContainer = styled.div`
-	display: flex;
-	margin: 0 auto;
-`
 
 export const LoginPage = (): ReactElement => {
 	const [form, setForm] = useState<LoginForms>(LoginForms.signIn)
@@ -48,42 +29,37 @@ export const LoginPage = (): ReactElement => {
 		setForm(forms[formTypes[nextIndex]] as LoginForms)
 	}
 
+	const isSignInActive = form === LoginForms.signIn
+	const handleSignInFocus = (): void => setForm(LoginForms.signIn)
+	const isSignUpActive = form === LoginForms.signUp
+	const handleSignUpFocus = (): void => setForm(LoginForms.signUp)
+
 	return (
 		<Container>
-			<MobileLayout><Logo /></MobileLayout>
-			<Navigation />
+			<Header />
 
-			<MobileLayout>
-				{form === LoginForms.signIn ?
-					<SignInForm /> : <SignUpForm />
-				}
-				<LoginActions form={form} handleClick={changeForm} />
-			</MobileLayout>
+			<Div
+				display={["flex", "flex", "none"]}
+				justifyContent="center"
+			>
+				<MobileLoginLayout form={form} changeForm={changeForm} />
+			</Div>
 
-			<MediumDesktopLayout>
-				<FormsContainer>
-					<DesktopFormContainer
-						isActive={form === LoginForms.signIn}
-					>
-						<SignInForm setActiveForm={
-							form !== LoginForms.signIn ? setForm
-							: undefined
-						} inputStyle={form === LoginForms.signIn ? {
-							backgroundColor: colors.grey
-						} : undefined}/>
-					</DesktopFormContainer>
-					<DesktopFormContainer
-						isActive={form === LoginForms.signUp}
-					>
-						<SignUpForm setActiveForm={
-							form !== LoginForms.signUp ? setForm
-							: undefined
-						} inputStyle={form === LoginForms.signUp ? {
-							backgroundColor: colors.grey
-						} : undefined}/>
-					</DesktopFormContainer>
-				</FormsContainer>
-			</MediumDesktopLayout>
+			<FormsContainer display={["none", "none", "flex"]}>
+				<DesktopSignIn
+					isActive={isSignInActive}
+					handleInputFocus={
+						isSignInActive ? undefined : handleSignInFocus
+					}
+				/>
+
+				<DesktopSignUp
+					isActive={isSignUpActive}
+					handleInputFocus={
+						isSignUpActive ? undefined : handleSignUpFocus
+					}
+				/>
+			</FormsContainer>
 		</Container>
 	)
 }

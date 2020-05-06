@@ -61,7 +61,7 @@ export const Button = ({
 			type={type}
 			opacity={isDisabled ? "0.7" : "1"}
 			cursor={isDisabled ? "default" : "pointer"}
-			{...style}
+			{...(style as any)}
 		>
 			{isLoading ? getLoadingText(buttonType) : text}
 		</BtnComponent>

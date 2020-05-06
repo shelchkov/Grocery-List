@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react"
 
-import { ErrorMessage } from "./error-message"
 import { InputComponent } from "./input-component"
+import { ErrorMessage } from "./error-message"
 
 import { InputTypes } from "../../utils/enums"
 
@@ -31,7 +31,7 @@ export const Input = ({
 			type={type}
 			value={value}
 			onFocus={onFocus}
-			{...style}
+			{...(style as any)}
 		/>
 		
 		{errorMessage !== null && <ErrorMessage message={errorMessage} />}

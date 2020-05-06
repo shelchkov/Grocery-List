@@ -4,7 +4,7 @@ import { SignInContainer, SignInButtonContainer } from "../ui/containers"
 import { Input } from "../input/input"
 import { Button } from "../button/button"
 
-import { BtnTypes, ButtonTypes, LoginForms } from "../../utils/enums"
+import { BtnTypes, ButtonTypes } from "../../utils/enums"
 import {
 	SignUpInputs,
 	SignUpFormData,
@@ -15,7 +15,7 @@ import { signUp } from "../../utils/firebase"
 import { getSignUpError } from "../../utils/utils"
 
 interface Props {
-	setActiveForm?: (form: LoginForms) => void
+	handleInputFocus?: (() => void) | undefined
 	inputStyle?: Styles
 }
 
@@ -28,7 +28,7 @@ const objectFromExecutions = (
 	, {})
 
 export const SignUpForm = ({
-	setActiveForm,
+	handleInputFocus,
 	inputStyle
 }: Props): ReactElement => {
 	const [formData, setFormData] = useState<SignUpFormData>()
@@ -89,48 +89,42 @@ export const SignUpForm = ({
 		handleInputChange
 	)
 
-	const handleInputFocus = (): void => {
-		setActiveForm && setActiveForm(LoginForms.signUp)
-	}
-
 	return (
-		<form onSubmit={handleSubmit}>
-			<SignInContainer>
-				<Input
-					placeholder="Name"
-					style={{ ...inputStyle, width: "fill-available" }}
-					onChange={onChangeHandlers[SignUpInputs.name]}
-					errorMessage={getFieldError(SignUpInputs.name)}
-					onFocus={handleInputFocus}
-					value={formData && formData.name}
-				/>
+		<SignInContainer onSubmit={handleSubmit}>
+			<Input
+				placeholder="Name"
+				style={{ ...inputStyle, width: "fill-available" }}
+				onChange={onChangeHandlers[SignUpInputs.name]}
+				errorMessage={getFieldError(SignUpInputs.name)}
+				onFocus={handleInputFocus}
+				value={formData && formData.name}
+			/>
 
-				<Input
-					placeholder="Email"
-					style={{ ...inputStyle, width: "fill-available" }}
-					onChange={onChangeHandlers[SignUpInputs.email]}
-					errorMessage={getFieldError(SignUpInputs.email)}
-					onFocus={handleInputFocus}
-					value={formData && formData.email}
-				/>
+			<Input
+				placeholder="Email"
+				style={{ ...inputStyle, width: "fill-available" }}
+				onChange={onChangeHandlers[SignUpInputs.email]}
+				errorMessage={getFieldError(SignUpInputs.email)}
+				onFocus={handleInputFocus}
+				value={formData && formData.email}
+			/>
 
-				<Input
-					placeholder="Password"
-					style={{ ...inputStyle, width: "fill-available" }}
-					onChange={onChangeHandlers[SignUpInputs.password]}
-					errorMessage={getFieldError(SignUpInputs.password)}
-					onFocus={handleInputFocus}
-					value={formData && formData.password}
-				/>
+			<Input
+				placeholder="Password"
+				style={{ ...inputStyle, width: "fill-available" }}
+				onChange={onChangeHandlers[SignUpInputs.password]}
+				errorMessage={getFieldError(SignUpInputs.password)}
+				onFocus={handleInputFocus}
+				value={formData && formData.password}
+			/>
 
-				<SignInButtonContainer>
-					<Button
-						buttonType={BtnTypes.SignUp}
-						text="Sign Up"
-						type={ButtonTypes.submit}
-					/>
-				</SignInButtonContainer>
-			</SignInContainer>
-		</form>
+			<SignInButtonContainer>
+				<Button
+					buttonType={BtnTypes.SignUp}
+					text="Sign Up"
+					type={ButtonTypes.submit}
+				/>
+			</SignInButtonContainer>
+		</SignInContainer>
 	)
 }

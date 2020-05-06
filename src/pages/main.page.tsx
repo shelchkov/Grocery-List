@@ -1,7 +1,6 @@
 import React, { ReactElement, useState, useEffect } from "react"
-import styled from "styled-components"
 
-import { Logo } from "../components/logo/logo"
+import { Header } from "../components/header/header"
 import {
 	AddNewItemForm
 } from "../components/add-new-item/add-new-item.form"
@@ -10,16 +9,10 @@ import {
 } from "../components/add-new-item/add-new-item-desktop"
 import { Actions } from "../components/actions/actions"
 import { ListItems } from "../components/list-items/list-items"
-import { Container } from "../components/ui/containers"
-import {
-	MobileLayout,
-	MediumLayout,
-	DesktopLayout
-} from "../components/ui/layouts"
-import { Navigation } from "../components/navigation/navigation"
+import { Container, ListContainer } from "../components/ui/containers"
 
-import { getUserInfo, getListItems } from "../utils/firebase"
-import { ListAccess } from "../utils/enums"
+import { useListsFetch } from "../effects/use-lists-fetch.effect"
+import { useUserInfoFetch } from "../effects/use-user-info-fetch.effect"
 
 interface Props {
 	user: User | null
@@ -28,56 +21,16 @@ interface Props {
 
 const currentList = 0
 
-const ListContainer = styled.div`
-	display: flex;
-	justify-content: space-evenly;
-`
-
 export const MainPage = ({ user, clearUser }: Props): ReactElement => {
-	const [lists, setLists] = useState<{ [key: string]: List }>()
 	const [listId, setListId]= useState<string>()
+	const { lists } = useListsFetch(listId)
+	const userInfo = useUserInfoFetch(user ? user.id : undefined)
 
-	useEffect((): (() => void) | void => {
-		if (!user || Object.keys(lists || {}).length > 0) {
-			return
+	useEffect((): void => {
+		if (userInfo) {
+			setListId(userInfo.lists[currentList])
 		}
-
-		let cleanUp: () => void
-
-		getUserInfo(user.id).then((userInfo?: UserInfo): void => {
-			if (!userInfo || !userInfo.lists) {
-				return
-			}
-
-			const currentListId = userInfo.lists[currentList]
-			setListId(currentListId)
-
-			console.log(userInfo)
-
-			const { unsubscribe } = getListItems(
-				currentListId,
-				(items: Item[]): void => {
-					console.log("Items were received")
-					console.log(items)
-
-					setLists({
-						...lists,
-						[currentListId]: {
-							items: items,
-							id: currentListId,
-							access: [ListAccess.check]
-						}
-					})
-				})
-
-			cleanUp = unsubscribe
-		})
-
-		return (): void => {
-			cleanUp && cleanUp()
-		}
-	// eslint-disable-next-line
-	}, [user])
+	}, [userInfo])
 
 	useEffect((): void => {
 		console.log(lists)
@@ -85,22 +38,16 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 
 	return (
 		<Container>
-			<MobileLayout><Logo /></MobileLayout>
-			<Navigation clearUser={clearUser}/>
+			<Header clearUser={clearUser} />
 
-			<MobileLayout>
-				<AddNewItemForm
-					userId={user ? user.id : undefined}
-					listId={listId}
-				/>
-			</MobileLayout>
-			<MediumLayout>
-				<AddNewItemForm
-					userId={user ? user.id : undefined}
-					listId={listId}
-					style={{ marginTop: "20px" }}
-				/>
-			</MediumLayout>
+			<AddNewItemForm
+				userId={user ? user.id : undefined}
+				listId={listId}
+				style={{
+					display: ["flex", "flex", "none"],
+					marginTop: "20px"
+				}}
+			/>
 
 			<ListContainer>
 				<ListItems
@@ -110,12 +57,11 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 					listId={listId}
 				/>
 
-				<DesktopLayout>
-					<AddNewItemDesktop 
-						userId={user ? user.id : undefined}
-						listId={listId}
-					 />
-				</DesktopLayout>
+				<AddNewItemDesktop
+					userId={user ? user.id : undefined}
+					listId={listId}
+					style={{ display: ["none", "none", "flex"] }}
+				 />
 			</ListContainer>
 
 			<Actions clearUser={clearUser} />

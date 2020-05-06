@@ -1,18 +1,20 @@
-import React, { ReactElement, useState, useEffect } from "react"
+import React, { ReactElement } from "react"
 import styled from "styled-components"
 
-import { colors } from "../../utils/styles"
+import { P } from "../ui/p"
 
-interface LoadingStyles {
+import { colors } from "../../utils/styles"
+import { useTimer } from "../../effects/use-timer.effect"
+
+interface LoadingState {
 	opacity: string
 	afterContent: string
 }
 
-const LoadingComponent = styled.p<LoadingStyles>`
+const LoadingComponent = styled(P)<LoadingState & Styles>`
 	width: 70px;
-	margin: 0;
+	margin: 0 auto;
 	color: ${colors.lightGrey};
-	opacity: ${(p): string => p.opacity};
 	transition: opacity 1s ease-in-out;
 
 	&:after {
@@ -32,28 +34,20 @@ const getNextOpacity = (currentOpacity: string): string => {
 	return ".5"
 }
 
-const getNextContent = (content: string): string => content.length < 3 ?
-	content + "." : ""
+const getNextContent = (content: string): string =>
+	content.length < 3 ? content + "." : ""
 
-const initStyles = { opacity: ".9", afterContent: "" }
+const getNextState = (prevState: LoadingState): LoadingState => ({
+	afterContent: getNextContent(prevState.afterContent),
+	opacity: getNextOpacity(prevState.opacity)
+})
+
+const initState = { opacity: ".9", afterContent: "" }
 
 export const LoadingMessage = (): ReactElement => {
-	const [loadingStyles, setLoadingStyles] = useState(initStyles)
-
-	useEffect((): (() => void) => {
-		const timerId = setTimeout((): void => {
-			setLoadingStyles({
-				opacity: getNextOpacity(loadingStyles.opacity),
-				afterContent: getNextContent(loadingStyles.afterContent)
-			})
-		}, 1000)
-
-		return (): void => {
-			clearInterval(timerId)
-		}
-	}, [loadingStyles])
+	const { currentState } = useTimer(initState, getNextState, 1000)
 
 	return (
-		<LoadingComponent {...loadingStyles}>Loading</LoadingComponent>
+		<LoadingComponent {...currentState}>Loading</LoadingComponent>
 	)
 }
