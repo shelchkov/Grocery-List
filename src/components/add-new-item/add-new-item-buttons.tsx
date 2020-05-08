@@ -33,5 +33,6 @@ export const AddNewItemButtons = ({
 		clickHandler={setFormActive}
 		type={shouldSubmit ? ButtonTypes.submit : ButtonTypes.button}
 		style={style}
+		isLoading={isLoading}
 	/>
 )

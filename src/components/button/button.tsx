@@ -55,10 +55,18 @@ export const Button = ({
 }: Props): ReactElement | null => {
 	const BtnComponent = buttons[buttonType]
 
+	const selectedType = ((): ButtonTypes => {
+		if (type === ButtonTypes.submit && (isDisabled || isLoading)) {
+			return ButtonTypes.button
+		}
+
+		return type
+	})()
+
 	return (
 		<BtnComponent
-			onClick={!(isDisabled || isLoading) && clickHandler}
-			type={type}
+			onClick={(isDisabled || isLoading) ? undefined : clickHandler}
+			type={selectedType}
 			opacity={isDisabled ? "0.7" : "1"}
 			cursor={isDisabled ? "default" : "pointer"}
 			{...(style as any)}
