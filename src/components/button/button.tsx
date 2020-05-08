@@ -57,7 +57,7 @@ export const Button = ({
 
 	return (
 		<BtnComponent
-			onClick={clickHandler}
+			onClick={!(isDisabled || isLoading) && clickHandler}
 			type={type}
 			opacity={isDisabled ? "0.7" : "1"}
 			cursor={isDisabled ? "default" : "pointer"}
