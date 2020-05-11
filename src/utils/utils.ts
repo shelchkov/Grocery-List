@@ -1,4 +1,4 @@
-import { ItemsSort } from "./enums"
+import { ItemsSort, ListAccess } from "./enums"
 import { SignInInputs, SignInErrors } from "./validation"
 import { SignUpInputs, SignUpErrors } from "./validation"
 
@@ -80,3 +80,8 @@ export const getSignUpError = (errorCode: string): SignUpErrors => {
 			return {}
 	}
 }
+
+export const checkAccess = (
+	accessToCheck: ListAccess,
+	access?: ListAccess[]
+): boolean => access ? access.includes(accessToCheck) : true
