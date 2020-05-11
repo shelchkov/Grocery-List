@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react"
 
 import { Button } from "../button/button"
+import { PlusButton } from "./plus-button"
 
 import { BtnTypes, ButtonTypes } from "../../utils/enums"
 
@@ -10,6 +11,7 @@ interface Props {
 	isLoading: boolean
 	style?: Styles
 	shouldSubmit?: boolean
+	handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void
 }
 
 export const AddNewItemButtons = ({
@@ -17,14 +19,13 @@ export const AddNewItemButtons = ({
 	setFormActive,
 	isLoading,
 	style,
-	shouldSubmit
+	shouldSubmit,
+	handleSubmit,
 }: Props): ReactElement => !shouldSubmit && isFormActive ? (
-	<Button
+	<PlusButton
 		text="+"
-		buttonType={BtnTypes.Plus}
-		type={ButtonTypes.submit}
 		isLoading={isLoading}
-		style={style}
+		handleClick={handleSubmit}
 	/>
 ) : (
 	<Button

@@ -93,6 +93,7 @@ export const AddNewItemForm = ({
 				isLoading={isLoading}
 				style={buttonsStyle}
 				shouldSubmit={isActive}
+				handleSubmit={handleAddingNewItem}
 			/>
 		</NewItemFormContainer>
 	)
