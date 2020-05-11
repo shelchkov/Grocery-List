@@ -11,6 +11,8 @@ interface Props {
 }
 
 const style = {
+	position: "fixed",
+	right: "40px",
 	padding: "28px 40px 30px 40px",
 	flexDirection: "column",
 	alignItems: "center",
