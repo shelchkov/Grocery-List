@@ -6,16 +6,11 @@ import {
 	WithoutBgButton
 } from "./base-button"
 
-import { sizes, colors } from "../../utils/styles"
+import { colors } from "../../utils/styles"
 
 export const AddNewItemBtn = styled(ButtonBase)`
 	width: 150px;
 	background-color: ${colors.green};
-`
-
-export const PlusBtn = styled(AddNewItemBtn)`
-	width: ${sizes[2]};
-	margin-left: 12px;
 `
 
 export const ShareListBtn = styled(ButtonBase)`

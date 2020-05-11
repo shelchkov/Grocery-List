@@ -3,7 +3,6 @@ import React, { ReactElement } from "react"
 import { WithoutBgButton } from "./base-button"
 import {
 	AddNewItemBtn,
-	PlusBtn,
 	ShareListBtn,
 	SignOutBtn,
 	DeleteItemBtn,
@@ -25,7 +24,6 @@ interface Props {
 
 const buttons = {
 	[BtnTypes.AddNewItem]: AddNewItemBtn,
-	[BtnTypes.Plus]: PlusBtn,
 	[BtnTypes.ShareList]: ShareListBtn,
 	[BtnTypes.SignOut]: SignOutBtn,
 	[BtnTypes.SignIn]: ShareListBtn,
@@ -34,14 +32,6 @@ const buttons = {
 	[BtnTypes.No]: NoBtn,
 	[BtnTypes.MenuItem]: WithoutBgButton,
 	[BtnTypes.DesktopAction]: DesktopActionBtn
-}
-
-const getLoadingText = (buttonType: BtnTypes): string => {
-	if (buttonType === BtnTypes.Plus) {
-		return "..."
-	}
-
-	return "Loading..."
 }
 
 export const Button = ({
@@ -63,7 +53,7 @@ export const Button = ({
 			cursor={isDisabled ? "default" : "pointer"}
 			{...(style as any)}
 		>
-			{isLoading ? getLoadingText(buttonType) : text}
+			{isLoading ? "Loading..." : text}
 		</BtnComponent>
 	)
 }
