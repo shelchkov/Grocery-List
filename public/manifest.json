@@ -3,12 +3,12 @@
   "name": "Grocery List",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "static/favicon.ico",
       "sizes": "48x48",
       "type": "image/x-icon"
     },
     {
-      "src": "android-chrome-512x512.png",
+      "src": "static/android-chrome-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
