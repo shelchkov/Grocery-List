@@ -10,7 +10,10 @@ const stylesList: { [key: string]: string } = {
 	marginTop: "margin-top",
 	marginLeft: "margin-left",
 
+	position: "position",
+	top: "top",
 	left: "left",
+	right: "right",
 
 	color: "color",
 	backgroundColor: "background-color",

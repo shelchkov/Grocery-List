@@ -28,7 +28,7 @@ const ListItemsContainer = styled.div`
 	}
 
 	@media (min-width: ${breakpoints.lg}) {
-		margin: 47px 0 0 0;
+		margin: 47px auto 0 0;
 		min-width: 640px;
 		max-width: 640px;
 	}
