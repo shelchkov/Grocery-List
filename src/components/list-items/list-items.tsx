@@ -6,13 +6,14 @@ import { ListItemsMessage } from "./list-items-message"
 import { ListItem } from "../list-item/list-item"
 
 import { breakpoints } from "../../utils/styles"
-import { sortItems } from "../../utils/utils"
-import { ItemsSort } from "../../utils/enums" 
+import { sortItems, checkAccess } from "../../utils/utils"
+import { ItemsSort, ListAccess } from "../../utils/enums" 
 import { deleteListItem, changeListItem } from "../../utils/firebase"
 
 interface Props {
 	listItems: Item[] | undefined
 	listId: string | undefined
+	access?: ListAccess[]
 }
 
 const ListItemsContainer = styled.div`
@@ -38,6 +39,7 @@ const noItemsText = "No Items were received"
 export const ListItems = ({
 	listItems,
 	listId,
+	access
 }: Props): ReactElement => {
 	if (!listItems) {
 		return (
@@ -60,10 +62,12 @@ export const ListItems = ({
 	return (
 		<ListItemsContainer>
 			{sortedListItems.map((item: Item): ReactElement => {
-				const deleteItem = listId && item.id ?
+				const deleteItem = listId && item.id &&
+					checkAccess(ListAccess.remove, access) ?
 					deleteListItem.bind({}, listId, item.id) : undefined
 
-				const toggleCheckItem = listId && item.id ? 
+				const toggleCheckItem = listId && item.id &&
+					checkAccess(ListAccess.check, access) ? 
 					changeListItem.bind(
 						{},
 						{ isChecked: !item.isChecked },

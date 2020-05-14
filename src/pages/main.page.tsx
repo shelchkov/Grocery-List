@@ -13,6 +13,8 @@ import { Container, ListContainer } from "../components/ui/containers"
 
 import { useListsFetch } from "../effects/use-lists-fetch.effect"
 import { useUserInfoFetch } from "../effects/use-user-info-fetch.effect"
+import { ListAccess } from "../utils/enums"
+import { checkAccess } from "../utils/utils"
 
 interface Props {
 	user: User | null
@@ -47,6 +49,11 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 					display: ["flex", "flex", "none"],
 					marginTop: "20px"
 				}}
+				canAddNewItem={lists && listId && lists[listId] ?
+					checkAccess(
+						ListAccess.add,
+						lists[listId].access as ListAccess[]
+					) : undefined}
 			/>
 
 			<ListContainer>
@@ -55,12 +62,21 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 						lists[listId] && lists[listId].items
 						: undefined}
 					listId={listId}
+					access={lists && listId ?
+						lists[listId] &&
+						lists[listId].access as ListAccess[]
+						: undefined}
 				/>
 
 				<AddNewItemDesktop
 					userId={user ? user.id : undefined}
 					listId={listId}
 					style={{ display: ["none", "none", "flex"] }}
+					canAddNewItem={lists && listId && lists[listId] ?
+					checkAccess(
+						ListAccess.add,
+						lists[listId].access as ListAccess[]
+					) : undefined}
 				 />
 			</ListContainer>
 

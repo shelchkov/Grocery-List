@@ -14,6 +14,7 @@ interface Props {
 	isActive?: boolean
 	buttonsStyle?: Styles
 	inputStyle?: Styles
+	canAddNewItem?: boolean
 }
 
 export const AddNewItemForm = ({
@@ -22,7 +23,8 @@ export const AddNewItemForm = ({
 	style,
 	isActive,
 	buttonsStyle,
-	inputStyle
+	inputStyle,
+	canAddNewItem,
 }: Props): ReactElement => {
 	const [isFormActive, setIsFormActive] = useState<boolean>(
 		isActive || false
@@ -39,13 +41,19 @@ export const AddNewItemForm = ({
 	): void => {
 		event.preventDefault()
 
-		if (!formData || !formData.name || !userId) {
+		if (!formData || !formData.name || !userId ||
+			canAddNewItem === false
+		) {
 			if (!formData || !formData.name) {
 				console.warn("Item name was not provided")
 			}
 
 			if (!userId) {
 				console.warn("Not logged in")
+			}
+
+			if (canAddNewItem === false) {
+				console.warn("User doesn't have access.")
 			}
 
 			!isActive && setIsFormActive(false)

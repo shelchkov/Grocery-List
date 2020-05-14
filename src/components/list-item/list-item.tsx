@@ -33,7 +33,8 @@ export const ListItem = ({
 
 	const handleDelete = (): void => {
 		if (!deleteItem) {
-			console.warn("No item id or list id was provided")
+			console.warn("No item id or list id was provided. " + 
+				"Or user doesn't have access.")
 
 			return 
 		}
@@ -46,7 +47,8 @@ export const ListItem = ({
 
 	const handleToggle = (): void => {
 		if (!toggleCheckItem) {
-			console.warn("Couldn't change item - No list id or item id")
+			console.warn("Couldn't change item - No list id or item id. "
+				+ "Or user doesn't hace access.")
 
 			return
 		}
