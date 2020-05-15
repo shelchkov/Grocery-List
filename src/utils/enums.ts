@@ -1,6 +1,5 @@
 export enum BtnTypes {
 	AddNewItem = "AddNewItem",
-	Plus = "Plus",
 	ShareList = "ShareList",
 	SignOut = "SignOut",
 	SignIn = "SignIn",

@@ -7,6 +7,7 @@ const stylesList: { [key: string]: string } = {
 	height: "height",
 	maxHeight: "max-height",
 	padding: "padding",
+	margin: "margin",
 	marginTop: "margin-top",
 	marginLeft: "margin-left",
 
@@ -22,6 +23,10 @@ const stylesList: { [key: string]: string } = {
 	flexDirection: "flex-direction",
 	justifyContent: "justify-content",
 	alignItems: "align-items",
+
+	fontSize: "font-size",
+	fontWeight: "font-weight",
+	textAlign: "text-align",
 
 	border: "border",
 	borderRadius: "border-radius",
