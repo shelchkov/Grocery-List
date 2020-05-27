@@ -16,12 +16,9 @@ export const useSignOut = (): SignOut => {
 		setIsLoading(true)
 
 		signOut().then((data): void => {
-			setIsLoading(false)
-
 			if (data.error) {
 				setIsSuccess(false)
-			} else {
-				setIsSuccess(true)
+				setIsLoading(false)
 			}
 		})
 	}

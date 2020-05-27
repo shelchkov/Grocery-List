@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect, useRef } from "react"
+import React, { ReactElement, useState, useEffect } from "react"
 
 import { Header } from "../components/header/header"
 import {
@@ -28,7 +28,6 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 	const [listId, setListId]= useState<string>()
 	const { lists } = useListsFetch(listId)
 	const userInfo = useUserInfoFetch(user ? user.id : undefined)
-	const shouldUpdateCurrentList = useRef(false)
 
 	useEffect((): void => {
 		if (!userInfo) {
@@ -59,6 +58,7 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 				updateUserCurrentList(user!.id, listId)
 			}
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userInfo, listId])
 
 	return (
