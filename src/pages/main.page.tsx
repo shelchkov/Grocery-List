@@ -21,7 +21,7 @@ interface Props {
 	clearUser: () => void
 }
 
-const currentList = 0
+const defaultCurrentList = 0
 
 export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 	const [listId, setListId]= useState<string>()
@@ -29,9 +29,21 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 	const userInfo = useUserInfoFetch(user ? user.id : undefined)
 
 	useEffect((): void => {
-		if (userInfo) {
-			setListId(userInfo.lists[currentList])
+		if (!userInfo) {
+			return
 		}
+
+		const currentList = userInfo.currentList
+		const userLists = userInfo.lists
+
+		if (currentList && userLists.includes(currentList)) {
+			console.log(`Current user's list is ${currentList}`)
+			setListId(currentList)
+		}
+
+		const defaultList = userLists[defaultCurrentList]
+		console.log(`Current list wasn't provided - using ${defaultList}`)
+		setListId(defaultList)
 	}, [userInfo])
 
 	useEffect((): void => {
