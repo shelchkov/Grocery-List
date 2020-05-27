@@ -167,6 +167,22 @@ const addListToUser = async (
 	}
 }
 
+export const updateUserCurrentList = async (
+	userId: string,
+	listId: string
+): Promise<Response> => {
+	console.log(userId, listId)
+	const userRef = firestore.collection("users").doc(userId)
+
+	try {
+		await userRef.update({ currentList: listId })
+
+		return createResponse(null)
+	} catch (e) {
+		return createResponse(e)
+	}
+}
+
 interface AddItemResponse {
 	error?: string
 	listId?: string,
