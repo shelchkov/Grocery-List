@@ -40,6 +40,8 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 		if (currentList && userLists.includes(currentList)) {
 			console.log(`Current user's list is ${currentList}`)
 			setListId(currentList)
+
+			return
 		}
 
 		const defaultList = userLists[defaultCurrentList]
