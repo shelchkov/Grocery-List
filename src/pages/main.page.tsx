@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect } from "react"
+import React, { ReactElement, useState, useEffect, useRef } from "react"
 
 import { Header } from "../components/header/header"
 import {
@@ -15,6 +15,7 @@ import { useListsFetch } from "../effects/use-lists-fetch.effect"
 import { useUserInfoFetch } from "../effects/use-user-info-fetch.effect"
 import { ListAccess } from "../utils/enums"
 import { checkAccess } from "../utils/utils"
+import { updateUserCurrentList } from "../utils/firebase"
 
 interface Props {
 	user: User | null
@@ -27,6 +28,7 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 	const [listId, setListId]= useState<string>()
 	const { lists } = useListsFetch(listId)
 	const userInfo = useUserInfoFetch(user ? user.id : undefined)
+	const shouldUpdateCurrentList = useRef(false)
 
 	useEffect((): void => {
 		if (!userInfo) {
@@ -42,13 +44,22 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 		}
 
 		const defaultList = userLists[defaultCurrentList]
-		console.log(`Current list wasn't provided - using ${defaultList}`)
+		console.log(`Current list isn't provided - using ${defaultList}`)
 		setListId(defaultList)
 	}, [userInfo])
 
 	useEffect((): void => {
 		console.log(lists)
 	}, [lists])
+
+	useEffect((): (() => void) => {
+		return (): void => {
+			if (userInfo && listId && userInfo.currentList !== listId) {
+				console.log(`Updating selected user list - ${listId}`)
+				updateUserCurrentList(user!.id, listId)
+			}
+		}
+	}, [userInfo, listId])
 
 	return (
 		<Container>
