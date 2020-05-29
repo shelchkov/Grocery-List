@@ -10,6 +10,7 @@ interface User {
 interface UserInfo {
 	lists: string[]
 	displayName: string
+	currentList?: string
 }
 
 interface Styles {

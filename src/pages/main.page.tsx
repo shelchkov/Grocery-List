@@ -15,13 +15,14 @@ import { useListsFetch } from "../effects/use-lists-fetch.effect"
 import { useUserInfoFetch } from "../effects/use-user-info-fetch.effect"
 import { ListAccess } from "../utils/enums"
 import { checkAccess } from "../utils/utils"
+import { updateUserCurrentList } from "../utils/firebase"
 
 interface Props {
 	user: User | null
 	clearUser: () => void
 }
 
-const currentList = 0
+const defaultListIndex = 0
 
 export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 	const [listId, setListId]= useState<string>()
@@ -29,14 +30,40 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 	const userInfo = useUserInfoFetch(user ? user.id : undefined)
 
 	useEffect((): void => {
-		if (userInfo) {
-			setListId(userInfo.lists[currentList])
+		if (!userInfo) {
+			return
 		}
+
+		const currentList = userInfo.currentList
+		const userLists = userInfo.lists
+
+		if (currentList && userLists.includes(currentList) &&
+			listId !== currentList) {
+			console.log(`Current user's list is ${currentList}`)
+			setListId(currentList)
+
+			return
+		}
+
+		const defaultList = userLists[defaultListIndex]
+		console.log(`Current list isn't provided - using ${defaultList}`)
+		defaultList !== listId && setListId(defaultList)
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userInfo])
 
 	useEffect((): void => {
 		console.log(lists)
 	}, [lists])
+
+	useEffect((): (() => void) => {
+		return (): void => {
+			if (userInfo && listId && userInfo.currentList !== listId) {
+				console.log(`Updating selected user list - ${listId}`)
+				updateUserCurrentList(user!.id, listId)
+			}
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [userInfo, listId])
 
 	return (
 		<Container>
