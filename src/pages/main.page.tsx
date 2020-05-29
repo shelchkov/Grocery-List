@@ -22,7 +22,7 @@ interface Props {
 	clearUser: () => void
 }
 
-const defaultCurrentList = 0
+const defaultListIndex = 0
 
 export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 	const [listId, setListId]= useState<string>()
@@ -37,16 +37,18 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 		const currentList = userInfo.currentList
 		const userLists = userInfo.lists
 
-		if (currentList && userLists.includes(currentList)) {
+		if (currentList && userLists.includes(currentList) &&
+			listId !== currentList) {
 			console.log(`Current user's list is ${currentList}`)
 			setListId(currentList)
 
 			return
 		}
 
-		const defaultList = userLists[defaultCurrentList]
+		const defaultList = userLists[defaultListIndex]
 		console.log(`Current list isn't provided - using ${defaultList}`)
-		setListId(defaultList)
+		defaultList !== listId && setListId(defaultList)
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userInfo])
 
 	useEffect((): void => {
