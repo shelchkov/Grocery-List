@@ -28,6 +28,7 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 	const [listId, setListId]= useState<string>()
 	const { lists } = useListsFetch(listId)
 	const userInfo = useUserInfoFetch(user ? user.id : undefined)
+	const [isCreatingNewList, setIsCreatingNewList] = useState(false)
 
 	useEffect((): void => {
 		if (!userInfo) {
@@ -74,15 +75,35 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 	const userId = user ? user.id : undefined
 
 	const listItems = ((): Item[] | undefined => {
+		if (isCreatingNewList) {
+			return []
+		}
+
 		return lists && listId ?
 			lists[listId] && lists[listId].items
 			: undefined
 	})()
 
-	const listAccess = lists && listId ?
-		lists[listId] &&
-		lists[listId].access as ListAccess[]
-		: undefined
+	const listAccess = ((): ListAccess[] | undefined => {
+		if (isCreatingNewList) {
+			return [ListAccess.check, ListAccess.add, ListAccess.remove]
+		}
+
+		return lists && listId ?
+			lists[listId] &&
+			lists[listId].access as ListAccess[]
+			: undefined
+	})()
+
+	const createNewList = (): void => {
+		setListId(undefined)
+		setIsCreatingNewList(true)
+	}
+
+	const setNewListId = (listId: string): void => {
+		setListId(listId)
+		setIsCreatingNewList(false)
+	}
 
 	return (
 		<Container>
@@ -96,6 +117,7 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 					marginTop: "20px"
 				}}
 				canAddNewItem={canAddNewItem}
+				setNewListId={setNewListId}
 			/>
 
 			<ListContainer>
@@ -110,10 +132,11 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 					listId={listId}
 					style={{ display: ["none", "none", "flex"] }}
 					canAddNewItem={canAddNewItem}
+					setNewListId={setNewListId}
 				 />
 			</ListContainer>
 
-			<Actions clearUser={clearUser} isLastList />
+			<Actions clearUser={clearUser} createNewList={createNewList} />
 		</Container>
 	)
 }

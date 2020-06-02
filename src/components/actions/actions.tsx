@@ -9,12 +9,12 @@ import { colors } from "../../utils/styles"
 
 interface Props {
 	clearUser: () => void
-	isLastList?: boolean
+	createNewList?: () => void
 }
 
 export const Actions = ({
 	clearUser,
-	isLastList
+	createNewList,
 }: Props): ReactElement => {
 	const { isLoading, isSuccess, startSignOut } = useSignOut()
 
@@ -22,10 +22,6 @@ export const Actions = ({
 		isSuccess && clearUser()
 	// eslint-disable-next-line
 	}, [isSuccess])
-
-	const switchToNextList = isLastList ? (): void => {
-		console.log("Creating new list")
-	} : undefined
 
 	return (
 		<>
@@ -55,8 +51,8 @@ export const Actions = ({
 				<Button
 					text="Next List >"
 					buttonType={BtnTypes.DesktopAction}
-					clickHandler={switchToNextList}
-					isDisabled={!switchToNextList}
+					clickHandler={createNewList}
+					isDisabled={!createNewList}
 				/>
 			</ActionsContainer>
 		</>
