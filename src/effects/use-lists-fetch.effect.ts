@@ -20,11 +20,11 @@ export const useListsFetch = (
 	let cleanUp: (() => void)[] = []
 
 	useEffect((): void => {
-		console.log("Start fetch w/", listId)
-
 		if (!listId || (lists && lists[listId])) {
 			return
 		}
+
+		console.log("Start fetch w/", listId)
 
 		const { unsubscribe } = getListItems(
 			listId,
