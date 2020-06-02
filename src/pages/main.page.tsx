@@ -65,49 +65,55 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userInfo, listId])
 
+	const canAddNewItem = lists && listId && lists[listId] ?
+		checkAccess(
+			ListAccess.add,
+			lists[listId].access as ListAccess[]
+		) : undefined
+
+	const userId = user ? user.id : undefined
+
+	const listItems = ((): Item[] | undefined => {
+		return lists && listId ?
+			lists[listId] && lists[listId].items
+			: undefined
+	})()
+
+	const listAccess = lists && listId ?
+		lists[listId] &&
+		lists[listId].access as ListAccess[]
+		: undefined
+
 	return (
 		<Container>
 			<Header clearUser={clearUser} />
 
 			<AddNewItemForm
-				userId={user ? user.id : undefined}
+				userId={userId}
 				listId={listId}
 				style={{
 					display: ["flex", "flex", "none"],
 					marginTop: "20px"
 				}}
-				canAddNewItem={lists && listId && lists[listId] ?
-					checkAccess(
-						ListAccess.add,
-						lists[listId].access as ListAccess[]
-					) : undefined}
+				canAddNewItem={canAddNewItem}
 			/>
 
 			<ListContainer>
 				<ListItems
-					listItems={lists && listId ?
-						lists[listId] && lists[listId].items
-						: undefined}
+					listItems={listItems}
 					listId={listId}
-					access={lists && listId ?
-						lists[listId] &&
-						lists[listId].access as ListAccess[]
-						: undefined}
+					access={listAccess}
 				/>
 
 				<AddNewItemDesktop
-					userId={user ? user.id : undefined}
+					userId={userId}
 					listId={listId}
 					style={{ display: ["none", "none", "flex"] }}
-					canAddNewItem={lists && listId && lists[listId] ?
-					checkAccess(
-						ListAccess.add,
-						lists[listId].access as ListAccess[]
-					) : undefined}
+					canAddNewItem={canAddNewItem}
 				 />
 			</ListContainer>
 
-			<Actions clearUser={clearUser} />
+			<Actions clearUser={clearUser} isLastList />
 		</Container>
 	)
 }
