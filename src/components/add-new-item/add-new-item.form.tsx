@@ -41,8 +41,6 @@ export const AddNewItemForm = ({
 	const handleAddingNewItem = (
 		event: React.FormEvent<HTMLFormElement>
 	): void => {
-		console.log("Add new item")
-
 		event.preventDefault()
 
 		if (!formData || !formData.name || !userId ||
