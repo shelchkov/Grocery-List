@@ -15,6 +15,7 @@ interface Props {
 	buttonsStyle?: Styles
 	inputStyle?: Styles
 	canAddNewItem?: boolean
+	setNewListId: (listId: string) => void
 }
 
 export const AddNewItemForm = ({
@@ -25,6 +26,7 @@ export const AddNewItemForm = ({
 	buttonsStyle,
 	inputStyle,
 	canAddNewItem,
+	setNewListId,
 }: Props): ReactElement => {
 	const [isFormActive, setIsFormActive] = useState<boolean>(
 		isActive || false
@@ -64,12 +66,13 @@ export const AddNewItemForm = ({
 
 		addListItem(formData.name, userId, listId)
 			.then((data): void => {
-				if (!data.listId) {
+				if (data.listId) {
+					console.log(`New list was created - ${data.listId}`)
+					setNewListId(data.listId)
+				} else {
 					console.log(
 						`New item was added - ${formData.name}`
 					)
-				} else {
-					console.log(`New list was created - ${data.listId}`)
 				}
 
 				!isActive && setIsFormActive(false)

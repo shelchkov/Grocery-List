@@ -9,9 +9,13 @@ import { colors } from "../../utils/styles"
 
 interface Props {
 	clearUser: () => void
+	createNewList?: () => void
 }
 
-export const Actions = ({ clearUser }: Props): ReactElement => {
+export const Actions = ({
+	clearUser,
+	createNewList,
+}: Props): ReactElement => {
 	const { isLoading, isSuccess, startSignOut } = useSignOut()
 
 	useEffect((): void => {
@@ -47,7 +51,8 @@ export const Actions = ({ clearUser }: Props): ReactElement => {
 				<Button
 					text="Next List >"
 					buttonType={BtnTypes.DesktopAction}
-					isDisabled
+					clickHandler={createNewList}
+					isDisabled={!createNewList}
 				/>
 			</ActionsContainer>
 		</>

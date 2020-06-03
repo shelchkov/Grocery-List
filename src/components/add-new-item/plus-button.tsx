@@ -26,6 +26,7 @@ export const PlusButton = ({
 		borderRadius={spaces[0]}
 		boxShadow={boxShadows[0]}
 		cursor="pointer"
+		onClick={handleClick}
 	>
 		{isLoading ? "..." : text}
 	</P>
