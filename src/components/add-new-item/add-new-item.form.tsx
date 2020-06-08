@@ -5,7 +5,10 @@ import { Input } from "../input/input"
 import { NewItemFormContainer } from "../ui/containers"
 
 import { addListItem } from "../../utils/firebase"
-import { NewItemFormData, AddNewItemInputs } from "../../utils/validation"
+import {
+	NewItemFormData,
+	AddNewItemInputs
+} from "../../utils/validation"
 import { InputModes } from "../../utils/enums"
 
 interface Props {
