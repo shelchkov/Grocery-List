@@ -37,7 +37,11 @@ export const useListsFetch = (
 					[listId]: {
 						items: items,
 						id: listId,
-						access: [ListAccess.check]
+						access: [
+							ListAccess.check,
+							ListAccess.add,
+							ListAccess.remove
+						]
 					}
 				})
 			}
