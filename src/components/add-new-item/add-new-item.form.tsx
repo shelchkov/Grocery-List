@@ -6,6 +6,7 @@ import { NewItemFormContainer } from "../ui/containers"
 
 import { addListItem } from "../../utils/firebase"
 import { NewItemFormData, AddNewItemInputs } from "../../utils/validation"
+import { InputModes } from "../../utils/enums"
 
 interface Props {
 	userId: string | undefined
@@ -97,6 +98,7 @@ export const AddNewItemForm = ({
 				errorMessage={null}
 				style={{ ...inputStyle, width: "fill-available" }}
 				value={formData && formData.name}
+				mode={InputModes.search}
 			/>}
 			<AddNewItemButtons
 				isFormActive={isFormActive}
