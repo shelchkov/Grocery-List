@@ -39,6 +39,15 @@ export const Actions = ({
 		}
 	}
 
+	const handlePreviousBtnClick = (): void => {
+		if (!switchToList) {
+			return
+		}
+
+		switchToList(-1)
+
+	}
+
 	return (
 		<>
 			<ActionsContainer display={["flex", "none"]}>
@@ -63,6 +72,7 @@ export const Actions = ({
 					text="< Previous List"
 					buttonType={BtnTypes.DesktopAction}
 					isDisabled={isFirstList}
+					clickHandler={handlePreviousBtnClick}
 				/>
 				<Button
 					text="Next List >"
