@@ -10,11 +10,13 @@ import { colors } from "../../utils/styles"
 interface Props {
 	clearUser: () => void
 	createNewList?: () => void
+	switchToList?: (move: number) => void
 }
 
 export const Actions = ({
 	clearUser,
 	createNewList,
+	switchToList,
 }: Props): ReactElement => {
 	const { isLoading, isSuccess, startSignOut } = useSignOut()
 
@@ -22,6 +24,18 @@ export const Actions = ({
 		isSuccess && clearUser()
 	// eslint-disable-next-line
 	}, [isSuccess])
+
+	const handleNextBtnClick = (): void => {
+		if (!switchToList) {
+			return
+		}
+
+		const nextList = switchToList(1)
+		
+		if (nextList === undefined && createNewList) {
+			createNewList()
+		}
+	}
 
 	return (
 		<>
@@ -51,8 +65,7 @@ export const Actions = ({
 				<Button
 					text="Next List >"
 					buttonType={BtnTypes.DesktopAction}
-					clickHandler={createNewList}
-					isDisabled={!createNewList}
+					clickHandler={handleNextBtnClick}
 				/>
 			</ActionsContainer>
 		</>
