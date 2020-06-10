@@ -106,7 +106,7 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 	}
 
 	const switchToList = (move: number): string | undefined => {
-		console.log("Attempt to switch to the next list")
+		console.log("Attempt to switch list")
 
 		if (!userInfo) {
 			console.log("User info wasn't provided")
@@ -116,25 +116,28 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 
 		const userLists = userInfo.lists
 
-		const currentListId = userLists.findIndex(
+		const currentListIndex = userLists.findIndex(
 			(list: string): boolean => list === listId
 		)
 
-		if (currentListId !== -1) {
-			const nextList = userLists[currentListId + move]
+		console.log(currentListIndex)
 
-			if (!nextList) {
-				return
-			}
+		const newList = userLists[currentListIndex === -1 ?
+			userLists.length - 1 : currentListIndex + move
+		]
+		console.log(newList)
 
-			console.log(`Switching to ${nextList} from ${
-				userLists[currentListId]
-			}`)
-
-			nextList && setListId(nextList)
-
-			return nextList
+		if (!newList) {
+			return
 		}
+
+		console.log(`Switching to ${newList} from ${
+			userLists[currentListIndex]
+		}`)
+
+		newList && setListId(newList)
+
+		return newList
 	}
 
 	const isFirstList = ((): boolean | undefined => {
