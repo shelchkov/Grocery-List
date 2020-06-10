@@ -114,11 +114,10 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 			return ""
 		}
 
-		const currentList = userInfo.currentList
 		const userLists = userInfo.lists
 
 		const currentListId = userLists.findIndex(
-			(listId: string): boolean => listId === currentList
+			(list: string): boolean => list === listId
 		)
 
 		if (currentListId !== -1) {
@@ -137,6 +136,15 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 			return nextList
 		}
 	}
+
+	const isFirstList = ((): boolean | undefined => {
+		if (!userInfo) {
+			return
+		}
+
+		return userInfo.lists.findIndex((list: string): boolean =>
+			list === listId) === 0
+	})()
 
 	return (
 		<Container>
@@ -173,6 +181,7 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 				clearUser={clearUser}
 				createNewList={createNewList}
 				switchToList={switchToList}
+				isFirstList={isFirstList}
 			/>
 		</Container>
 	)

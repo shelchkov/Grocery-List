@@ -11,12 +11,14 @@ interface Props {
 	clearUser: () => void
 	createNewList?: () => void
 	switchToList?: (move: number) => void
+	isFirstList?: boolean
 }
 
 export const Actions = ({
 	clearUser,
 	createNewList,
 	switchToList,
+	isFirstList,
 }: Props): ReactElement => {
 	const { isLoading, isSuccess, startSignOut } = useSignOut()
 
@@ -31,7 +33,7 @@ export const Actions = ({
 		}
 
 		const nextList = switchToList(1)
-		
+
 		if (nextList === undefined && createNewList) {
 			createNewList()
 		}
@@ -60,7 +62,7 @@ export const Actions = ({
 				<Button
 					text="< Previous List"
 					buttonType={BtnTypes.DesktopAction}
-					isDisabled
+					isDisabled={isFirstList}
 				/>
 				<Button
 					text="Next List >"
