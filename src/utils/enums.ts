@@ -23,7 +23,12 @@ export enum InputTypes {
 	radio = "radio",
 	password = "password",
 	tel = "tel",
-	text = "text"
+	text = "text",
+	search = "search",
+}
+
+export enum InputModes {
+	search = "search",
 }
 
 export enum ListAccess {

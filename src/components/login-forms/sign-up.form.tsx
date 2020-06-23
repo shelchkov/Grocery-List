@@ -4,7 +4,7 @@ import { SignInContainer, SignInButtonContainer } from "../ui/containers"
 import { Input } from "../input/input"
 import { Button } from "../button/button"
 
-import { BtnTypes, ButtonTypes } from "../../utils/enums"
+import { BtnTypes, ButtonTypes, InputModes } from "../../utils/enums"
 import {
 	SignUpInputs,
 	SignUpFormData,
@@ -116,6 +116,7 @@ export const SignUpForm = ({
 				errorMessage={getFieldError(SignUpInputs.password)}
 				onFocus={handleInputFocus}
 				value={formData && formData.password}
+				mode={InputModes.search}
 			/>
 
 			<SignInButtonContainer>

@@ -12,6 +12,7 @@ import {
 	InputTypes,
 } from "../../utils/enums"
 import { SignInInputs } from "../../utils/validation"
+import { InputModes } from "../../utils/enums"
 
 interface Props {
 	handleInputFocus?: () => void | undefined
@@ -50,6 +51,7 @@ export const SignInForm = ({
 				errorMessage={getFieldError(SignInInputs.password)}
 				onFocus={handleInputFocus}
 				value={getFieldValue(SignInInputs.password)}
+				mode={InputModes.search}
 			/>
 
 			<SignInButtonContainer>

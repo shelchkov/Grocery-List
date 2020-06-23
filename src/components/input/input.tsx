@@ -3,7 +3,7 @@ import React, { ReactElement } from "react"
 import { InputComponent } from "./input-component"
 import { ErrorMessage } from "./error-message"
 
-import { InputTypes } from "../../utils/enums"
+import { InputTypes, InputModes } from "../../utils/enums"
 
 interface Props {
 	placeholder?: string
@@ -13,6 +13,7 @@ interface Props {
 	type?: InputTypes
 	value?: string
 	onFocus?: () => void
+	mode?: InputModes
 }
 
 export const Input = ({
@@ -23,6 +24,7 @@ export const Input = ({
 	type = InputTypes.text,
 	value = "",
 	onFocus,
+	mode,
 }: Props): ReactElement => (
 	<>
 		<InputComponent
@@ -31,6 +33,7 @@ export const Input = ({
 			type={type}
 			value={value}
 			onFocus={onFocus}
+			inputMode={mode}
 			{...(style as any)}
 		/>
 		
