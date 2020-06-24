@@ -105,6 +105,47 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 		setIsCreatingNewList(false)
 	}
 
+	const switchToList = (move: number): string | undefined => {
+		console.log("Attempt to switch list")
+
+		if (!userInfo) {
+			console.log("User info wasn't provided")
+
+			return ""
+		}
+
+		const userLists = userInfo.lists
+
+		const currentListIndex = userLists.findIndex(
+			(list: string): boolean => list === listId
+		)
+
+		const newList = userLists[currentListIndex === -1 ?
+			userLists.length - 1 : currentListIndex + move
+		]
+
+		if (!newList) {
+			return
+		}
+
+		console.log(`Switching to ${newList} from ${
+			userLists[currentListIndex]
+		}`)
+
+		newList && setListId(newList)
+
+		return newList
+	}
+
+	const isFirstList = ((): boolean | undefined => {
+		if (!userInfo) {
+			return
+		}
+
+		return userInfo.lists.findIndex((list: string): boolean =>
+			list === listId) === 0
+	})()
+
 	return (
 		<Container>
 			<Header clearUser={clearUser} />
@@ -136,7 +177,12 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 				 />
 			</ListContainer>
 
-			<Actions clearUser={clearUser} createNewList={createNewList} />
+			<Actions
+				clearUser={clearUser}
+				createNewList={createNewList}
+				switchToList={switchToList}
+				isFirstList={isFirstList}
+			/>
 		</Container>
 	)
 }
