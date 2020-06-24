@@ -120,12 +120,9 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 			(list: string): boolean => list === listId
 		)
 
-		console.log(currentListIndex)
-
 		const newList = userLists[currentListIndex === -1 ?
 			userLists.length - 1 : currentListIndex + move
 		]
-		console.log(newList)
 
 		if (!newList) {
 			return

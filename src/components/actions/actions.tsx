@@ -40,12 +40,7 @@ export const Actions = ({
 	}
 
 	const handlePreviousBtnClick = (): void => {
-		if (!switchToList) {
-			return
-		}
-
-		switchToList(-1)
-
+		switchToList && switchToList(-1)
 	}
 
 	return (
