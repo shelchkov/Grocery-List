@@ -19,6 +19,7 @@ interface Props {
 	buttonsStyle?: Styles
 	inputStyle?: Styles
 	canAddNewItem?: boolean
+	listItems: Item[] | undefined
 	setNewListId: (listId: string) => void
 }
 
@@ -30,6 +31,7 @@ export const AddNewItemForm = ({
 	buttonsStyle,
 	inputStyle,
 	canAddNewItem,
+	listItems,
 	setNewListId,
 }: Props): ReactElement => {
 	const [isFormActive, setIsFormActive] = useState<boolean>(
@@ -63,6 +65,15 @@ export const AddNewItemForm = ({
 			}
 
 			!isActive && setIsFormActive(false)
+
+			return
+		}
+
+		if (listItems && listItems.find((item) => item.name === formData.name)) {
+			console.warn("Item with that name was already created.")
+			!isActive && setIsFormActive(false)
+			setFormData(undefined)
+
 			return
 		}
 

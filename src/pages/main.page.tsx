@@ -158,6 +158,7 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 					marginTop: "20px"
 				}}
 				canAddNewItem={canAddNewItem}
+				listItems={listItems}
 				setNewListId={setNewListId}
 			/>
 
@@ -173,6 +174,7 @@ export const MainPage = ({ user, clearUser }: Props): ReactElement => {
 					listId={listId}
 					style={{ display: ["none", "none", "flex"] }}
 					canAddNewItem={canAddNewItem}
+					listItems={listItems}
 					setNewListId={setNewListId}
 				 />
 			</ListContainer>

@@ -9,6 +9,7 @@ interface Props {
 	listId: string | undefined
 	style?: Styles
 	canAddNewItem?: boolean
+	listItems: Item[] | undefined
 	setNewListId: (listId: string) => void
 }
 
