@@ -1,0 +1,46 @@
+- pipeline: "deploy"
+  on: "EVENT"
+  events:
+  - type: "PUSH"
+    refs:
+    - "refs/heads/master"
+  actions:
+  - action: "Build"
+    type: "BUILD"
+    docker_image_name: "library/node"
+    docker_image_tag: "12"
+    execute_commands:
+    - "npm install"
+    - "npm run build"
+  - action: "Upload via FTP"
+    type: "FTP"
+    host: $FTP_HOST
+    login: $FTP_LOGIN
+    password: $FTP_PASSWORD
+    port: $FTP_PORT
+    input_type: "BUILD_ARTIFACTS"
+    local_path: "./build"
+    remote_path: "/htdocs"
+
+- pipeline: "scheduled deploy"
+  on: "SCHEDULE"
+  refs:
+  - "refs/heads/master"
+  cron: "0 0 5 * *"
+  actions:
+  - action: "Build"
+    type: "BUILD"
+    docker_image_name: "library/node"
+    docker_image_tag: "12"
+    execute_commands:
+    - "npm install"
+    - "npm run build"
+  - action: "Upload via FTP"
+    type: "FTP"
+    host: $FTP_HOST
+    login: $FTP_LOGIN
+    password: $FTP_PASSWORD
+    port: $FTP_PORT
+    input_type: "BUILD_ARTIFACTS"
+    local_path: "./build"
+    remote_path: "/htdocs"
