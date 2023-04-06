@@ -26,7 +26,7 @@
   on: "SCHEDULE"
   refs:
   - "refs/heads/master"
-  cron: "0 0 5 * *"
+  cron: "0 0 */15 * *"
   actions:
   - action: "Build"
     type: "BUILD"
